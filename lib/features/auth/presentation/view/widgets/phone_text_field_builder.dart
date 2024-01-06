@@ -7,8 +7,8 @@ import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 
-class TextFieldBuilder extends StatelessWidget {
-  const TextFieldBuilder({super.key, required this.onChanged});
+class PhoneTextFieldBuilder extends StatelessWidget {
+  const PhoneTextFieldBuilder({super.key, required this.onChanged});
 
   final void Function(PhoneNumber? newValue) onChanged;
 

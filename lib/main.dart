@@ -4,7 +4,7 @@ import 'package:dinar_store/core/utils/app_routes.dart';
 import 'package:dinar_store/core/utils/constants.dart';
 import 'package:dinar_store/features/auth/data/services/log_in_services.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/log_in_cubit/log_in_cubit.dart';
-import 'package:dinar_store/features/splash/presentation/view/splash_view.dart';
+import 'package:dinar_store/features/home/presentation/view_model/bottom_nav_cubit.dart/cubit/bottton_nav_bar_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
                   dioHelper: DioHelper(),
                   secureStorage: const FlutterSecureStorage())),
         ),
+        BlocProvider(create: (context) => BottomNavBarCubit()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 811),
@@ -45,12 +46,13 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Dinar',
           theme: ThemeData(
+            fontFamily: 'SegoeUI',
             scaffoldBackgroundColor: Colors.white,
             colorScheme:
                 ColorScheme.fromSeed(seedColor: AppColors.kASDCPrimaryColor),
             useMaterial3: true,
           ),
-          home: const SplashView(),
+          initialRoute: '/',
           routes: AppRoutes.routes,
         ),
       ),

@@ -27,7 +27,7 @@ class PhoneBuilder extends StatelessWidget {
         SizedBox(
           height: 75.h,
         ),
-        TextFieldBuilder(
+        PhoneTextFieldBuilder(
           onChanged: (PhoneNumber? newValue) {
             LogInCubit.phoneNumber = newValue;
           },
