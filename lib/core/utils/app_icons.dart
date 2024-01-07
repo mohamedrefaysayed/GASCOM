@@ -1,6 +1,6 @@
 abstract class AppIcons {
   ///assets/icons/attendance_in.svg
-  static const iconsAttendanceIn = "assets/icons/attendance_in.svg";
+  static const more = "assets/icons/more.svg";
 
   ///assets/icons/attendance_out.svg
   static const iconsAttendanceOut = "assets/icons/attendance_out.svg";

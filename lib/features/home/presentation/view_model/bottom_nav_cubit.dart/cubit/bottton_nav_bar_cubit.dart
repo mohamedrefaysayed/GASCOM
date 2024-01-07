@@ -1,14 +1,13 @@
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 part 'bottton_nav_bar_state.dart';
 
 class BottomNavBarCubit extends Cubit<BottomNavBarState> {
   BottomNavBarCubit() : super(BottomNavBarInitial());
 
-  static int index = 0;
+  static int index = 4;
   static List<TabItem> items = [
     const TabItem(
       icon: Icons.person_2_rounded,

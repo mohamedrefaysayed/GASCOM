@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 const String kAppearanceKey = 'appearanceKey';
 
 const String kUserModelKey = 'userModelKey';
@@ -20,10 +22,9 @@ const String kSecureStorageKey = 'secureStorageKey';
 
 const String kThemeBox = 'themeBox';
 
-final List<String> contacts = [
-  'Ziad Elgaraihe',
-  'Mohamed Refay',
-  'Ibrahim Shahin',
-  'Mohamed Maher',
-  'Mohamed Elsayed',
+final List<Color> comapniesBgColor = [
+  const Color(0xffF0FCFF),
+  const Color(0xffFCE3E2),
+  const Color(0xffFEF1DB),
+  const Color(0xffF5FCE9),
 ];

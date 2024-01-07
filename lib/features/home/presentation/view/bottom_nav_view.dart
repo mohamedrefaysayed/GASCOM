@@ -2,6 +2,7 @@
 
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
+import 'package:dinar_store/features/home/presentation/view/home_view.dart';
 import 'package:dinar_store/features/home/presentation/view_model/bottom_nav_cubit.dart/cubit/bottton_nav_bar_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,9 +35,7 @@ class BottomNavBarView extends StatelessWidget {
                 Center(
                   child: Text("4"),
                 ),
-                Center(
-                  child: Text("5"),
-                ),
+                HomeView(),
               ],
             ),
             bottomNavigationBar: BottomBarCreative(

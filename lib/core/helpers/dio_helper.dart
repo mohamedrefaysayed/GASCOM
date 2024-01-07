@@ -5,7 +5,7 @@ class DioHelper {
     if (dio == null) {
       _dio = Dio(
         BaseOptions(
-          baseUrl: 'http://35.178.6.126:4000/',
+          baseUrl: 'https://just.sd/dinar/public/index.php/api/',
         ),
       );
     } else {
