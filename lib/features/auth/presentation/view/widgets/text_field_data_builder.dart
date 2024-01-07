@@ -33,8 +33,8 @@ class TextFieldDataBulder extends StatelessWidget {
             height: 10.h,
           ),
           SizedBox(
-            height: 50.h,
             child: TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: validator,
               onChanged: onChanged,
               inputFormatters: inputFormatters,

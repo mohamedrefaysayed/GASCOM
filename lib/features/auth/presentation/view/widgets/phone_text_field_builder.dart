@@ -30,7 +30,7 @@ class PhoneTextFieldBuilder extends StatelessWidget {
           onChanged: onChanged,
           initialCountryCode: 'IQ',
           style: TextStyles.textStyle16,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          autovalidateMode: AutovalidateMode.disabled,
           dropdownTextStyle: TextStyles.textStyle16.copyWith(
             fontWeight: FontWeight.w700,
           ),

@@ -1,4 +1,6 @@
+import 'package:dinar_store/core/animations/right_slide_transition.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/all_companies_view.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/company_container.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/companies_place_holder.dart';
 import 'package:dinar_store/features/home/presentation/view_model/companies_cubit/companies_cubit.dart';
@@ -55,13 +57,22 @@ class _CompaniesViewState extends State<CompaniesView> {
                         ? state.companiesModel.companies!.length
                         : 8,
                     (index) {
+                      state.companiesModel.companies![index].logo =
+                          'https://pngfre.com/wp-content/uploads/Burger-45.png';
                       if (state.companiesModel.companies!.length > 7 &&
                           index == 4) {
                         return CompanyContainer(
                           index: index,
                           isMore: true,
                           companyName: 'عرض المزيد',
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                RightSlideTransition(
+                                    page: AllCompaniesView(
+                                  companiesModel: state.companiesModel,
+                                )));
+                          },
                         );
                       }
                       return CompanyContainer(

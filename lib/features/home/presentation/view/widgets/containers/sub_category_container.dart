@@ -16,6 +16,7 @@ class SubCategoryContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 2.w),
       width: 170.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.w),
@@ -24,19 +25,32 @@ class SubCategoryContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(15.w),
-            child: MyCachedNetworkImage(
-              height: 120.h,
-              width: 160.w,
-              url: subCategory.image!,
-              errorIcon: Icon(
-                Icons.image,
-                size: 40.w,
-                color: AppColors.kASDCPrimaryColor,
-              ),
-              loadingWidth: 30.w,
+          Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.161),
+                    blurRadius: 4.h,
+                    offset: Offset(0, 4.h)),
+              ],
             ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15.w),
+              child: MyCachedNetworkImage(
+                height: 120.h,
+                width: 160.w,
+                url: subCategory.image!,
+                errorIcon: Icon(
+                  Icons.image,
+                  size: 40.w,
+                  color: AppColors.kASDCPrimaryColor,
+                ),
+                loadingWidth: 30.w,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5.h,
           ),
           SizedBox(
             width: 120,

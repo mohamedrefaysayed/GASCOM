@@ -30,7 +30,7 @@ class LoginData extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 30.w),
           child: Form(
             key: LogInCubit.formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+            autovalidateMode: AutovalidateMode.disabled,
             child: ListView(
               children: [
                 SizedBox(
