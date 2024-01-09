@@ -23,9 +23,9 @@ class LogInView extends StatelessWidget {
       },
       child: PopScope(
         canPop: false,
-        child: SafeArea(
-          child: Scaffold(
-              body: Padding(
+        child: Scaffold(
+            body: SafeArea(
+          child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.w),
             child: ListView(
               children: [
@@ -104,8 +104,8 @@ class LogInView extends StatelessWidget {
                 ),
               ],
             ),
-          )),
-        ),
+          ),
+        )),
       ),
     );
   }

@@ -25,9 +25,9 @@ class LoginData extends StatelessWidget {
           LogInCubit.code = null;
         }
       },
-      child: SafeArea(
-        child: Scaffold(
-          body: Padding(
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.w),
             child: Form(
               key: LogInCubit.formKey,

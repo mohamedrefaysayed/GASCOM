@@ -14,7 +14,7 @@ class CategoriesPlaceHolder extends StatelessWidget {
       highlightColor: AppColors.kASDCPrimaryColor.withOpacity(0.5),
       child: Padding(
         padding:
-            EdgeInsets.only(right: 20.w, left: 20.w, top: 90.h, bottom: 20.h),
+            EdgeInsets.only(right: 20.w, left: 20.w, top: 30.h, bottom: 20.h),
         child: Row(
           children: [
             Flexible(

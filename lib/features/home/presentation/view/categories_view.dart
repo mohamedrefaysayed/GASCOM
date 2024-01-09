@@ -25,27 +25,27 @@ class _CategoriesViewState extends State<CategoriesView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoriesCubit, CategoriesState>(
-      builder: (context, state) {
-        if (state is CategoriesSuccess) {
-          return RefreshIndicator(
-            onRefresh: () async {
-              CategoriesCubit.selectedIndex = 0;
-              await context.read<CategoriesCubit>().getAllCategories();
-            },
-            child: Column(
-              children: [
-                Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 40.h),
-                    child: Text(
-                      'المجموعـــــــــات',
-                      style: TextStyles.textStyle16
-                          .copyWith(fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                ),
-                Expanded(
+    return Column(
+      children: [
+        Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: 50.h),
+            child: Text(
+              'المجموعـــــــــات',
+              style:
+                  TextStyles.textStyle16.copyWith(fontWeight: FontWeight.w700),
+            ),
+          ),
+        ),
+        Expanded(
+          child: BlocBuilder<CategoriesCubit, CategoriesState>(
+            builder: (context, state) {
+              if (state is CategoriesSuccess) {
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    CategoriesCubit.selectedIndex = 0;
+                    await context.read<CategoriesCubit>().getAllCategories();
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -58,13 +58,13 @@ class _CategoriesViewState extends State<CategoriesView> {
                       )
                     ],
                   ),
-                ),
-              ],
-            ),
-          );
-        }
-        return const CategoriesPlaceHolder();
-      },
+                );
+              }
+              return const CategoriesPlaceHolder();
+            },
+          ),
+        ),
+      ],
     );
   }
 }
