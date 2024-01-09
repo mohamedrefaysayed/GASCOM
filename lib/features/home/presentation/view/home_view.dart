@@ -1,8 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:dinar_store/features/home/presentation/view/widgets/adds_view.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/categories_view.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/categories_view_home.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/companies_view.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/search_rows/search_row.dart';
 import 'package:dinar_store/features/home/presentation/view_model/ads_cubit/ads_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/categories_cubit/categories_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/companies_cubit/companies_cubit.dart';
@@ -29,27 +30,41 @@ class _HomeViewState extends State<HomeView> {
       child: SafeArea(
         child: Scaffold(
           body: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 50.h,
-                ),
-                const AddsView(),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: const CompaniesView(),
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: const CategoriesView(),
-                ),
-              ],
+            child: GestureDetector(
+              onTap: () {
+                FocusScope.of(context).unfocus();
+              },
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                    child: SearchRow(
+                      textEditingController: TextEditingController(),
+                      hintText: 'إبحث عن المتجر او القطعة',
+                      onPerssedFilter: () {},
+                      canGoBack: false,
+                      haveFilter: true,
+                      onFilter: () {},
+                    ),
+                  ),
+                  const AddsView(),
+                  SizedBox(
+                    height: 25.h,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: const CompaniesView(),
+                  ),
+                  SizedBox(
+                    height: 25.h,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: const CategoriesViewHome(),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

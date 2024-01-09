@@ -25,7 +25,7 @@ class MyCachedNetworkImage extends StatelessWidget {
     return CachedNetworkImage(
       height: height,
       width: width,
-      imageUrl: url,
+      imageUrl: "http://just.sd/dinar/public/storage/$url",
       fit: BoxFit.fill,
       errorWidget: (context, url, error) {
         return errorIcon;

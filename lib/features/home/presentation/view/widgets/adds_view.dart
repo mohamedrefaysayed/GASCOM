@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/cachedNetworkImage/my_cached_nework_Image.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/ads_place_holder.dart';
 import 'package:dinar_store/features/home/presentation/view_model/ads_cubit/ads_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,18 +54,17 @@ class _AddsViewState extends State<AddsView> {
                       ClipRRect(
                           borderRadius: BorderRadius.circular(15.w),
                           child: MyCachedNetworkImage(
-                            url:
-                                "http://just.sd/dinar/public/storage/${state.adsModel.ads![itemIndex].image!}",
+                            url: state.adsModel.ads![itemIndex].image!,
                             errorIcon: Icon(
                               Icons.image,
-                              size: 40.w,
+                              size: 100.w,
                               color: AppColors.kASDCPrimaryColor,
                             ),
                             loadingWidth: 30.w,
                           )),
                   options: CarouselOptions(
                       aspectRatio: 16 / 9,
-                      viewportFraction: 0.9,
+                      viewportFraction: 0.95,
                       initialPage: 0,
                       enableInfiniteScroll: true,
                       reverse: false,
@@ -97,8 +97,8 @@ class _AddsViewState extends State<AddsView> {
                           return GestureDetector(
                             onTap: () => _controller.animateToPage(entry.key),
                             child: Container(
-                              width: 10.0,
-                              height: 10.0,
+                              width: 7.5.w,
+                              height: 7.5.w,
                               margin: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 4.0),
                               decoration: BoxDecoration(
@@ -116,7 +116,7 @@ class _AddsViewState extends State<AddsView> {
             ],
           );
         }
-        return const CircularProgressIndicator();
+        return const AdsPlaceHolder();
       },
     );
   }

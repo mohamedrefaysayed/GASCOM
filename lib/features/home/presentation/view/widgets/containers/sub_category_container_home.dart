@@ -5,8 +5,8 @@ import 'package:dinar_store/features/home/presentation/view/widgets/cachedNetwor
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SubCategoryContainer extends StatelessWidget {
-  const SubCategoryContainer({
+class SubCategoryContainerHome extends StatelessWidget {
+  const SubCategoryContainerHome({
     super.key,
     required this.subCategory,
   });
@@ -38,7 +38,7 @@ class SubCategoryContainer extends StatelessWidget {
               borderRadius: BorderRadius.circular(15.w),
               child: MyCachedNetworkImage(
                 height: 120.h,
-                width: 240.w,
+                width: 160.w,
                 url: subCategory.image!,
                 errorIcon: Icon(
                   Icons.image,
@@ -52,7 +52,32 @@ class SubCategoryContainer extends StatelessWidget {
           SizedBox(
             height: 5.h,
           ),
+          SizedBox(
+            width: 120,
+            child: Text(
+              subCategory.categoryName!,
+              style: TextStyles.textStyle14.copyWith(
+                fontWeight: FontWeight.w400,
+              ),
+              overflow: TextOverflow.ellipsis,
+              textDirection: TextDirection.rtl,
+            ),
+          ),
+          SizedBox(
+            width: 120.w,
+            child: Text(
+              subCategory.description!,
+              style: TextStyles.textStyle10
+                  .copyWith(fontWeight: FontWeight.w400, color: Colors.grey),
+              overflow: TextOverflow.ellipsis,
+              textDirection: TextDirection.rtl,
+            ),
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
                 width: 45.w,
@@ -85,32 +110,7 @@ class SubCategoryContainer extends StatelessWidget {
                   ),
                 ),
               ),
-              const Spacer(),
-              SizedBox(
-                width: 100.w,
-                child: Text(
-                  subCategory.categoryName!,
-                  style: TextStyles.textStyle14.copyWith(
-                    fontWeight: FontWeight.w400,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  textDirection: TextDirection.rtl,
-                ),
-              ),
             ],
-          ),
-          SizedBox(
-            width: 200.w,
-            child: Text(
-              subCategory.description!,
-              style: TextStyles.textStyle10
-                  .copyWith(fontWeight: FontWeight.w400, color: Colors.grey),
-              overflow: TextOverflow.ellipsis,
-              textDirection: TextDirection.rtl,
-            ),
-          ),
-          SizedBox(
-            height: 10.h,
           ),
         ],
       ),

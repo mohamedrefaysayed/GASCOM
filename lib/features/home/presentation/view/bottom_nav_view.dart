@@ -2,6 +2,8 @@
 
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
+import 'package:dinar_store/core/utils/text_styles.dart';
+import 'package:dinar_store/features/home/presentation/view/categories_view.dart';
 import 'package:dinar_store/features/home/presentation/view/home_view.dart';
 import 'package:dinar_store/features/home/presentation/view_model/bottom_nav_cubit.dart/cubit/bottton_nav_bar_cubit.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +34,7 @@ class BottomNavBarView extends StatelessWidget {
                 Center(
                   child: Text("3"),
                 ),
-                Center(
-                  child: Text("4"),
-                ),
+                CategoriesView(),
                 HomeView(),
               ],
             ),
@@ -45,6 +45,8 @@ class BottomNavBarView extends StatelessWidget {
               colorSelected: AppColors.kASDCPrimaryColor,
               indexSelected: BottomNavBarCubit.index,
               highlightStyle: const HighlightStyle(),
+              titleStyle:
+                  TextStyles.textStyle12.copyWith(fontWeight: FontWeight.w700),
               onTap: (int tappedIndex) {
                 BottomNavBarCubit.index = tappedIndex;
                 context.read<BottomNavBarCubit>().emit(BottomNavBarUpdate());

@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CategoriesView extends StatefulWidget {
-  const CategoriesView({super.key});
+class CategoriesViewHome extends StatefulWidget {
+  const CategoriesViewHome({super.key});
 
   @override
-  State<CategoriesView> createState() => _CategoriesViewState();
+  State<CategoriesViewHome> createState() => _CategoriesViewHomeState();
 }
 
-class _CategoriesViewState extends State<CategoriesView> {
+class _CategoriesViewHomeState extends State<CategoriesViewHome> {
   @override
   void initState() {
     context.read<CategoriesCubit>().getAllCategories();

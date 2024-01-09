@@ -1,7 +1,7 @@
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/data/models/categories_model.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/containers/sub_category_container.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/containers/sub_category_container_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -84,9 +84,7 @@ class CategoryContainer extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: subCategories.length,
                     itemBuilder: (context, index) {
-                      subCategories[index].image =
-                          'https://shoppermotion.com/wp-content/uploads/2020/12/20170322_100726-scaled-1.jpg';
-                      return SubCategoryContainer(
+                      return SubCategoryContainerHome(
                         subCategory: subCategories[index],
                       );
                     },

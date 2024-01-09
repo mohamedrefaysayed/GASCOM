@@ -14,7 +14,7 @@ showPermissions() async {
     calenderIsGranted = await Permission.microphone.request().isGranted;
   }
 
-/////camera
+  /////camera
 
   bool cameraIsGranted = await Permission.camera.status.isGranted;
   if (!cameraIsGranted) {

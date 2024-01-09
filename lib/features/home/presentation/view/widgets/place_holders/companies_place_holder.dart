@@ -13,7 +13,7 @@ class CompaniesPlaceHolder extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
 
     return Shimmer.fromColors(
-      baseColor: Colors.grey.withOpacity(0.5),
+      baseColor: Colors.grey.withOpacity(0.3),
       highlightColor: AppColors.kASDCPrimaryColor.withOpacity(0.5),
       child: SizedBox(
         height: 200.h,

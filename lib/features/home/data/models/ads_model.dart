@@ -29,7 +29,7 @@ class Ads {
   String? adType;
   String? expirationTime;
   String? status;
-  Null? deletedAt;
+  String? deletedAt;
   String? createdAt;
   String? updatedAt;
 

@@ -10,11 +10,12 @@ class CategoriesPlaceHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.withOpacity(0.5),
+      baseColor: Colors.grey.withOpacity(0.3),
       highlightColor: AppColors.kASDCPrimaryColor.withOpacity(0.5),
       child: Container(
         height: 200.h,
         decoration: BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.circular(15.w),
             boxShadow: [
               BoxShadow(
