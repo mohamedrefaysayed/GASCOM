@@ -1,6 +1,6 @@
 import 'package:dinar_store/features/home/data/models/categories_model.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/category_container.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/categories_place_holder.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/categories_place_holder_home.dart';
 import 'package:dinar_store/features/home/presentation/view_model/categories_cubit/categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +41,7 @@ class _CategoriesViewHomeState extends State<CategoriesViewHome> {
                 );
               });
         }
-        return const CategoriesPlaceHolder();
+        return const CategoriesPlaceHolderHome();
       },
     );
   }

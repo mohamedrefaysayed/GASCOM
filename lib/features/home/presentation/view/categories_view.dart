@@ -30,6 +30,7 @@ class _CategoriesViewState extends State<CategoriesView> {
         if (state is CategoriesSuccess) {
           return RefreshIndicator(
             onRefresh: () async {
+              CategoriesCubit.selectedIndex = 0;
               await context.read<CategoriesCubit>().getAllCategories();
             },
             child: Column(

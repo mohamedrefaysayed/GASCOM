@@ -12,17 +12,44 @@ class CategoriesPlaceHolder extends StatelessWidget {
     return Shimmer.fromColors(
       baseColor: Colors.grey.withOpacity(0.3),
       highlightColor: AppColors.kASDCPrimaryColor.withOpacity(0.5),
-      child: Container(
-        height: 200.h,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15.w),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black.withOpacity(0.161),
-                  blurRadius: 6.w,
-                  offset: Offset(0, 3.h)),
-            ]),
+      child: Padding(
+        padding:
+            EdgeInsets.only(right: 20.w, left: 20.w, top: 90.h, bottom: 20.h),
+        child: Row(
+          children: [
+            Flexible(
+              flex: 3,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.w),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.161),
+                          blurRadius: 6.w,
+                          offset: Offset(0, 3.h)),
+                    ]),
+              ),
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            Flexible(
+              flex: 1,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.w),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.161),
+                          blurRadius: 6.w,
+                          offset: Offset(0, 3.h)),
+                    ]),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
