@@ -38,10 +38,13 @@ class CategoriesPgeView extends StatelessWidget {
                 height: 10.h,
               ),
               category.subCategories!.isEmpty
-                  ? Center(
-                      child: Text(
-                        'لا يوجد عناصر',
-                        style: TextStyles.textStyle14,
+                  ? SizedBox(
+                      height: 150.h,
+                      child: Center(
+                        child: Text(
+                          'لا يوجد عناصر',
+                          style: TextStyles.textStyle14,
+                        ),
                       ),
                     )
                   : Expanded(

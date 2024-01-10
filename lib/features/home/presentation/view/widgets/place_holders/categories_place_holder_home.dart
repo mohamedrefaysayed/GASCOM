@@ -7,7 +7,6 @@ class CategoriesPlaceHolderHome extends StatelessWidget {
   const CategoriesPlaceHolderHome({super.key});
 
   @override
-  @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       baseColor: Colors.grey.withOpacity(0.3),

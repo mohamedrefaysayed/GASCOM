@@ -74,6 +74,7 @@ class AllCompanyContainer extends StatelessWidget {
                       color: AppColors.kASDCPrimaryColor,
                     ),
                     loadingWidth: 13.w,
+                    heroId: company.id!,
                   ),
                 ],
               ),

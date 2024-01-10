@@ -6,6 +6,7 @@ import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
 import 'package:dinar_store/features/home/data/models/companies_model.dart';
 import 'package:dinar_store/features/home/data/services/companies_services.dart';
+import 'package:flutter/material.dart';
 
 part 'companies_state.dart';
 
@@ -16,6 +17,10 @@ class CompaniesCubit extends Cubit<CompaniesState> {
   }
 
   late CompaniesServices _companiesServices;
+  static CompaniesModel companiesModel = CompaniesModel();
+  static CompaniesModel companiesSearchModel = CompaniesModel(companies: []);
+  static TextEditingController companySearchController =
+      TextEditingController();
 
   getAllCompanies() async {
     emit(CompaniesLoading());
@@ -34,5 +39,15 @@ class CompaniesCubit extends Cubit<CompaniesState> {
         emit(CompaniesSuccess(companiesModel: companiesModel));
       },
     );
+  }
+
+  searchInSubCompanies() {
+    companiesSearchModel.companies = [];
+    for (var element in companiesModel.companies!) {
+      if (element.companyName!.contains(companySearchController.text)) {
+        companiesSearchModel.companies!.add(element);
+      }
+      emit(CompaniesSuccess(companiesModel: companiesModel));
+    }
   }
 }

@@ -35,9 +35,7 @@ class _CategoriesViewHomeState extends State<CategoriesViewHome> {
                     state.categoriesModel.categories![index];
 
                 return CategoryContainer(
-                  catName: category.categoryName!,
-                  catDes: category.description!,
-                  subCategories: category.subCategories!,
+                  category: category,
                 );
               });
         }

@@ -71,6 +71,7 @@ class _CompaniesViewState extends State<CompaniesView> {
                                   companiesModel: state.companiesModel,
                                 )));
                           },
+                          heroId: 0,
                         );
                       }
                       return CompanyContainer(
@@ -80,6 +81,7 @@ class _CompaniesViewState extends State<CompaniesView> {
                         compantIconImage:
                             state.companiesModel.companies![index].logo!,
                         onTap: () {},
+                        heroId: state.companiesModel.companies![index].id!,
                       );
                     },
                   ),

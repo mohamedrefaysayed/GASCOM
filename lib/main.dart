@@ -7,10 +7,12 @@ import 'package:dinar_store/features/auth/presentation/view_model/log_in_cubit/l
 import 'package:dinar_store/features/home/data/services/ads_services.dart';
 import 'package:dinar_store/features/home/data/services/categories_services.dart';
 import 'package:dinar_store/features/home/data/services/companies_services.dart';
+import 'package:dinar_store/features/home/data/services/sub_categories_services.dart';
 import 'package:dinar_store/features/home/presentation/view_model/ads_cubit/ads_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/bottom_nav_cubit.dart/cubit/bottton_nav_bar_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/categories_cubit/categories_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/companies_cubit/companies_cubit.dart';
+import 'package:dinar_store/features/home/presentation/view_model/sub_categories_cubit/sub_categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,6 +61,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AdsCubit(
               adsServices: AdsServices(
+            dioHelper: DioHelper(),
+          )),
+        ),
+        BlocProvider(
+          create: (context) => SubCategoriesCubit(
+              subCategoriesServices: SubCategoriesServices(
             dioHelper: DioHelper(),
           )),
         ),

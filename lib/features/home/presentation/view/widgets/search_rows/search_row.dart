@@ -4,23 +4,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SearchRow extends StatelessWidget {
-  const SearchRow(
-      {super.key,
-      required this.textEditingController,
-      required this.hintText,
-      required this.onPerssedFilter,
-      required this.canGoBack,
-      this.whenBack,
-      required this.haveFilter,
-      this.onFilter});
+  const SearchRow({
+    super.key,
+    required this.textEditingController,
+    required this.hintText,
+    required this.canGoBack,
+    this.whenBack,
+    required this.haveFilter,
+    this.onFilter,
+    required this.onChanged,
+  });
 
   final TextEditingController textEditingController;
   final String hintText;
-  final void Function() onPerssedFilter;
   final bool canGoBack;
   final void Function()? whenBack;
   final bool haveFilter;
   final void Function()? onFilter;
+  final void Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class SearchRow extends StatelessWidget {
       children: [
         if (haveFilter)
           IconButton(
-            onPressed: onPerssedFilter,
+            onPressed: onFilter,
             icon: SvgPicture.asset('assets/icons/search_Filter.svg'),
           ),
         Expanded(
@@ -51,6 +52,7 @@ class SearchRow extends StatelessWidget {
                     color: AppColors.kASDCPrimaryColor,
                     size: 35.w,
                   )),
+              onChanged: onChanged,
             ),
           ),
         ),

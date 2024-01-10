@@ -46,6 +46,7 @@ class SubCategoryContainerHome extends StatelessWidget {
                   color: AppColors.kASDCPrimaryColor,
                 ),
                 loadingWidth: 30.w,
+                heroId: subCategory.id!,
               ),
             ),
           ),

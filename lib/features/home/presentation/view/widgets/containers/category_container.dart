@@ -1,21 +1,16 @@
+import 'package:dinar_store/core/animations/right_slide_transition.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/data/models/categories_model.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/sub_category_container_home.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/sub_category_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryContainer extends StatelessWidget {
-  const CategoryContainer(
-      {super.key,
-      required this.catName,
-      required this.catDes,
-      required this.subCategories});
+  const CategoryContainer({super.key, required this.category});
 
-  final String catName;
-  final String catDes;
-
-  final List<SubCategories> subCategories;
+  final Categories category;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +22,14 @@ class CategoryContainer extends StatelessWidget {
           Row(
             children: [
               TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        RightSlideTransition(
+                            page: SubCategoryView(
+                          category: category,
+                        )));
+                  },
                   icon: Icon(
                     Icons.arrow_back_ios_new_rounded,
                     size: 10.w,
@@ -42,7 +44,7 @@ class CategoryContainer extends StatelessWidget {
               SizedBox(
                 width: 200.w,
                 child: Text(
-                  catName,
+                  category.categoryName!,
                   style: TextStyles.textStyle16
                       .copyWith(fontWeight: FontWeight.w700),
                   overflow: TextOverflow.ellipsis,
@@ -57,7 +59,7 @@ class CategoryContainer extends StatelessWidget {
               SizedBox(
                 width: 300.w,
                 child: Text(
-                  catDes,
+                  category.description!,
                   style: TextStyles.textStyle12.copyWith(
                       fontWeight: FontWeight.w400, color: Colors.grey),
                   overflow: TextOverflow.ellipsis,
@@ -71,21 +73,28 @@ class CategoryContainer extends StatelessWidget {
           ),
           SizedBox(
             height: 220.h,
-            child: subCategories.isEmpty
-                ? Center(
-                    child: Text(
-                      'لا يوجد عناصر',
-                      style: TextStyles.textStyle14,
-                    ),
+            child: category.subCategories!.isEmpty
+                ? ListView(
+                    children: [
+                      SizedBox(
+                        height: 150.h,
+                        child: Center(
+                          child: Text(
+                            'لا يوجد عناصر',
+                            style: TextStyles.textStyle14,
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 : ListView.builder(
                     reverse: true,
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    itemCount: subCategories.length,
+                    itemCount: category.subCategories!.length,
                     itemBuilder: (context, index) {
                       return SubCategoryContainerHome(
-                        subCategory: subCategories[index],
+                        subCategory: category.subCategories![index],
                       );
                     },
                   ),

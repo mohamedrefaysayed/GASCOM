@@ -19,11 +19,9 @@ class AllCompaniesView extends StatefulWidget {
 }
 
 class _AllCompaniesViewState extends State<AllCompaniesView> {
-  CompaniesModel _companiesModel = CompaniesModel();
-
   @override
   void initState() {
-    _companiesModel = widget.companiesModel;
+    CompaniesCubit.companiesModel = widget.companiesModel;
     super.initState();
   }
 
@@ -68,11 +66,13 @@ class _AllCompaniesViewState extends State<AllCompaniesView> {
                 ),
               ),
               SearchRow(
-                textEditingController: TextEditingController(),
+                textEditingController: CompaniesCubit.companySearchController,
                 hintText: 'قم بالبحث عن شركة',
-                onPerssedFilter: () {},
                 canGoBack: false,
                 haveFilter: false,
+                onChanged: (_) {
+                  context.read<CompaniesCubit>().searchInSubCompanies();
+                },
               ),
               SizedBox(
                 height: 10.h,
@@ -81,21 +81,53 @@ class _AllCompaniesViewState extends State<AllCompaniesView> {
                 child: BlocConsumer<CompaniesCubit, CompaniesState>(
                   listener: (context, state) {
                     if (state is CompaniesSuccess) {
-                      _companiesModel = state.companiesModel;
+                      CompaniesCubit.companiesModel = state.companiesModel;
                     }
                   },
                   builder: (context, state) {
                     if (state is CompaniesSuccess) {
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: _companiesModel.companies!.length,
-                        itemBuilder: (context, index) {
-                          return AllCompanyContainer(
-                            company: _companiesModel.companies![index],
-                          );
-                        },
-                      );
+                      return CompaniesCubit.companySearchController.text.isEmpty
+                          ? ListView.builder(
+                              padding: EdgeInsets.zero,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: CompaniesCubit
+                                  .companiesModel.companies!.length,
+                              itemBuilder: (context, index) {
+                                return AllCompanyContainer(
+                                  company: CompaniesCubit
+                                      .companiesModel.companies![index],
+                                );
+                              },
+                            )
+                          : CompaniesCubit
+                                  .companiesSearchModel.companies!.isEmpty
+                              ? ListView(
+                                  shrinkWrap: true,
+                                  children: [
+                                    SizedBox(
+                                      height: 150.h,
+                                      child: Center(
+                                        child: Text(
+                                          'لا يوجد',
+                                          style: TextStyles.textStyle14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemCount: CompaniesCubit
+                                      .companiesSearchModel.companies!.length,
+                                  itemBuilder: (context, index) {
+                                    return AllCompanyContainer(
+                                      company: CompaniesCubit
+                                          .companiesSearchModel
+                                          .companies![index],
+                                    );
+                                  },
+                                );
                     }
                     return const AllCompaniesPlaceHolder();
                   },

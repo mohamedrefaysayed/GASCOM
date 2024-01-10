@@ -42,10 +42,11 @@ class _HomeViewState extends State<HomeView> {
                     child: SearchRow(
                       textEditingController: TextEditingController(),
                       hintText: 'إبحث عن المتجر او القطعة',
-                      onPerssedFilter: () {},
                       canGoBack: false,
+                      whenBack: () {},
                       haveFilter: true,
                       onFilter: () {},
+                      onChanged: (_) {},
                     ),
                   ),
                   const AddsView(),

@@ -61,6 +61,7 @@ class _AddsViewState extends State<AddsView> {
                               color: AppColors.kASDCPrimaryColor,
                             ),
                             loadingWidth: 30.w,
+                            heroId: state.adsModel.ads![itemIndex].id!,
                           )),
                   options: CarouselOptions(
                       aspectRatio: 16 / 9,

@@ -18,6 +18,7 @@ class CompanyContainer extends StatelessWidget {
     required this.onTap,
     this.isMore,
     required this.index,
+    required this.heroId,
   });
 
   final String companyName;
@@ -25,6 +26,7 @@ class CompanyContainer extends StatelessWidget {
   final void Function() onTap;
   final bool? isMore;
   final int index;
+  final int heroId;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +58,7 @@ class CompanyContainer extends StatelessWidget {
                         AppIcons.more,
                       )
                     : MyCachedNetworkImage(
+                        heroId: heroId,
                         height: 35.w,
                         width: 35.w,
                         url: compantIconImage!,
