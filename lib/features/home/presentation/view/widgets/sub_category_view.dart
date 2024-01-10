@@ -25,10 +25,7 @@ class SubCategoryView extends StatefulWidget {
 class _SubCategoryViewState extends State<SubCategoryView> {
   @override
   void initState() {
-    SubCategoriesCubit.subCategories = [];
-    context
-        .read<SubCategoriesCubit>()
-        .getAllSubCategories(catId: widget.category.id!);
+    SubCategoriesCubit.subCategories = widget.category.subCategories!;
 
     super.initState();
   }
@@ -48,7 +45,7 @@ class _SubCategoryViewState extends State<SubCategoryView> {
                 .getAllSubCategories(catId: widget.category.id!);
           },
           child: Padding(
-            padding: EdgeInsets.only(top: 30.h, right: 20.w, left: 20.w),
+            padding: EdgeInsets.only(top: 50.h, right: 20.w, left: 20.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -73,114 +70,125 @@ class _SubCategoryViewState extends State<SubCategoryView> {
                   widget.category.categoryName!,
                   style: TextStyles.textStyle18
                       .copyWith(fontWeight: FontWeight.w700),
-                  overflow: TextOverflow.ellipsis,
                   textDirection: TextDirection.rtl,
                 ),
                 Text(
                   widget.category.description!,
                   style: TextStyles.textStyle12.copyWith(
                       fontWeight: FontWeight.w400, color: Colors.grey),
-                  overflow: TextOverflow.ellipsis,
                   textDirection: TextDirection.rtl,
                 ),
                 SizedBox(
                   height: 30.h,
                 ),
-                BlocConsumer<SubCategoriesCubit, SubCategoriesState>(
-                  listener: (context, state) {
-                    if (state is SubCategoriesSuccess) {
-                      SubCategoriesCubit.subCategories = state.categories;
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is SubCategoriesSuccess) {
-                      return Expanded(
-                        child: SubCategoriesCubit
-                                .subCategoriesController.text.isEmpty
-                            ? SubCategoriesCubit.subCategories.isEmpty
-                                ? ListView(
-                                    shrinkWrap: true,
-                                    children: [
-                                      SizedBox(
-                                        height: 150.h,
-                                        child: Center(
-                                          child: Text(
-                                            'لا يوجد عناصر',
-                                            style: TextStyles.textStyle14,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : GridView.builder(
-                                    physics: const BouncingScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount:
-                                        SubCategoriesCubit.subCategories.length,
-                                    itemBuilder: (context, index) {
-                                      return SubCategoryContainerHome(
-                                        subCategory: SubCategoriesCubit
-                                            .subCategories[index],
-                                      );
-                                    },
-                                    addAutomaticKeepAlives: true,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 15.w,
-                                      childAspectRatio: 115.h / 155.w,
-                                    ),
-                                  )
-                            : SubCategoriesCubit.subCategoriesSearch.isEmpty
-                                ? ListView(
-                                    shrinkWrap: true,
-                                    children: [
-                                      SizedBox(
-                                        height: 150.h,
-                                        child: Center(
-                                          child: Text(
-                                            'لا يوجد',
-                                            style: TextStyles.textStyle14,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : GridView.builder(
-                                    physics: const BouncingScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: SubCategoriesCubit
-                                        .subCategoriesSearch.length,
-                                    itemBuilder: (context, index) {
-                                      return SubCategoryContainerHome(
-                                        subCategory: SubCategoriesCubit
-                                            .subCategoriesSearch[index],
-                                      );
-                                    },
-                                    addAutomaticKeepAlives: true,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
+                Expanded(
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      BlocConsumer<SubCategoriesCubit, SubCategoriesState>(
+                        listener: (context, state) {
+                          if (state is SubCategoriesSuccess) {
+                            SubCategoriesCubit.subCategories = state.categories;
+                          }
+                        },
+                        builder: (context, state) {
+                          if (state is SubCategoriesSuccess ||
+                              state is SubCategoriesInitial) {
+                            return Expanded(
+                              child: SubCategoriesCubit
+                                      .subCategoriesController.text.isEmpty
+                                  ? SubCategoriesCubit.subCategories.isEmpty
+                                      ? ListView(
+                                          shrinkWrap: true,
+                                          children: [
+                                            SizedBox(
+                                              height: 150.h,
+                                              child: Center(
+                                                child: Text(
+                                                  'لا يوجد عناصر',
+                                                  style: TextStyles.textStyle14,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : GridView.builder(
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: SubCategoriesCubit
+                                              .subCategories.length,
+                                          itemBuilder: (context, index) {
+                                            return SubCategoryContainerHome(
+                                              subCategory: SubCategoriesCubit
+                                                  .subCategories[index],
+                                            );
+                                          },
+                                          addAutomaticKeepAlives: true,
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisCount: 2,
                                             crossAxisSpacing: 15.w,
-                                            childAspectRatio: 115.h / 155.w),
-                                  ),
-                      );
-                    }
-                    return Expanded(
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return const CategoriesPlaceHolderHome();
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(
-                            height: 10.h,
+                                            childAspectRatio: 115.h / 155.w,
+                                          ),
+                                        )
+                                  : SubCategoriesCubit
+                                          .subCategoriesSearch.isEmpty
+                                      ? ListView(
+                                          shrinkWrap: true,
+                                          children: [
+                                            SizedBox(
+                                              height: 150.h,
+                                              child: Center(
+                                                child: Text(
+                                                  'لا يوجد',
+                                                  style: TextStyles.textStyle14,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : GridView.builder(
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: SubCategoriesCubit
+                                              .subCategoriesSearch.length,
+                                          itemBuilder: (context, index) {
+                                            return SubCategoryContainerHome(
+                                              subCategory: SubCategoriesCubit
+                                                  .subCategoriesSearch[index],
+                                            );
+                                          },
+                                          addAutomaticKeepAlives: true,
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 2,
+                                                  crossAxisSpacing: 15.w,
+                                                  childAspectRatio:
+                                                      115.h / 155.w),
+                                        ),
+                            );
+                          }
+                          return Expanded(
+                            child: ListView.separated(
+                              shrinkWrap: true,
+                              itemCount: 5,
+                              itemBuilder: (context, index) {
+                                return const CategoriesPlaceHolderHome();
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return SizedBox(
+                                  height: 10.h,
+                                );
+                              },
+                            ),
                           );
                         },
                       ),
-                    );
-                  },
+                    ],
+                  ),
                 ),
               ],
             ),

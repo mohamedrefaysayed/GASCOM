@@ -29,44 +29,49 @@ class _HomeViewState extends State<HomeView> {
       },
       child: SafeArea(
         child: Scaffold(
-          body: SingleChildScrollView(
-            child: GestureDetector(
-              onTap: () {
-                FocusScope.of(context).unfocus();
-              },
-              child: Column(
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                    child: SearchRow(
-                      textEditingController: TextEditingController(),
-                      hintText: 'إبحث عن المتجر او القطعة',
-                      canGoBack: false,
-                      whenBack: () {},
-                      haveFilter: true,
-                      onFilter: () {},
-                      onChanged: (_) {},
+          body: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                child: SearchRow(
+                  textEditingController: TextEditingController(),
+                  hintText: 'إبحث عن المتجر او القطعة',
+                  canGoBack: false,
+                  whenBack: () {},
+                  haveFilter: true,
+                  onFilter: () {},
+                  onChanged: (_) {},
+                ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: GestureDetector(
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                    },
+                    child: Column(
+                      children: [
+                        const AddsView(),
+                        SizedBox(
+                          height: 25.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: const CompaniesView(),
+                        ),
+                        SizedBox(
+                          height: 25.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: const CategoriesViewHome(),
+                        ),
+                      ],
                     ),
                   ),
-                  const AddsView(),
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: const CompaniesView(),
-                  ),
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: const CategoriesViewHome(),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),

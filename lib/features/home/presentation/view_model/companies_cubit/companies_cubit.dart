@@ -44,7 +44,9 @@ class CompaniesCubit extends Cubit<CompaniesState> {
   searchInSubCompanies() {
     companiesSearchModel.companies = [];
     for (var element in companiesModel.companies!) {
-      if (element.companyName!.contains(companySearchController.text)) {
+      if (element.companyName!
+          .toLowerCase()
+          .contains(companySearchController.text.toLowerCase())) {
         companiesSearchModel.companies!.add(element);
       }
       emit(CompaniesSuccess(companiesModel: companiesModel));

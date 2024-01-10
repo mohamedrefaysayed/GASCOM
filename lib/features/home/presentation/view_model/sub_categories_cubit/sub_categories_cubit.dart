@@ -46,7 +46,9 @@ class SubCategoriesCubit extends Cubit<SubCategoriesState> {
   searchInSubCategory() {
     subCategoriesSearch = [];
     for (var element in subCategories) {
-      if (element.categoryName!.contains(subCategoriesController.text)) {
+      if (element.categoryName!
+          .toLowerCase()
+          .contains(subCategoriesController.text.toLowerCase())) {
         subCategoriesSearch.add(element);
       }
       emit(SubCategoriesSuccess(categories: subCategories));
