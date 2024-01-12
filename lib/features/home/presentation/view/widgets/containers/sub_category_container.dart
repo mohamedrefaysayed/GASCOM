@@ -37,7 +37,6 @@ class SubCategoryContainer extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15.w),
               child: MyCachedNetworkImage(
-                heroId: subCategory.id!,
                 height: 120.h,
                 width: 240.w,
                 url: subCategory.image!,

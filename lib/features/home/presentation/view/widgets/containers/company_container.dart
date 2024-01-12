@@ -57,17 +57,22 @@ class CompanyContainer extends StatelessWidget {
                         width: 25.w,
                         AppIcons.more,
                       )
-                    : MyCachedNetworkImage(
-                        heroId: heroId,
-                        height: 35.w,
-                        width: 35.w,
-                        url: compantIconImage!,
-                        errorIcon: Icon(
-                          Icons.home_work_rounded,
-                          size: 30.w,
-                          color: AppColors.kASDCPrimaryColor,
+                    : Hero(
+                        tag: "Company$heroId",
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15.w),
+                          child: MyCachedNetworkImage(
+                            height: 35.w,
+                            width: 35.w,
+                            url: compantIconImage!,
+                            errorIcon: Icon(
+                              Icons.home_work_rounded,
+                              size: 30.w,
+                              color: AppColors.kASDCPrimaryColor,
+                            ),
+                            loadingWidth: 13.w,
+                          ),
                         ),
-                        loadingWidth: 13.w,
                       ),
                 SizedBox(
                   height: 5.h,

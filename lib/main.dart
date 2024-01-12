@@ -13,6 +13,8 @@ import 'package:dinar_store/features/home/presentation/view_model/bottom_nav_cub
 import 'package:dinar_store/features/home/presentation/view_model/categories_cubit/categories_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/companies_cubit/companies_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/sub_categories_cubit/sub_categories_cubit.dart';
+import 'package:dinar_store/features/home/presentation/view_model/sub_category_products_cubit/sub_category_product_cubit.dart';
+import 'package:dinar_store/features/home/presentation/view_model/sub_sub_categories_cubit/sub_sub_categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,6 +68,18 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SubCategoriesCubit(
+              subCategoriesServices: SubCategoriesServices(
+            dioHelper: DioHelper(),
+          )),
+        ),
+        BlocProvider(
+          create: (context) => SubSubCategoriesCubit(
+              subCategoriesServices: SubCategoriesServices(
+            dioHelper: DioHelper(),
+          )),
+        ),
+        BlocProvider(
+          create: (context) => SubCategoryProductCubit(
               subCategoriesServices: SubCategoriesServices(
             dioHelper: DioHelper(),
           )),

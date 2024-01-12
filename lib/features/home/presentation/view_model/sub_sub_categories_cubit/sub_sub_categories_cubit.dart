@@ -8,11 +8,11 @@ import 'package:dinar_store/features/home/data/models/categories_model.dart';
 import 'package:dinar_store/features/home/data/services/sub_categories_services.dart';
 import 'package:flutter/material.dart';
 
-part 'sub_categories_state.dart';
+part 'sub_sub_categories_state.dart';
 
-class SubCategoriesCubit extends Cubit<SubCategoriesState> {
-  SubCategoriesCubit({required SubCategoriesServices subCategoriesServices})
-      : super(SubCategoriesInitial()) {
+class SubSubCategoriesCubit extends Cubit<SubSubCategoriesState> {
+  SubSubCategoriesCubit({required SubCategoriesServices subCategoriesServices})
+      : super(SubSubCategoriesInitial()) {
     _subCategoriesServices = subCategoriesServices;
   }
 
@@ -23,8 +23,8 @@ class SubCategoriesCubit extends Cubit<SubCategoriesState> {
   static TextEditingController subCategoriesController =
       TextEditingController();
 
-  getAllSubSubCategories({required int catId}) async {
-    emit(SubCategoriesLoading());
+  getAllSubCategories({required int catId}) async {
+    emit(SubSubCategoriesLoading());
     Either<ServerFailure, List<SubCategories>> result =
         await _subCategoriesServices.getAllSubCategories(
             token: AppCubit.token!, catId: catId);
@@ -32,13 +32,11 @@ class SubCategoriesCubit extends Cubit<SubCategoriesState> {
     result.fold(
       //error
       (serverFailure) {
-        emit(
-          SubCategoriesFaliuer(errMessage: serverFailure.errMessage),
-        );
+        emit(SubSubCategoriesFaliuer(errMessage: serverFailure.errMessage));
       },
       //success
       (categories) async {
-        emit(SubCategoriesSuccess(categories: categories));
+        emit(SubSubCategoriesSuccess(categories: categories));
       },
     );
   }
@@ -51,7 +49,7 @@ class SubCategoriesCubit extends Cubit<SubCategoriesState> {
           .contains(subCategoriesController.text.toLowerCase())) {
         subCategoriesSearch.add(element);
       }
-      emit(SubCategoriesSuccess(categories: subCategories));
+      emit(SubSubCategoriesSuccess(categories: subCategories));
     }
   }
 }

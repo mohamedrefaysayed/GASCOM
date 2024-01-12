@@ -96,7 +96,7 @@ class SubCategories {
   String? image;
   String? level;
   String? parentId;
-  int? categorySpecificationId;
+  String? categorySpecificationId;
   String? status;
   String? deletedAt;
   String? createdAt;

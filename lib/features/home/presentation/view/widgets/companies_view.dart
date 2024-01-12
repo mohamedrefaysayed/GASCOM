@@ -71,7 +71,7 @@ class _CompaniesViewState extends State<CompaniesView> {
                                   companiesModel: state.companiesModel,
                                 )));
                           },
-                          heroId: 0,
+                          heroId: 9999999,
                         );
                       }
                       return CompanyContainer(

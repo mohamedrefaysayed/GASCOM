@@ -65,7 +65,6 @@ class CategoriesVerticalTabBar extends StatelessWidget {
                               color: AppColors.kASDCPrimaryColor,
                             ),
                             loadingWidth: 13.w,
-                            heroId: category.id!,
                           ),
                         ),
                         SizedBox(

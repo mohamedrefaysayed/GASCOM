@@ -34,24 +34,25 @@ class SearchRow extends StatelessWidget {
           ),
         Expanded(
           child: SizedBox(
-            height: 50.h,
             child: TextField(
               controller: textEditingController,
               textDirection: TextDirection.rtl,
               decoration: InputDecoration(
-                  hintText: hintText,
-                  hintTextDirection: TextDirection.rtl,
-                  filled: true,
-                  fillColor: AppColors.kASDCPrimaryColor.withOpacity(0.09),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.w),
-                    borderSide: BorderSide.none,
-                  ),
-                  suffixIcon: Icon(
-                    Icons.search_rounded,
-                    color: AppColors.kASDCPrimaryColor,
-                    size: 35.w,
-                  )),
+                contentPadding: EdgeInsets.symmetric(vertical: 5.h),
+                hintText: hintText,
+                hintTextDirection: TextDirection.rtl,
+                filled: true,
+                fillColor: AppColors.kASDCPrimaryColor.withOpacity(0.09),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.w),
+                  borderSide: BorderSide.none,
+                ),
+                suffixIcon: Icon(
+                  Icons.search_rounded,
+                  color: AppColors.kASDCPrimaryColor,
+                  size: 30.w,
+                ),
+              ),
               onChanged: onChanged,
             ),
           ),

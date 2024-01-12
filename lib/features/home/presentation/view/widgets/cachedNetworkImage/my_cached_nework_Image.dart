@@ -13,7 +13,6 @@ class MyCachedNetworkImage extends StatelessWidget {
     required this.url,
     required this.errorIcon,
     required this.loadingWidth,
-    required this.heroId,
   });
 
   final double? height;
@@ -21,24 +20,20 @@ class MyCachedNetworkImage extends StatelessWidget {
   final String url;
   final Icon errorIcon;
   final double loadingWidth;
-  final int heroId;
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: heroId,
-      child: CachedNetworkImage(
-        height: height,
-        width: width,
-        imageUrl: "http://just.sd/dinar/public/storage/$url",
-        fit: BoxFit.fill,
-        errorWidget: (context, url, error) {
-          return errorIcon;
-        },
-        placeholder: (context, url) => SpinKitThreeBounce(
-          color: AppColors.kASDCPrimaryColor,
-          size: loadingWidth,
-        ),
+    return CachedNetworkImage(
+      height: height,
+      width: width,
+      imageUrl: "http://just.sd/dinar/public/storage/$url",
+      fit: BoxFit.fill,
+      errorWidget: (context, url, error) {
+        return errorIcon;
+      },
+      placeholder: (context, url) => SpinKitThreeBounce(
+        color: AppColors.kASDCPrimaryColor,
+        size: loadingWidth,
       ),
     );
   }

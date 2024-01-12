@@ -1,10 +1,14 @@
 // ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
 
+import 'package:dinar_store/core/animations/right_slide_transition.dart';
+import 'package:dinar_store/core/functions/future_delayed_navigator.dart';
+import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/data/models/categories_model.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/sub_category_container_home.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/categories_place_holder_home.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/search_rows/search_row.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/sub_sub_categories_view.dart';
 import 'package:dinar_store/features/home/presentation/view_model/sub_categories_cubit/sub_categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +46,7 @@ class _SubCategoryViewState extends State<SubCategoryView> {
           onRefresh: () async {
             context
                 .read<SubCategoriesCubit>()
-                .getAllSubCategories(catId: widget.category.id!);
+                .getAllSubSubCategories(catId: widget.category.id!);
           },
           child: Padding(
             padding: EdgeInsets.only(top: 50.h, right: 20.w, left: 20.w),
@@ -52,7 +56,7 @@ class _SubCategoryViewState extends State<SubCategoryView> {
                 SearchRow(
                   textEditingController:
                       SubCategoriesCubit.subCategoriesController,
-                  hintText: 'ابحث عن القطعة',
+                  hintText: 'ابحث عن مجموعة',
                   canGoBack: true,
                   whenBack: () {
                     Navigator.pop(context);
@@ -94,81 +98,132 @@ class _SubCategoryViewState extends State<SubCategoryView> {
                         builder: (context, state) {
                           if (state is SubCategoriesSuccess ||
                               state is SubCategoriesInitial) {
-                            return Expanded(
-                              child: SubCategoriesCubit
-                                      .subCategoriesController.text.isEmpty
-                                  ? SubCategoriesCubit.subCategories.isEmpty
-                                      ? ListView(
-                                          shrinkWrap: true,
-                                          children: [
-                                            SizedBox(
-                                              height: 150.h,
-                                              child: Center(
-                                                child: Text(
-                                                  'لا يوجد عناصر',
-                                                  style: TextStyles.textStyle14,
-                                                ),
+                            return SubCategoriesCubit
+                                    .subCategoriesController.text.isEmpty
+                                ? SubCategoriesCubit.subCategories.isEmpty
+                                    ? ListView(
+                                        shrinkWrap: true,
+                                        children: [
+                                          SizedBox(
+                                            height: 150.h,
+                                            child: Center(
+                                              child: Text(
+                                                'لا يوجد عناصر',
+                                                style: TextStyles.textStyle14,
                                               ),
                                             ),
-                                          ],
-                                        )
-                                      : GridView.builder(
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemCount: SubCategoriesCubit
-                                              .subCategories.length,
-                                          itemBuilder: (context, index) {
-                                            return SubCategoryContainerHome(
-                                              subCategory: SubCategoriesCubit
-                                                  .subCategories[index],
-                                            );
-                                          },
-                                          addAutomaticKeepAlives: true,
-                                          gridDelegate:
-                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 2,
-                                            crossAxisSpacing: 15.w,
-                                            childAspectRatio: 115.h / 155.w,
                                           ),
-                                        )
-                                  : SubCategoriesCubit
-                                          .subCategoriesSearch.isEmpty
-                                      ? ListView(
-                                          shrinkWrap: true,
-                                          children: [
-                                            SizedBox(
-                                              height: 150.h,
-                                              child: Center(
-                                                child: Text(
-                                                  'لا يوجد',
-                                                  style: TextStyles.textStyle14,
+                                        ],
+                                      )
+                                    : GridView.builder(
+                                        physics: const BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: SubCategoriesCubit
+                                            .subCategories.length,
+                                        itemBuilder: (context, index) {
+                                          return Stack(
+                                            children: [
+                                              SubCategoryContainerHome(
+                                                subCategory: SubCategoriesCubit
+                                                    .subCategories[index],
+                                              ),
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(15.w),
+                                                child: Material(
+                                                  color: AppColors.kTransparent,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      futureDelayedNavigator(
+                                                          () {
+                                                        Navigator.push(
+                                                            context,
+                                                            RightSlideTransition(
+                                                                page:
+                                                                    SubSubCategoryView(
+                                                              subcategory:
+                                                                  SubCategoriesCubit
+                                                                          .subCategories[
+                                                                      index],
+                                                            )));
+                                                      });
+                                                    },
+                                                  ),
                                                 ),
+                                              )
+                                            ],
+                                          );
+                                        },
+                                        addAutomaticKeepAlives: true,
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 15.w,
+                                          childAspectRatio: 115.h / 155.w,
+                                        ),
+                                      )
+                                : SubCategoriesCubit.subCategoriesSearch.isEmpty
+                                    ? ListView(
+                                        shrinkWrap: true,
+                                        children: [
+                                          SizedBox(
+                                            height: 150.h,
+                                            child: Center(
+                                              child: Text(
+                                                'لا يوجد',
+                                                style: TextStyles.textStyle14,
                                               ),
                                             ),
-                                          ],
-                                        )
-                                      : GridView.builder(
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemCount: SubCategoriesCubit
-                                              .subCategoriesSearch.length,
-                                          itemBuilder: (context, index) {
-                                            return SubCategoryContainerHome(
-                                              subCategory: SubCategoriesCubit
-                                                  .subCategoriesSearch[index],
-                                            );
-                                          },
-                                          addAutomaticKeepAlives: true,
-                                          gridDelegate:
-                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisCount: 2,
-                                                  crossAxisSpacing: 15.w,
-                                                  childAspectRatio:
-                                                      115.h / 155.w),
-                                        ),
-                            );
+                                          ),
+                                        ],
+                                      )
+                                    : GridView.builder(
+                                        physics: const BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: SubCategoriesCubit
+                                            .subCategoriesSearch.length,
+                                        itemBuilder: (context, index) {
+                                          return Stack(
+                                            children: [
+                                              SubCategoryContainerHome(
+                                                subCategory: SubCategoriesCubit
+                                                    .subCategoriesSearch[index],
+                                              ),
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(15.w),
+                                                child: Material(
+                                                  color: AppColors.kTransparent,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      futureDelayedNavigator(
+                                                          () {
+                                                        Navigator.push(
+                                                            context,
+                                                            RightSlideTransition(
+                                                                page:
+                                                                    SubSubCategoryView(
+                                                              subcategory:
+                                                                  SubCategoriesCubit
+                                                                          .subCategories[
+                                                                      index],
+                                                            )));
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          );
+                                        },
+                                        addAutomaticKeepAlives: true,
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 2,
+                                                crossAxisSpacing: 15.w,
+                                                childAspectRatio:
+                                                    115.h / 155.w),
+                                      );
                           }
                           return Expanded(
                             child: ListView.separated(
