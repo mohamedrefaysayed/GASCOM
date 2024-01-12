@@ -13,4 +13,8 @@ abstract class SubCategoriesRepo {
     required String token,
     required int catId,
   });
+  Future<Either<ServerFailure, List<Products>>> getComapnyWithProduct({
+    required String token,
+    required int companyId,
+  });
 }

@@ -109,7 +109,9 @@ class _SubCategoryViewState extends State<SubCategoryView> {
                                             child: Center(
                                               child: Text(
                                                 'لا يوجد عناصر',
-                                                style: TextStyles.textStyle14,
+                                                style: TextStyles.textStyle14
+                                                    .copyWith(
+                                                        color: Colors.grey),
                                               ),
                                             ),
                                           ),
@@ -171,7 +173,9 @@ class _SubCategoryViewState extends State<SubCategoryView> {
                                             child: Center(
                                               child: Text(
                                                 'لا يوجد',
-                                                style: TextStyles.textStyle14,
+                                                style: TextStyles.textStyle14
+                                                    .copyWith(
+                                                        color: Colors.grey),
                                               ),
                                             ),
                                           ),

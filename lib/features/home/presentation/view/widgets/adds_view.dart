@@ -39,12 +39,6 @@ class _AddsViewState extends State<AddsView> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15.w),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.161),
-                        blurRadius: 6.w,
-                        offset: Offset(0, 3.h)),
-                  ],
                 ),
                 child: CarouselSlider.builder(
                   itemCount: state.adsModel.ads!.length,

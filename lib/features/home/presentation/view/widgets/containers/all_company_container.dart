@@ -1,8 +1,10 @@
+import 'package:dinar_store/core/animations/right_slide_transition.dart';
 import 'package:dinar_store/core/functions/future_delayed_navigator.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/data/models/companies_model.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/cachedNetworkImage/my_cached_nework_Image.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/products_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -89,7 +91,15 @@ class AllCompanyContainer extends StatelessWidget {
             color: AppColors.kTransparent,
             child: InkWell(
               onTap: () {
-                futureDelayedNavigator(() {});
+                futureDelayedNavigator(() {
+                  Navigator.push(
+                      context,
+                      RightSlideTransition(
+                          page: ProductsView(
+                        company: company,
+                        isCategory: false,
+                      )));
+                });
               },
               borderRadius: BorderRadius.circular(15.w),
               child: SizedBox(

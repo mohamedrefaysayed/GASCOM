@@ -6,8 +6,8 @@ import 'package:dinar_store/features/home/presentation/view/widgets/cachedNetwor
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SubCategoryProductContainer extends StatelessWidget {
-  const SubCategoryProductContainer({
+class ProductContainer extends StatelessWidget {
+  const ProductContainer({
     super.key,
     required this.product,
   });
@@ -16,26 +16,19 @@ class SubCategoryProductContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 2.w),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.w),
-            color: AppColors.kWhite,
-          ),
-          child: Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.161),
-                        blurRadius: 4.h,
-                        offset: Offset(0, 4.h)),
-                  ],
-                ),
-                child: Hero(
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 12.5.h),
+      child: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 2.w),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.w),
+              color: AppColors.kWhite,
+            ),
+            child: Row(
+              children: [
+                Hero(
                   tag: "Product${product.id}",
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15.w),
@@ -52,55 +45,74 @@ class SubCategoryProductContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              const Spacer(),
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      product.productName!,
-                      style: TextStyles.textStyle12
-                          .copyWith(fontWeight: FontWeight.w400),
-                    ),
-                    Text(
-                      product.description!,
-                      style: TextStyles.textStyle10.copyWith(
-                          fontWeight: FontWeight.w400, color: Colors.grey),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          product.retailPrice!,
-                          style: TextStyles.textStyle12.copyWith(
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        width: 200.w,
+                        child: Text(
+                          product.productName!,
+                          style: TextStyles.textStyle12
+                              .copyWith(fontWeight: FontWeight.w400),
+                          overflow: TextOverflow.ellipsis,
+                          textDirection: TextDirection.rtl,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 200.w,
+                        child: Text(
+                          product.description!,
+                          style: TextStyles.textStyle10.copyWith(
                               fontWeight: FontWeight.w400, color: Colors.grey),
+                          overflow: TextOverflow.ellipsis,
+                          textDirection: TextDirection.rtl,
                         ),
-                        Text(
-                          product.vipPrice!,
-                          style: TextStyles.textStyle12.copyWith(
-                              fontWeight: FontWeight.w400, color: Colors.green),
+                      ),
+                      SizedBox(
+                        width: 200.w,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text.rich(
+                            TextSpan(children: [
+                              TextSpan(
+                                text: "\$${product.retailPrice}, ",
+                                style: TextStyles.textStyle12.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.green),
+                              ),
+                              TextSpan(
+                                text: "\$${product.vipPrice}",
+                                style: TextStyles.textStyle12.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey),
+                              ),
+                            ]),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ],
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        Material(
-          color: AppColors.kTransparent,
-          child: InkWell(
-            onTap: () {
-              futureDelayedNavigator(() {});
-            },
-            borderRadius: BorderRadius.circular(15.w),
-            child: SizedBox(
-              height: 60.w,
-              width: double.infinity,
+              ],
             ),
           ),
-        ),
-      ],
+          Material(
+            color: AppColors.kTransparent,
+            child: InkWell(
+              onTap: () {
+                futureDelayedNavigator(() {});
+              },
+              borderRadius: BorderRadius.circular(15.w),
+              child: SizedBox(
+                height: 60.w,
+                width: double.infinity,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

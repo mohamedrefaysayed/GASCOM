@@ -1,8 +1,10 @@
 import 'package:dinar_store/core/animations/right_slide_transition.dart';
+import 'package:dinar_store/core/functions/future_delayed_navigator.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/all_companies_view.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/company_container.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/companies_place_holder.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/products_view.dart';
 import 'package:dinar_store/features/home/presentation/view_model/companies_cubit/companies_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -80,7 +82,18 @@ class _CompaniesViewState extends State<CompaniesView> {
                             state.companiesModel.companies![index].companyName!,
                         compantIconImage:
                             state.companiesModel.companies![index].logo!,
-                        onTap: () {},
+                        onTap: () {
+                          futureDelayedNavigator(() {
+                            Navigator.push(
+                                context,
+                                RightSlideTransition(
+                                    page: ProductsView(
+                                  company:
+                                      state.companiesModel.companies![index],
+                                  isCategory: false,
+                                )));
+                          });
+                        },
                         heroId: state.companiesModel.companies![index].id!,
                       );
                     },

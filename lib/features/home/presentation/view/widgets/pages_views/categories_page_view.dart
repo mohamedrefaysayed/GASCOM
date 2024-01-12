@@ -18,6 +18,7 @@ class CategoriesPgeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: PageView(
+        physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: List.generate(categoriesModel.categories!.length, (index) {
           Categories category = categoriesModel.categories![index];

@@ -47,6 +47,27 @@ class SubCategoryProductCubit extends Cubit<SubCategoryProductState> {
     );
   }
 
+  getCompanyWithProduct({required int companyId}) async {
+    emit(SubCategoryProductLoading());
+    Either<ServerFailure, List<Products>> result = await _subCategoriesServices
+        .getComapnyWithProduct(token: AppCubit.token!, companyId: companyId);
+
+    result.fold(
+      //error
+      (serverFailure) {
+        emit(
+          SubCategoryProductFaliuer(errMessage: serverFailure.errMessage),
+        );
+      },
+      //success
+      (products) async {
+        emit(SubCategoryProductSuccess(
+            subCategoryProductsModel:
+                SubCategoryProductsModel(products: products)));
+      },
+    );
+  }
+
   searchInProducts() {
     subCategoryProductsModelSearch = SubCategoryProductsModel(products: []);
     for (var element in subCategoryProductsModel.products!) {

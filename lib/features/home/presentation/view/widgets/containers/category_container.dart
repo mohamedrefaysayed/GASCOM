@@ -81,7 +81,8 @@ class CategoryContainer extends StatelessWidget {
                         child: Center(
                           child: Text(
                             'لا يوجد عناصر',
-                            style: TextStyles.textStyle14,
+                            style: TextStyles.textStyle14
+                                .copyWith(color: Colors.grey),
                           ),
                         ),
                       ),
