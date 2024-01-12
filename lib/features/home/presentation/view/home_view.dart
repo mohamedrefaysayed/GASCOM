@@ -3,6 +3,7 @@
 import 'package:dinar_store/features/home/presentation/view/widgets/adds_view.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/categories_view_home.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/companies_view.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/search_rows/search_row.dart';
 import 'package:dinar_store/features/home/presentation/view_model/ads_cubit/ads_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/categories_cubit/categories_cubit.dart';
@@ -52,16 +53,12 @@ class _HomeViewState extends State<HomeView> {
                     child: Column(
                       children: [
                         const AddsView(),
-                        SizedBox(
-                          height: 25.h,
-                        ),
+                        const GeneralDivider(),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: const CompaniesView(),
                         ),
-                        SizedBox(
-                          height: 25.h,
-                        ),
+                        const GeneralDivider(),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: const CategoriesViewHome(),

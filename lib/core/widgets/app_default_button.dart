@@ -50,7 +50,7 @@ class AppDefaultButton extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: borderRadius ?? BorderRadius.circular(20.w),
+          borderRadius: borderRadius ?? BorderRadius.circular(15.w),
           onTap: () {
             futureDelayedNavigator(() {
               onPressed();

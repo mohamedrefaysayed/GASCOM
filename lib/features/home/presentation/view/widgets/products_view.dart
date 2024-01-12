@@ -1,16 +1,15 @@
 // ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
 
-import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/data/models/categories_model.dart';
 import 'package:dinar_store/features/home/data/models/companies_model.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/containers/sub_category_product_container.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/containers/product_container.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/products_place_holder.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/search_rows/search_row.dart';
 import 'package:dinar_store/features/home/presentation/view_model/sub_category_products_cubit/sub_category_product_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ProductsView extends StatefulWidget {
   const ProductsView({
@@ -107,6 +106,7 @@ class _ProductsViewState extends State<ProductsView> {
                 ),
                 Expanded(
                   child: ListView(
+                    padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     children: [
                       BlocConsumer<SubCategoryProductCubit,
@@ -142,6 +142,7 @@ class _ProductsViewState extends State<ProductsView> {
                                         ],
                                       )
                                     : ListView.builder(
+                                        padding: EdgeInsets.zero,
                                         physics: const BouncingScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount: SubCategoryProductCubit
@@ -177,6 +178,7 @@ class _ProductsViewState extends State<ProductsView> {
                                         ],
                                       )
                                     : ListView.builder(
+                                        padding: EdgeInsets.zero,
                                         physics: const BouncingScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount: SubCategoryProductCubit
@@ -194,27 +196,7 @@ class _ProductsViewState extends State<ProductsView> {
                                       );
                           }
 
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey.withOpacity(0.3),
-                            highlightColor:
-                                AppColors.kASDCPrimaryColor.withOpacity(0.5),
-                            child: Expanded(
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: 10,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    margin: EdgeInsets.symmetric(vertical: 5.h),
-                                    height: 80.h,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(15.w)),
-                                  );
-                                },
-                              ),
-                            ),
-                          );
+                          return const ProductsPlaceHolder();
                         },
                       ),
                     ],

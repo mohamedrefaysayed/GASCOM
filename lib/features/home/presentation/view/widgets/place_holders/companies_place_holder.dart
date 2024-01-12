@@ -47,12 +47,6 @@ class CompaniesPlaceHolder extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(15.w),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.161),
-                            blurRadius: 6.w,
-                            offset: Offset(0, 3.h)),
-                      ],
                     ),
                   );
                 },

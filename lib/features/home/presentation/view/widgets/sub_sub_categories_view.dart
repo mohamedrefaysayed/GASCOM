@@ -239,20 +239,18 @@ class _SubSubCategoryViewState extends State<SubSubCategoryView> {
                                       );
                           }
 
-                          return Expanded(
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: 5,
-                              itemBuilder: (context, index) {
-                                return const CategoriesPlaceHolderHome();
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) {
-                                return SizedBox(
-                                  height: 10.h,
-                                );
-                              },
-                            ),
+                          return ListView.separated(
+                            shrinkWrap: true,
+                            itemCount: 5,
+                            itemBuilder: (context, index) {
+                              return const CategoriesPlaceHolderHome();
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(
+                                height: 10.h,
+                              );
+                            },
                           );
                         },
                       ),

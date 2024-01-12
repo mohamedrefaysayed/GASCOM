@@ -18,13 +18,6 @@ class AdsPlaceHolder extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.161),
-                blurRadius: 6.w,
-                offset: Offset(0, 3.h),
-              ),
-            ],
             borderRadius: BorderRadius.circular(15.w),
           ),
         ),
