@@ -3,6 +3,7 @@
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/app_images.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
+import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/auth/presentation/view/widgets/code_builder.dart';
 import 'package:dinar_store/features/auth/presentation/view/widgets/phone_builder.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/log_in_cubit/log_in_cubit.dart';
@@ -34,7 +35,7 @@ class LogInView extends StatelessWidget {
                     BlocBuilder<LogInCubit, LogInState>(
                       builder: (context, state) {
                         if (state is SendCodeSuccess ||
-                            state is SendPhoneLoading) {
+                            state is VerficationLoading) {
                           return IconButton(
                               onPressed: () {
                                 context.read<LogInCubit>().emit(LogInInitial());
@@ -90,9 +91,20 @@ class LogInView extends StatelessWidget {
                 SizedBox(
                   height: 70.h,
                 ),
-                BlocBuilder<LogInCubit, LogInState>(
+                BlocConsumer<LogInCubit, LogInState>(
+                  listener: (context, state) {
+                    if (state is LogInFailure) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          messageSnackBar(message: state.errMessage));
+                    }
+                    if (state is SendCodeSuccess) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          messageSnackBar(message: state.message));
+                    }
+                  },
                   builder: (context, state) {
-                    if (state is SendCodeSuccess || state is SendPhoneLoading) {
+                    if (state is SendCodeSuccess ||
+                        state is VerficationLoading) {
                       return const CodeBuilder();
                     } else {
                       return const PhoneBuilder();

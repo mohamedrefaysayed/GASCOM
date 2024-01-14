@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/widgets/app_default_button.dart';
@@ -37,7 +39,7 @@ class PhoneBuilder extends StatelessWidget {
         ),
         BlocBuilder<LogInCubit, LogInState>(
           builder: (context, state) {
-            if (state is SendCodeLoading || state is SendPhoneLoading) {
+            if (state is SendCodeLoading || state is VerficationLoading) {
               return AppLoadingButton(
                 height: 50.h,
                 width: double.infinity,
@@ -50,7 +52,7 @@ class PhoneBuilder extends StatelessWidget {
                 if (LogInCubit.phoneNumber != null) {
                   try {
                     LogInCubit.phoneNumber!.isValidNumber();
-                    BlocProvider.of<LogInCubit>(context).logIn();
+                    await BlocProvider.of<LogInCubit>(context).register();
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
                         messageSnackBar(message: "أدخل رقم صحيح"));

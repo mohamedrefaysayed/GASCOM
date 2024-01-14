@@ -26,34 +26,16 @@ class LogInCubit extends Cubit<LogInState> {
 
   static PhoneNumber? phoneNumber;
   static String? code;
+  static String? fakeCode;
 
-  Future<void> logIn() async {
+  Future<void> register() async {
     emit(SendCodeLoading());
-    await Future.delayed(const Duration(seconds: 2));
-    emit(SendCodeSuccess());
-    // Either<ServerFailure, String> result =
-    //     await _logInServices.logIn(email: " email!", password: "password!");
 
-    // result.fold(
-    //   //error
-    //   (serverFailure) {
-    //     emit(
-    //       LogInFailure(errMessage: serverFailure.errMessage),
-    //     );
-    //   },
-    //   //success
-    //   (data) async {
-    //     await _logInServices.storeTokenInSecureStorage(token: "data.token");
-
-    //     emit(SendCodeSuccess());
-    //   },
-    // );
-  }
-
-  Future<void> sendVerficationCode() async {
-    emit(SendPhoneLoading());
-    Either<ServerFailure, String> result =
-        await _logInServices.logIn(email: "email!", password: "password!");
+    Either<ServerFailure, Map<String, dynamic>> result =
+        await _logInServices.register(
+      countryCode: phoneNumber!.countryCode,
+      phoneNumber: phoneNumber!.number,
+    );
 
     result.fold(
       //error
@@ -64,9 +46,31 @@ class LogInCubit extends Cubit<LogInState> {
       },
       //success
       (data) async {
-        await _logInServices.storeTokenInSecureStorage(token: "data.token");
+        fakeCode = data['verificationCode'].toString();
+        emit(SendCodeSuccess(message: data['message']));
+      },
+    );
+  }
 
-        emit(SendPhoneSuccess());
+  Future<void> sendVerficationCode() async {
+    emit(VerficationLoading());
+    Either<ServerFailure, Map<String, dynamic>> result =
+        await _logInServices.sendVCode(
+      code: code!,
+    );
+
+    result.fold(
+      //error
+      (serverFailure) {
+        emit(
+          LogInFailure(errMessage: serverFailure.errMessage),
+        );
+      },
+      //success
+      (data) async {
+        await _logInServices.storeTokenInSecureStorage(token: data['token']);
+
+        emit(VerficationSuccess());
       },
     );
   }

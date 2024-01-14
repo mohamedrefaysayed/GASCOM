@@ -28,20 +28,28 @@ class CodeBuilder extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 75.h,
+          height: 20.h,
+        ),
+        Text(
+          LogInCubit.fakeCode ?? "no",
+          style: TextStyles.textStyle16.copyWith(
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        SizedBox(
+          height: 50.h,
         ),
         Center(
           child: VerificationCode(
               underlineWidth: 2,
-              length: 4,
+              length: 6,
               underlineColor: AppColors.kASDCPrimaryColor,
               textStyle: TextStyle(
                   color: AppColors.kASDCPrimaryColor, fontSize: 20.sp),
               underlineUnfocusedColor:
                   AppColors.kASDCPrimaryColor.withOpacity(0.5),
               fillColor: Colors.white.withOpacity(.05),
-              margin: const EdgeInsets.symmetric(horizontal: 5),
-              itemSize: 55.w,
+              itemSize: 45.w,
               fullBorder: true,
               onCompleted: (code) {
                 LogInCubit.code = code;
@@ -51,9 +59,15 @@ class CodeBuilder extends StatelessWidget {
         SizedBox(
           height: 110.h,
         ),
-        BlocBuilder<LogInCubit, LogInState>(
+        BlocConsumer<LogInCubit, LogInState>(
+          listener: (context, state) {
+            if (state is VerficationSuccess) {
+              Navigator.push(
+                  context, LeftSlideTransition(page: const LoginData()));
+            }
+          },
           builder: (context, state) {
-            if (state is SendPhoneLoading) {
+            if (state is VerficationLoading) {
               return AppLoadingButton(
                 height: 50.h,
                 width: double.infinity,
@@ -65,13 +79,8 @@ class CodeBuilder extends StatelessWidget {
                 HapticFeedback.lightImpact();
 
                 if (LogInCubit.code != null) {
-                  if (LogInCubit.code!.length == 4) {
-                    context.read<LogInCubit>().emit(SendPhoneLoading());
-
-                    await Future.delayed(const Duration(seconds: 2));
-                    Navigator.push(
-                        context, LeftSlideTransition(page: const LoginData()));
-                    context.read<LogInCubit>().emit(SendPhoneSuccess());
+                  if (LogInCubit.code!.length == 6) {
+                    context.read<LogInCubit>().sendVerficationCode();
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                         messageSnackBar(message: "أدخل كود صحيح"));

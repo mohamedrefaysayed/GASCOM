@@ -20,18 +20,43 @@ class LogInServices implements LogInRepo {
   String? fcmToken;
 
   @override
-  Future<Either<ServerFailure, String>> logIn(
-      {required String email, required String password}) async {
+  Future<Either<ServerFailure, Map<String, dynamic>>> register({
+    required String countryCode,
+    required String phoneNumber,
+  }) async {
     try {
       Map<String, dynamic> data = await _dioHelper.postRequest(
         body: {
-          'email': email,
-          'password': password,
+          'country_code': countryCode,
+          'phone': phoneNumber,
         },
-        endPoint: 'auth/client-mobile/login',
-        queryParameters: {'token': fcmToken},
+        endPoint: 'register',
       );
-      return right(data.toString());
+
+      return right(data);
+    } on DioException catch (error) {
+      return left(
+        ServerFailure.fromDioException(dioException: error),
+      );
+    } catch (error) {
+      return left(
+        ServerFailure(errMessage: error.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, Map<String, dynamic>>> sendVCode({
+    required String code,
+  }) async {
+    try {
+      Map<String, dynamic> data = await _dioHelper.postRequest(
+        body: {
+          'verification_code': code,
+        },
+        endPoint: 'verify',
+      );
+      return right(data);
     } on DioException catch (error) {
       return left(
         ServerFailure.fromDioException(dioException: error),

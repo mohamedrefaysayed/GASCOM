@@ -7,11 +7,14 @@ final class LogInInitial extends LogInState {}
 
 final class SendCodeLoading extends LogInState {}
 
-final class SendPhoneLoading extends LogInState {}
+final class VerficationLoading extends LogInState {}
 
-final class SendCodeSuccess extends LogInState {}
+final class SendCodeSuccess extends LogInState {
+  final String message;
+  SendCodeSuccess({required this.message});
+}
 
-final class SendPhoneSuccess extends LogInState {}
+final class VerficationSuccess extends LogInState {}
 
 final class LogInFailure extends LogInState {
   final String errMessage;
