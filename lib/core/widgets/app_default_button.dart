@@ -17,6 +17,7 @@ class AppDefaultButton extends StatelessWidget {
     this.borderColor,
     this.borderRadius,
     this.icon,
+    this.noFuture,
   });
 
   final void Function() onPressed;
@@ -30,6 +31,7 @@ class AppDefaultButton extends StatelessWidget {
   final Color? borderColor;
   final BorderRadius? borderRadius;
   final Icon? icon;
+  final bool? noFuture;
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +54,13 @@ class AppDefaultButton extends StatelessWidget {
         child: InkWell(
           borderRadius: borderRadius ?? BorderRadius.circular(15.w),
           onTap: () {
-            futureDelayedNavigator(() {
+            if (noFuture != null && noFuture!) {
               onPressed();
-            });
+            } else {
+              futureDelayedNavigator(() {
+                onPressed();
+              });
+            }
           },
           child: Align(
             alignment: Alignment.center,

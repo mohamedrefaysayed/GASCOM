@@ -9,6 +9,7 @@ import 'package:dinar_store/features/home/presentation/view/widgets/containers/s
 import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/categories_place_holder_home.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/search_rows/search_row.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/products_view.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/whole_sub_category_view.dart';
 import 'package:dinar_store/features/home/presentation/view_model/sub_sub_categories_cubit/sub_sub_categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -146,12 +147,10 @@ class _SubSubCategoryViewState extends State<SubSubCategoryView> {
                                                             context,
                                                             RightSlideTransition(
                                                                 page:
-                                                                    ProductsView(
-                                                              subcategory:
-                                                                  SubSubCategoriesCubit
-                                                                          .subCategories[
-                                                                      index],
-                                                              isCategory: true,
+                                                                    WholeSubCategoryView(
+                                                              subCategory: state
+                                                                      .categories[
+                                                                  index],
                                                             )));
                                                       });
                                                     },
@@ -214,12 +213,10 @@ class _SubSubCategoryViewState extends State<SubSubCategoryView> {
                                                             context,
                                                             RightSlideTransition(
                                                                 page:
-                                                                    ProductsView(
-                                                              subcategory:
-                                                                  SubSubCategoriesCubit
-                                                                          .subCategories[
-                                                                      index],
-                                                              isCategory: true,
+                                                                    WholeSubCategoryView(
+                                                              subCategory: state
+                                                                      .categories[
+                                                                  index],
                                                             )));
                                                       });
                                                     },
@@ -235,7 +232,7 @@ class _SubSubCategoryViewState extends State<SubSubCategoryView> {
                                                 crossAxisCount: 2,
                                                 crossAxisSpacing: 15.w,
                                                 childAspectRatio:
-                                                    115.h / 155.w),
+                                                    115.h / 135.w),
                                       );
                           }
 

@@ -13,6 +13,7 @@ class MyCachedNetworkImage extends StatelessWidget {
     required this.url,
     required this.errorIcon,
     required this.loadingWidth,
+    this.fit,
   });
 
   final double? height;
@@ -20,6 +21,7 @@ class MyCachedNetworkImage extends StatelessWidget {
   final String url;
   final Icon errorIcon;
   final double loadingWidth;
+  final BoxFit? fit;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class MyCachedNetworkImage extends StatelessWidget {
       height: height,
       width: width,
       imageUrl: "http://just.sd/dinar/public/storage/$url",
-      fit: BoxFit.fill,
+      fit: fit ?? BoxFit.cover,
       errorWidget: (context, url, error) {
         return errorIcon;
       },

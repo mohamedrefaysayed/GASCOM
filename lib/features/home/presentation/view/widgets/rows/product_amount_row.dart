@@ -30,10 +30,38 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
     return Padding(
       padding: EdgeInsets.only(left: 15.w),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     SizedBox(
+              //       width: 5.w,
+              //     ),
+              //     SizedBox(
+              //       width: 60.w,
+              //       child: Text(
+              //         widget.title,
+              //         style:
+              //             TextStyles.textStyle12.copyWith(color: Colors.grey),
+              //         textDirection: TextDirection.rtl,
+              //         overflow: TextOverflow.ellipsis,
+              //       ),
+              //     ),
+              //     Checkbox(
+              //         activeColor: AppColors.kASDCPrimaryColor,
+              //         value: value,
+              //         onChanged: (v) {
+              //           value = v!;
+              //           setState(() {});
+              //         })
+              //   ],
+              // ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.shopping_cart_rounded,
@@ -46,7 +74,7 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                   Text(
                     '\$${widget.wholeSalePrice}',
                     style: TextStyles.textStyle12.copyWith(
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w800,
                         color: AppColors.kASDCPrimaryColor),
                   ),
                   SizedBox(
@@ -54,16 +82,19 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                   ),
                   AppDefaultButton(
                     color: AppColors.kLightGrey,
-                    height: 15.w,
-                    width: 15.w,
+                    height: 30.w,
+                    width: 30.w,
+                    noFuture: true,
                     onPressed: () {
                       setState(() {
-                        wholeSaleCounter--;
+                        if (wholeSaleCounter > 0) {
+                          wholeSaleCounter--;
+                        }
                       });
                     },
                     icon: Icon(
                       Icons.remove,
-                      size: 15.w,
+                      size: 25.w,
                     ),
                     title: '',
                   ),
@@ -72,7 +103,7 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                   ),
                   Text(
                     wholeSaleCounter.toString(),
-                    style: TextStyles.textStyle14.copyWith(
+                    style: TextStyles.textStyle16.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -81,16 +112,19 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                   ),
                   AppDefaultButton(
                     color: AppColors.kASDCPrimaryColor.withOpacity(0.2),
-                    height: 15.w,
-                    width: 15.w,
+                    height: 30.w,
+                    width: 30.w,
+                    noFuture: true,
                     onPressed: () {
                       setState(() {
-                        wholeSaleCounter++;
+                        if (wholeSaleCounter < 100) {
+                          wholeSaleCounter++;
+                        }
                       });
                     },
                     icon: Icon(
                       Icons.add,
-                      size: 15.w,
+                      size: 25.w,
                       color: AppColors.kASDCPrimaryColor,
                     ),
                     title: '',
@@ -110,6 +144,7 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                 height: 10.h,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.shopping_cart_rounded,
@@ -122,7 +157,7 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                   Text(
                     '\$${widget.retailPrice}',
                     style: TextStyles.textStyle12.copyWith(
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w800,
                         color: AppColors.kASDCPrimaryColor),
                   ),
                   SizedBox(
@@ -130,16 +165,19 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                   ),
                   AppDefaultButton(
                     color: AppColors.kLightGrey,
-                    height: 15.w,
-                    width: 15.w,
+                    height: 30.w,
+                    width: 30.w,
+                    noFuture: true,
                     onPressed: () {
                       setState(() {
-                        retailCounter--;
+                        if (retailCounter > 0) {
+                          retailCounter--;
+                        }
                       });
                     },
                     icon: Icon(
                       Icons.remove,
-                      size: 15.w,
+                      size: 25.w,
                     ),
                     title: '',
                   ),
@@ -148,7 +186,7 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                   ),
                   Text(
                     retailCounter.toString(),
-                    style: TextStyles.textStyle14.copyWith(
+                    style: TextStyles.textStyle16.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -157,16 +195,19 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                   ),
                   AppDefaultButton(
                     color: AppColors.kASDCPrimaryColor.withOpacity(0.2),
-                    height: 15.w,
-                    width: 15.w,
+                    height: 30.w,
+                    width: 30.w,
+                    noFuture: true,
                     onPressed: () {
                       setState(() {
-                        retailCounter++;
+                        if (retailCounter < 100) {
+                          retailCounter++;
+                        }
                       });
                     },
                     icon: Icon(
                       Icons.add,
-                      size: 15.w,
+                      size: 25.w,
                       color: AppColors.kASDCPrimaryColor,
                     ),
                     title: '',
@@ -185,13 +226,13 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
             ],
           ),
           SizedBox(
-            width: 5.w,
+            width: 10.w,
           ),
           ClipRRect(
             borderRadius: BorderRadius.circular(10.w),
             child: MyCachedNetworkImage(
-              width: 45.w,
-              height: 45.w,
+              width: 80.w,
+              height: 80.w,
               url: 'images/y3OhzHofEVROPO0MP5k8xRQ4I5EFg6M28FARKfwZ.jpg',
               errorIcon: Icon(
                 Icons.image,
@@ -201,25 +242,6 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
               loadingWidth: 10.w,
             ),
           ),
-          SizedBox(
-            width: 5.w,
-          ),
-          SizedBox(
-            width: 60.w,
-            child: Text(
-              widget.title,
-              style: TextStyles.textStyle12.copyWith(color: Colors.grey),
-              textDirection: TextDirection.rtl,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          Checkbox(
-              activeColor: AppColors.kASDCPrimaryColor,
-              value: value,
-              onChanged: (v) {
-                value = v!;
-                setState(() {});
-              })
         ],
       ),
     );

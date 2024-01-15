@@ -161,7 +161,7 @@ class _SubCategoryViewState extends State<SubCategoryView> {
                                             SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 2,
                                           crossAxisSpacing: 15.w,
-                                          childAspectRatio: 115.h / 155.w,
+                                          childAspectRatio: 115.h / 135.w,
                                         ),
                                       )
                                 : SubCategoriesCubit.subCategoriesSearch.isEmpty

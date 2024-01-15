@@ -47,53 +47,6 @@ class SubCategoryContainer extends StatelessWidget {
               SizedBox(
                 height: 5.h,
               ),
-              Row(
-                children: [
-                  Container(
-                    width: 45.w,
-                    height: 20.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.w),
-                      color: Colors.green.withOpacity(0.2),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '4.8 #',
-                        style: TextStyles.textStyle10,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Container(
-                    width: 60.w,
-                    height: 20.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.w),
-                      color: Colors.red.withOpacity(0.2),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'خصم %20',
-                        style: TextStyles.textStyle10,
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                    width: 100.w,
-                    child: Text(
-                      subCategory.categoryName!,
-                      style: TextStyles.textStyle14.copyWith(
-                        fontWeight: FontWeight.w400,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      textDirection: TextDirection.rtl,
-                    ),
-                  ),
-                ],
-              ),
               SizedBox(
                 width: 200.w,
                 child: Text(

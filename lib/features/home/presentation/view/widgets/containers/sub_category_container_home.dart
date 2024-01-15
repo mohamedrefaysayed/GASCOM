@@ -74,42 +74,6 @@ class SubCategoryContainerHome extends StatelessWidget {
               SizedBox(
                 height: 10.h,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    width: 45.w,
-                    height: 20.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.w),
-                      color: Colors.green.withOpacity(0.2),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '4.8 #',
-                        style: TextStyles.textStyle10,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Container(
-                    width: 60.w,
-                    height: 20.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.w),
-                      color: Colors.red.withOpacity(0.2),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'خصم %20',
-                        style: TextStyles.textStyle10,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),

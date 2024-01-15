@@ -30,6 +30,7 @@ class ProductView extends StatelessWidget {
               Hero(
                 tag: 'Product${product.id}',
                 child: MyCachedNetworkImage(
+                  fit: BoxFit.contain,
                   url: product.image!,
                   errorIcon: Icon(
                     Icons.image,

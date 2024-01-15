@@ -15,7 +15,7 @@ class CategoryContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300.h,
+      height: 250.h,
       color: AppColors.kWhite,
       child: Column(
         children: [
@@ -72,21 +72,17 @@ class CategoryContainer extends StatelessWidget {
             height: 10.h,
           ),
           SizedBox(
-            height: 220.h,
+            height: 170.h,
             child: category.subCategories!.isEmpty
-                ? ListView(
-                    children: [
-                      SizedBox(
-                        height: 150.h,
-                        child: Center(
-                          child: Text(
-                            'لا يوجد عناصر',
-                            style: TextStyles.textStyle14
-                                .copyWith(color: Colors.grey),
-                          ),
-                        ),
+                ? SizedBox(
+                    height: 150.h,
+                    child: Center(
+                      child: Text(
+                        'لا يوجد عناصر',
+                        style:
+                            TextStyles.textStyle14.copyWith(color: Colors.grey),
                       ),
-                    ],
+                    ),
                   )
                 : ListView.builder(
                     reverse: true,
