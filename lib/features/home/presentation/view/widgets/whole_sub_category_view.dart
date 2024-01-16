@@ -219,6 +219,8 @@ class _WholeSubCategoryViewState extends State<WholeSubCategoryView>
                                       ),
                                       Expanded(
                                         child: TabBarView(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
                                             controller: tabController,
                                             children: List.generate(
                                               widget.subCategories.length,
