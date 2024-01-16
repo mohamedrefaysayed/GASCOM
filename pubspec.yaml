@@ -93,5 +93,5 @@ flutter:
   fonts:
     - family: SegoeUI
       fonts:
-        - asset: assets/fonts/Segoe.UI.ttf
+        - asset: assets/fonts/SegoeUI.ttf
 

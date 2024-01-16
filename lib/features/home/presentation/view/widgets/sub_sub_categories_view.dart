@@ -8,7 +8,6 @@ import 'package:dinar_store/features/home/data/models/categories_model.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/sub_category_container_home.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/categories_place_holder_home.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/search_rows/search_row.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/products_view.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/whole_sub_category_view.dart';
 import 'package:dinar_store/features/home/presentation/view_model/sub_sub_categories_cubit/sub_sub_categories_cubit.dart';
 import 'package:flutter/material.dart';
@@ -151,6 +150,8 @@ class _SubSubCategoryViewState extends State<SubSubCategoryView> {
                                                               subCategory: state
                                                                       .categories[
                                                                   index],
+                                                              subCategories: state
+                                                                  .categories,
                                                             )));
                                                       });
                                                     },
@@ -217,6 +218,8 @@ class _SubSubCategoryViewState extends State<SubSubCategoryView> {
                                                               subCategory: state
                                                                       .categories[
                                                                   index],
+                                                              subCategories: state
+                                                                  .categories,
                                                             )));
                                                       });
                                                     },

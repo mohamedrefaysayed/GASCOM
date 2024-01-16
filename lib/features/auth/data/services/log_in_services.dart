@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
 import 'package:dinar_store/core/helpers/dio_helper.dart';
 import 'package:dinar_store/core/utils/constants.dart';
@@ -70,6 +71,7 @@ class LogInServices implements LogInRepo {
 
   @override
   Future<void> storeTokenInSecureStorage({required String token}) async {
+    AppCubit.token = token;
     await _secureStorage.write(key: kSecureStorageKey, value: token);
   }
 }
