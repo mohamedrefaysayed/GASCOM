@@ -1,8 +1,6 @@
 // ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
 
 import 'package:dinar_store/core/animations/right_slide_transition.dart';
-import 'package:dinar_store/core/functions/future_delayed_navigator.dart';
-import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/data/models/categories_model.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/sub_category_container_home.dart';
@@ -132,32 +130,19 @@ class _SubSubCategoryViewState extends State<SubSubCategoryView> {
                                                 subCategory:
                                                     SubSubCategoriesCubit
                                                         .subCategories[index],
+                                                onPress: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      RightSlideTransition(
+                                                          page:
+                                                              WholeSubCategoryView(
+                                                        subCategory: state
+                                                            .categories[index],
+                                                        subCategories:
+                                                            state.categories,
+                                                      )));
+                                                },
                                               ),
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(15.w),
-                                                child: Material(
-                                                  color: AppColors.kTransparent,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      futureDelayedNavigator(
-                                                          () {
-                                                        Navigator.push(
-                                                            context,
-                                                            RightSlideTransition(
-                                                                page:
-                                                                    WholeSubCategoryView(
-                                                              subCategory: state
-                                                                      .categories[
-                                                                  index],
-                                                              subCategories: state
-                                                                  .categories,
-                                                            )));
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                              )
                                             ],
                                           );
                                         },
@@ -200,32 +185,19 @@ class _SubSubCategoryViewState extends State<SubSubCategoryView> {
                                                     SubSubCategoriesCubit
                                                             .subCategoriesSearch[
                                                         index],
+                                                onPress: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      RightSlideTransition(
+                                                          page:
+                                                              WholeSubCategoryView(
+                                                        subCategory: state
+                                                            .categories[index],
+                                                        subCategories:
+                                                            state.categories,
+                                                      )));
+                                                },
                                               ),
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(15.w),
-                                                child: Material(
-                                                  color: AppColors.kTransparent,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      futureDelayedNavigator(
-                                                          () {
-                                                        Navigator.push(
-                                                            context,
-                                                            RightSlideTransition(
-                                                                page:
-                                                                    WholeSubCategoryView(
-                                                              subCategory: state
-                                                                      .categories[
-                                                                  index],
-                                                              subCategories: state
-                                                                  .categories,
-                                                            )));
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                              )
                                             ],
                                           );
                                         },

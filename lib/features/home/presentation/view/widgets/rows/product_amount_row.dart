@@ -6,15 +6,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductAmountRow extends StatefulWidget {
-  const ProductAmountRow(
-      {super.key,
-      required this.retailPrice,
-      required this.wholeSalePrice,
-      required this.title});
+  const ProductAmountRow({
+    super.key,
+    required this.retailPrice,
+    required this.wholeSalePrice,
+    required this.title,
+    required this.retailCount,
+    required this.wholeCount,
+    required this.totalRetailPrice,
+    required this.totalWholePrice,
+    required this.minRetail,
+    required this.maxRetail,
+    required this.minWhole,
+    required this.maxWhole,
+    required this.itemImage,
+  });
 
   final String retailPrice;
   final String wholeSalePrice;
   final String title;
+  final ValueNotifier<int> retailCount;
+  final ValueNotifier<int> wholeCount;
+  final ValueNotifier<double> totalRetailPrice;
+  final ValueNotifier<double> totalWholePrice;
+  final int minRetail;
+  final int maxRetail;
+  final int minWhole;
+  final int maxWhole;
+  final String itemImage;
 
   @override
   State<ProductAmountRow> createState() => _ProductAmountRowState();
@@ -22,13 +41,20 @@ class ProductAmountRow extends StatefulWidget {
 
 class _ProductAmountRowState extends State<ProductAmountRow> {
   bool value = false;
-  int wholeSaleCounter = 0;
-  int retailCounter = 0;
+  ValueNotifier<int> wholeSaleCounter = ValueNotifier<int>(0);
+  ValueNotifier<int> retailCounter = ValueNotifier<int>(0);
+
+  @override
+  void initState() {
+    wholeSaleCounter.value = widget.minWhole;
+    retailCounter.value = widget.minRetail;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 15.w),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -82,15 +108,17 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                   ),
                   AppDefaultButton(
                     color: AppColors.kLightGrey,
-                    height: 30.w,
-                    width: 30.w,
+                    height: 27.w,
+                    width: 27.w,
                     noFuture: true,
                     onPressed: () {
-                      setState(() {
-                        if (wholeSaleCounter > 0) {
-                          wholeSaleCounter--;
-                        }
-                      });
+                      if (wholeSaleCounter.value > widget.minWhole) {
+                        wholeSaleCounter.value--;
+                        widget.wholeCount.value--;
+                        widget.totalWholePrice.value =
+                            (widget.totalWholePrice.value -
+                                double.parse(widget.wholeSalePrice));
+                      }
                     },
                     icon: Icon(
                       Icons.remove,
@@ -101,26 +129,33 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                   SizedBox(
                     width: 5.w,
                   ),
-                  Text(
-                    wholeSaleCounter.toString(),
-                    style: TextStyles.textStyle16.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+                  ValueListenableBuilder(
+                    valueListenable: wholeSaleCounter,
+                    builder: (BuildContext context, int value, Widget? child) {
+                      return Text(
+                        wholeSaleCounter.value.toString(),
+                        style: TextStyles.textStyle16.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      );
+                    },
                   ),
                   SizedBox(
                     width: 5.w,
                   ),
                   AppDefaultButton(
                     color: AppColors.kASDCPrimaryColor.withOpacity(0.2),
-                    height: 30.w,
-                    width: 30.w,
+                    height: 27.w,
+                    width: 27.w,
                     noFuture: true,
                     onPressed: () {
-                      setState(() {
-                        if (wholeSaleCounter < 100) {
-                          wholeSaleCounter++;
-                        }
-                      });
+                      if (wholeSaleCounter.value < widget.maxWhole) {
+                        wholeSaleCounter.value++;
+                        widget.wholeCount.value++;
+                        widget.totalWholePrice.value =
+                            (widget.totalWholePrice.value +
+                                double.parse(widget.wholeSalePrice));
+                      }
                     },
                     icon: Icon(
                       Icons.add,
@@ -165,15 +200,17 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                   ),
                   AppDefaultButton(
                     color: AppColors.kLightGrey,
-                    height: 30.w,
-                    width: 30.w,
+                    height: 27.w,
+                    width: 27.w,
                     noFuture: true,
                     onPressed: () {
-                      setState(() {
-                        if (retailCounter > 0) {
-                          retailCounter--;
-                        }
-                      });
+                      if (retailCounter.value > widget.minRetail) {
+                        retailCounter.value--;
+                        widget.retailCount.value--;
+                        widget.totalRetailPrice.value =
+                            (widget.totalRetailPrice.value -
+                                double.parse(widget.retailPrice));
+                      }
                     },
                     icon: Icon(
                       Icons.remove,
@@ -184,26 +221,33 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                   SizedBox(
                     width: 5.w,
                   ),
-                  Text(
-                    retailCounter.toString(),
-                    style: TextStyles.textStyle16.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+                  ValueListenableBuilder(
+                    valueListenable: retailCounter,
+                    builder: (BuildContext context, int value, Widget? child) {
+                      return Text(
+                        retailCounter.value.toString(),
+                        style: TextStyles.textStyle16.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      );
+                    },
                   ),
                   SizedBox(
                     width: 5.w,
                   ),
                   AppDefaultButton(
                     color: AppColors.kASDCPrimaryColor.withOpacity(0.2),
-                    height: 30.w,
-                    width: 30.w,
+                    height: 27.w,
+                    width: 27.w,
                     noFuture: true,
                     onPressed: () {
-                      setState(() {
-                        if (retailCounter < 100) {
-                          retailCounter++;
-                        }
-                      });
+                      if (retailCounter.value < widget.maxRetail) {
+                        retailCounter.value++;
+                        widget.retailCount.value++;
+                        widget.totalRetailPrice.value =
+                            (widget.totalRetailPrice.value +
+                                double.parse(widget.retailPrice));
+                      }
                     },
                     icon: Icon(
                       Icons.add,
@@ -231,9 +275,9 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
           ClipRRect(
             borderRadius: BorderRadius.circular(10.w),
             child: MyCachedNetworkImage(
-              width: 80.w,
-              height: 80.w,
-              url: 'images/y3OhzHofEVROPO0MP5k8xRQ4I5EFg6M28FARKfwZ.jpg',
+              width: 60.w,
+              height: 60.w,
+              url: widget.itemImage,
               errorIcon: Icon(
                 Icons.image,
                 size: 20.w,

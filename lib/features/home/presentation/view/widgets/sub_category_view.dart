@@ -2,7 +2,6 @@
 
 import 'package:dinar_store/core/animations/right_slide_transition.dart';
 import 'package:dinar_store/core/functions/future_delayed_navigator.dart';
-import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/data/models/categories_model.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/sub_category_container_home.dart';
@@ -128,31 +127,19 @@ class _SubCategoryViewState extends State<SubCategoryView> {
                                               SubCategoryContainerHome(
                                                 subCategory: SubCategoriesCubit
                                                     .subCategories[index],
+                                                onPress: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      RightSlideTransition(
+                                                          page:
+                                                              SubSubCategoryView(
+                                                        subcategory:
+                                                            SubCategoriesCubit
+                                                                    .subCategories[
+                                                                index],
+                                                      )));
+                                                },
                                               ),
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(15.w),
-                                                child: Material(
-                                                  color: AppColors.kTransparent,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      futureDelayedNavigator(
-                                                          () {
-                                                        Navigator.push(
-                                                            context,
-                                                            RightSlideTransition(
-                                                                page:
-                                                                    SubSubCategoryView(
-                                                              subcategory:
-                                                                  SubCategoriesCubit
-                                                                          .subCategories[
-                                                                      index],
-                                                            )));
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                              )
                                             ],
                                           );
                                         },
@@ -192,31 +179,21 @@ class _SubCategoryViewState extends State<SubCategoryView> {
                                               SubCategoryContainerHome(
                                                 subCategory: SubCategoriesCubit
                                                     .subCategoriesSearch[index],
+                                                onPress: () {
+                                                  futureDelayedNavigator(() {
+                                                    Navigator.push(
+                                                        context,
+                                                        RightSlideTransition(
+                                                            page:
+                                                                SubSubCategoryView(
+                                                          subcategory:
+                                                              SubCategoriesCubit
+                                                                      .subCategories[
+                                                                  index],
+                                                        )));
+                                                  });
+                                                },
                                               ),
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(15.w),
-                                                child: Material(
-                                                  color: AppColors.kTransparent,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      futureDelayedNavigator(
-                                                          () {
-                                                        Navigator.push(
-                                                            context,
-                                                            RightSlideTransition(
-                                                                page:
-                                                                    SubSubCategoryView(
-                                                              subcategory:
-                                                                  SubCategoriesCubit
-                                                                          .subCategories[
-                                                                      index],
-                                                            )));
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                              )
                                             ],
                                           );
                                         },

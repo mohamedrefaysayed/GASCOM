@@ -21,7 +21,7 @@ class PhoneBuilder extends StatelessWidget {
     return Column(
       children: [
         Text(
-          "يجب ان يكون رقمك الهاتف مسجل بالواتساب",
+          "يجب ان يكون رقم الهاتف مسجل بالواتساب",
           style: TextStyles.textStyle16.copyWith(
             fontWeight: FontWeight.w900,
           ),

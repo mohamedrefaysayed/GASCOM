@@ -18,20 +18,20 @@ class ManageNavigationCubit extends Cubit<ManageNavigationState> {
   late FlutterSecureStorage _secureStorage;
 
   Future<void> getAppData(BuildContext context) async {
-    await showPermissions();
-
     String? token = await _secureStorage.read(key: kSecureStorageKey);
 
     if (token != null) {
       AppCubit.token = token;
     } else {
-      token =
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxMSIsImp0aSI6ImM3MWFjYWE2Yjg4NDBhZjUzMjQ5OTAxNTM4ZmI2YmE2MTRkMGM4NzJjMDFhZDVhYjhmNTM3ZTk3NzgzMDA4OGJhNTA2ZGQ4ZGE3ZDA0ZGVlIiwiaWF0IjoxNzA1NDM2NzI5LjAxODU2NCwibmJmIjoxNzA1NDM2NzI5LjAxODU2NiwiZXhwIjozMzIzMDgwOTUyOC45MzExOTQsInN1YiI6IjU2Iiwic2NvcGVzIjpbXX0.EXUR5ZppFmjhK8lh0LBJiP0CCID6DgOk7qFQv414qEOrXA4NsAt3MKf_L0FNuB1Scta7eEflf-rD6oejGJwNDdvELc9D9cIYdoRxymUMK5IxCOdh4dbsher8GB_q_TTO57gPNu8TPh7WhbzsbGnS3tfCvG1g0PWBhf7BtaxhBvy50CFVbKLGNMYTY3mmLDHpS09IaymRj0kaiiwlTQc6WLuM9qdKLac4oYr3AeytqUM-2YOY5EcqAzPyx3uOSbBQ7xmRvxE_DDj25HcCaB3nSver084lLPBXwA7LRQkYlLgT42cMzR0krCtIaUQyElr72PYAATVveqv278PTWEndlJozE42VV75ljW3iqxKYolTRXXMsV4wc9laGALE6qjpgCsm-VnV_l3KrH-jHg-SyrqQTF7JES9oPg-_f0UnaYe4vHGJ3ORmfarqhHncylWc8w3-vRsz95W161hcYTj8JlrlBHRe-_5JWIqrEt-SrRI0z-VWlK_TDTi1rGYQ-fmez3Utc5tvsuhZTKFAJQb59WLYKTiJTsAAdS77jyWmfQCPv2LI_stOfckT3OMrXzV0Gz2cD0z9TS6hCMJI8wrTCRyOZIYgdSGiPh3yS0mw91gCMwO7iQ2TW3VBKH0fu5ua1XDqM5oH1YB2ZtVOOMhXiv9j7d6PyqxPboByZLZB99Mc';
+      AppCubit.token =
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxMSIsImp0aSI6ImNmMTFmZGQ2YThkMzI5ZGVjNWNkNGNhNjExMmEyZTQ0NWRkNWI1MDVhYmFjOWFmMDM4OWUxMTc3MmI2ZmNhOGI0NWEwNjNhZjQ4OTRhYTQ5IiwiaWF0IjoxNzA1NTU4MjU1LjQwOTU5MiwibmJmIjoxNzA1NTU4MjU1LjQwOTU5MywiZXhwIjozMzIzMDkzMTA1NS4zNzc3Mywic3ViIjoiODIiLCJzY29wZXMiOltdfQ.Y0qReE8N6M65F_ELeh5rH1HjC50EX5rdcoSZLBLDWFVsJitV4vC0rPImOa0GyTrclANRE1iiQ1HVbvx8FaAFsYSwpLWDfxCbglo-C_dTbxqAANvB53NxFpUWm1bEMr5JV_-2EArXbY0UmUxbZV39INv7bu3GUkIXhl0at6t8jm04-O7oM8orcMYvAIYzcBPg2KhuRgWGU0Cs8-7pOPNShpOXu6_BIvrtp9c6SRVfS1wLfOkXDMkKs5ExvwpkKBtXtJC8E8Mk3znqieyzEGKvutCA7UG1aPo6l9kgzLovFO95uMUf-UTA4MYRFPzPKCpGXJgvdmB24-3-xOCBx67JzK2jgWl25HBB9AV_1Bq3b8UjEdKwgBPZihZ4buAe3OiZPPnQ6aTUNOTKbj_FAc7Y6gjlsSy7KzSjD5eZmaRFwpXc1xknsys3Huq99Pa2d-SgUToAJ-GcoDFZyBu4ji8uQxu-83fYSkTFEuautbG2YBPQ9ImUTgLo18-UV7k7W3srxOnpLObWV-bwOvWddVQjPXCKyiCRNMGluoyCAum5_M3cXxaTcucU0xrNLDWkup5ajsmz-JBxc1qN1zOe6bgFKqHlT3aq1YFYu_tZSPQ-etMWMo86H7pSUnOkwq--hxOmwiFhjapkkZodwGo--gxaQ8bBAdLBuBb6Ep_Tg21gbLg";
     }
 
     if (kDebugMode) {
       print(token);
     }
+
+    await showPermissions();
 
     emit(NavigateToLogInView());
 

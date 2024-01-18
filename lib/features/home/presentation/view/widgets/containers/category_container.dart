@@ -4,6 +4,7 @@ import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/data/models/categories_model.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/sub_category_container_home.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/sub_category_view.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/sub_sub_categories_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -53,20 +54,15 @@ class CategoryContainer extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              SizedBox(
-                width: 300.w,
-                child: Text(
-                  category.description!,
-                  style: TextStyles.textStyle12.copyWith(
-                      fontWeight: FontWeight.w400, color: Colors.grey),
-                  overflow: TextOverflow.ellipsis,
-                  textDirection: TextDirection.rtl,
-                ),
-              ),
-            ],
+          SizedBox(
+            width: 300.w,
+            child: Text(
+              category.description!,
+              style: TextStyles.textStyle12
+                  .copyWith(fontWeight: FontWeight.w400, color: Colors.grey),
+              overflow: TextOverflow.ellipsis,
+              textDirection: TextDirection.rtl,
+            ),
           ),
           SizedBox(
             height: 10.h,
@@ -92,6 +88,14 @@ class CategoryContainer extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return SubCategoryContainerHome(
                         subCategory: category.subCategories![index],
+                        onPress: () {
+                          Navigator.push(
+                              context,
+                              RightSlideTransition(
+                                  page: SubSubCategoryView(
+                                      subcategory:
+                                          category.subCategories![index])));
+                        },
                       );
                     },
                   ),

@@ -50,15 +50,23 @@ class SubCategoryContainer extends StatelessWidget {
               SizedBox(
                 width: 200.w,
                 child: Text(
+                  subCategory.categoryName!,
+                  style: TextStyles.textStyle14.copyWith(
+                    fontWeight: FontWeight.w400,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  textDirection: TextDirection.rtl,
+                ),
+              ),
+              SizedBox(
+                width: 200.w,
+                child: Text(
                   subCategory.description!,
                   style: TextStyles.textStyle10.copyWith(
                       fontWeight: FontWeight.w400, color: Colors.grey),
                   overflow: TextOverflow.ellipsis,
                   textDirection: TextDirection.rtl,
                 ),
-              ),
-              SizedBox(
-                height: 10.h,
               ),
             ],
           ),

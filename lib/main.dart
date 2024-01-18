@@ -5,11 +5,13 @@ import 'package:dinar_store/core/utils/constants.dart';
 import 'package:dinar_store/features/auth/data/services/log_in_services.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/log_in_cubit/log_in_cubit.dart';
 import 'package:dinar_store/features/home/data/services/ads_services.dart';
+import 'package:dinar_store/features/home/data/services/cart_services.dart';
 import 'package:dinar_store/features/home/data/services/categories_services.dart';
 import 'package:dinar_store/features/home/data/services/companies_services.dart';
 import 'package:dinar_store/features/home/data/services/sub_categories_services.dart';
 import 'package:dinar_store/features/home/presentation/view_model/ads_cubit/ads_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/bottom_nav_cubit.dart/cubit/bottton_nav_bar_cubit.dart';
+import 'package:dinar_store/features/home/presentation/view_model/cart_cubit/cubit/cart_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/categories_cubit/categories_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/companies_cubit/companies_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/sub_categories_cubit/sub_categories_cubit.dart';
@@ -22,7 +24,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -85,25 +86,28 @@ class MyApp extends StatelessWidget {
             dioHelper: DioHelper(),
           )),
         ),
+        BlocProvider(
+          create: (context) => CartCubit(
+              cartServices: CartServices(
+            dioHelper: DioHelper(),
+          )),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 811),
         minTextAdapt: true,
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Dinar',
-            theme: ThemeData(
-              fontFamily: 'SegoeUI',
-              scaffoldBackgroundColor: Colors.white,
-              colorScheme:
-                  ColorScheme.fromSeed(seedColor: AppColors.kASDCPrimaryColor),
-              useMaterial3: true,
-            ),
-            initialRoute: '/',
-            routes: AppRoutes.routes,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Dinar',
+          theme: ThemeData(
+            fontFamily: 'SegoeUI',
+            scaffoldBackgroundColor: Colors.white,
+            colorScheme:
+                ColorScheme.fromSeed(seedColor: AppColors.kASDCPrimaryColor),
+            useMaterial3: true,
           ),
+          initialRoute: '/',
+          routes: AppRoutes.routes,
         ),
       ),
     );
