@@ -366,11 +366,11 @@ class _ProductViewState extends State<ProductView> {
                           flex: 1,
                           child: BlocConsumer<CartCubit, CartState>(
                             listener: (context, state) {
-                              if (state is CartFailuer) {
+                              if (state is AddToCartFailuer) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     messageSnackBar(message: state.errMessage));
                               }
-                              if (state is CartSuccess) {
+                              if (state is AddToCartSuccess) {
                                 Navigator.pop(context);
 
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -379,7 +379,7 @@ class _ProductViewState extends State<ProductView> {
                               }
                             },
                             builder: (context, state) {
-                              if (state is CartLoading) {
+                              if (state is AddToCartLoading) {
                                 return const AppLoadingButton();
                               }
                               return AppDefaultButton(

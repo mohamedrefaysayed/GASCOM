@@ -55,6 +55,7 @@ dependencies:
   carousel_slider: ^4.2.1
   shimmer: ^3.0.0
   vertical_tabs_flutter: ^1.0.0
+  dotted_border: ^2.1.0
 
 
 

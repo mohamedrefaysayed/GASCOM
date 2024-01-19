@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
+import 'package:dinar_store/features/home/data/models/cart_items_model.dart';
 import 'package:dinar_store/features/home/data/services/cart_services.dart';
 
 part 'cart_state.dart';
@@ -13,13 +14,37 @@ class CartCubit extends Cubit<CartState> {
 
   late CartServices _cartServices;
 
+  static CartItemsModel cartItemsModel = CartItemsModel();
+
+  getAllItems() async {
+    emit(GetCartLoading());
+    Either<ServerFailure, CartItemsModel> result =
+        await _cartServices.getAllItems(
+      token: AppCubit.token!,
+    );
+
+    result.fold(
+      //error
+      (serverFailure) {
+        emit(
+          GetCartFailuer(errMessage: serverFailure.errMessage),
+        );
+      },
+      //success
+      (cartItems) async {
+        cartItemsModel = cartItems;
+        emit(GetCartSuccess(cartItemsModel: cartItems));
+      },
+    );
+  }
+
   storeItem({
     required int productId,
     required int quantity,
     required int unitId,
     required double price,
   }) async {
-    emit(CartLoading());
+    emit(AddToCartLoading());
     Either<ServerFailure, void> result = await _cartServices.storeItem(
       token: AppCubit.token!,
       productId: productId,
@@ -32,12 +57,64 @@ class CartCubit extends Cubit<CartState> {
       //error
       (serverFailure) {
         emit(
-          CartFailuer(errMessage: serverFailure.errMessage),
+          AddToCartFailuer(errMessage: serverFailure.errMessage),
         );
       },
       //success
       (categoriesModel) async {
-        emit(CartSuccess());
+        emit(AddToCartSuccess());
+      },
+    );
+  }
+
+  updateItem({
+    required int productId,
+    required int quantity,
+    required int unitId,
+    required double price,
+  }) async {
+    emit(UpdateItemLoading());
+    Either<ServerFailure, void> result = await _cartServices.storeItem(
+      token: AppCubit.token!,
+      productId: productId,
+      quantity: quantity,
+      unitId: unitId,
+      price: price,
+    );
+
+    result.fold(
+      //error
+      (serverFailure) {
+        emit(
+          UpdateItemFailuer(errMessage: serverFailure.errMessage),
+        );
+      },
+      //success
+      (categoriesModel) async {
+        emit(UpdateItemSuccess());
+      },
+    );
+  }
+
+  deleteItem({
+    required int itemId,
+  }) async {
+    emit(DeleteItemLoading());
+    Either<ServerFailure, void> result = await _cartServices.deleteItem(
+      token: AppCubit.token!,
+      itemId: itemId,
+    );
+
+    result.fold(
+      //error
+      (serverFailure) {
+        emit(
+          DeleteItemFailuer(errMessage: serverFailure.errMessage),
+        );
+      },
+      //success
+      (categoriesModel) async {
+        emit(DeleteItemSuccess());
       },
     );
   }

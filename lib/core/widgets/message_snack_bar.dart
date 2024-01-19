@@ -12,7 +12,7 @@ SnackBar messageSnackBar(
     elevation: 20,
     // backgroundColor: color ?? backgroudnColor,
     backgroundColor: Colors.white,
-    margin: EdgeInsets.only(right: 24.w, left: 24.w, bottom: 700.h),
+    margin: EdgeInsets.only(right: 24.w, left: 24.w, bottom: 650.h),
     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 12.h),
     behavior: SnackBarBehavior.floating,
     dismissDirection: DismissDirection.up,
