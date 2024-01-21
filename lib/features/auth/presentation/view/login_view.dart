@@ -52,16 +52,16 @@ class LogInView extends StatelessWidget {
                       },
                     ),
                     const Spacer(),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, '/BottomNavBarView', (route) => false);
-                        },
-                        child: Text(
-                          "تخطى",
-                          style: TextStyles.textStyle18
-                              .copyWith(color: Colors.grey),
-                        ))
+                    // TextButton(
+                    //     onPressed: () {
+                    //       Navigator.pushNamedAndRemoveUntil(
+                    //           context, '/BottomNavBarView', (route) => false);
+                    //     },
+                    //     child: Text(
+                    //       "تخطى",
+                    //       style: TextStyles.textStyle18
+                    //           .copyWith(color: Colors.grey),
+                    //     ))
                   ],
                 ),
                 SizedBox(
