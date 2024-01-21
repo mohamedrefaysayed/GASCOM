@@ -3,16 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-SnackBar messageSnackBar(
-    {required String message,
-    Color? color,
-    String? imagePath,
-    bool? isWalkieTalkie}) {
+SnackBar messageSnackBar({
+  required String message,
+  Color? color,
+  String? imagePath,
+  bool? isBottomNavBar,
+}) {
   return SnackBar(
     elevation: 20,
     // backgroundColor: color ?? backgroudnColor,
     backgroundColor: Colors.white,
-    margin: EdgeInsets.only(right: 24.w, left: 24.w, bottom: 650.h),
+    margin: EdgeInsets.only(
+        right: 24.w,
+        left: 24.w,
+        bottom:
+            (isBottomNavBar != null && isBottomNavBar == true) ? 650.h : 700.h),
     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 12.h),
     behavior: SnackBarBehavior.floating,
     dismissDirection: DismissDirection.up,

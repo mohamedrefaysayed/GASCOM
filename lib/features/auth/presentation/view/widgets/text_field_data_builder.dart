@@ -5,18 +5,23 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextFieldDataBulder extends StatelessWidget {
-  const TextFieldDataBulder(
-      {super.key,
-      required this.title,
-      required this.onChanged,
-      this.validator,
-      this.inputFormatters});
+  const TextFieldDataBulder({
+    super.key,
+    required this.title,
+    required this.onChanged,
+    this.validator,
+    this.inputFormatters,
+    required this.controller,
+    this.keyType,
+  });
 
   final String title;
 
   final void Function(String) onChanged;
   final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
+  final TextEditingController controller;
+  final TextInputType? keyType;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +39,8 @@ class TextFieldDataBulder extends StatelessWidget {
           ),
           SizedBox(
             child: TextFormField(
+              keyboardType: keyType,
+              controller: controller,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: validator,
               onChanged: onChanged,

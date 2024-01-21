@@ -6,6 +6,7 @@ import 'package:dinar_store/core/utils/constants.dart';
 import 'package:dinar_store/features/auth/data/repos/log_in_repo.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:geolocator/geolocator.dart';
 
 class LogInServices implements LogInRepo {
   LogInServices({
@@ -58,6 +59,42 @@ class LogInServices implements LogInRepo {
         endPoint: 'verify',
       );
       return right(data);
+    } on DioException catch (error) {
+      return left(
+        ServerFailure.fromDioException(dioException: error),
+      );
+    } catch (error) {
+      return left(
+        ServerFailure(errMessage: error.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, void>> storeData({
+    required String ownerName,
+    required String storeName,
+    required String district,
+    required String address,
+    required String phone,
+    required Position position,
+    required String token,
+  }) async {
+    try {
+      await _dioHelper.postRequest(
+        token: token,
+        body: {
+          'owner_name': ownerName,
+          'store_name': storeName,
+          'district': district,
+          'address': address,
+          'phone': phone,
+          'lng': position.longitude,
+          'lat': position.latitude,
+        },
+        endPoint: 'store',
+      );
+      return right(null);
     } on DioException catch (error) {
       return left(
         ServerFailure.fromDioException(dioException: error),

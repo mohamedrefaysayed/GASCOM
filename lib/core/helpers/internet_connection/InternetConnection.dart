@@ -15,7 +15,8 @@ extension InternetConnection on BuildContext {
         ScaffoldMessenger.of(this).showSnackBar(messageSnackBar(
             message: "online",
             color: Colors.green,
-            imagePath: "assets/images/retriveConnection.svg"));
+            imagePath: "assets/images/retriveConnection.svg",
+            isBottomNavBar: true));
         noConnection.value = false;
       }
     } else {
@@ -23,7 +24,8 @@ extension InternetConnection on BuildContext {
         ScaffoldMessenger.of(this).showSnackBar(messageSnackBar(
             message: "offline",
             color: Colors.red,
-            imagePath: "assets/images/lostConnection.svg"));
+            imagePath: "assets/images/lostConnection.svg",
+            isBottomNavBar: true));
         noConnection.value = true;
       }
     }
@@ -33,14 +35,16 @@ extension InternetConnection on BuildContext {
     ScaffoldMessenger.of(this).showSnackBar(messageSnackBar(
         message: "offline",
         color: Colors.red,
-        imagePath: "assets/images/lostConnection.svg"));
+        imagePath: "assets/images/lostConnection.svg",
+        isBottomNavBar: true));
   }
 
   ConnectionMessage() {
     ScaffoldMessenger.of(this).showSnackBar(messageSnackBar(
         message: "online",
         color: Colors.green,
-        imagePath: "assets/images/retriveConnection.svg"));
+        imagePath: "assets/images/retriveConnection.svg",
+        isBottomNavBar: true));
   }
 
   noConnectionBody() {

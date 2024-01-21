@@ -16,14 +16,6 @@ class LogInCubit extends Cubit<LogInState> {
 
   late LogInServices _logInServices;
 
-  static GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  static TextEditingController nameController = TextEditingController();
-  static TextEditingController marketNameController = TextEditingController();
-  static TextEditingController govController = TextEditingController();
-  static TextEditingController addressController = TextEditingController();
-  static TextEditingController marketPhoneController = TextEditingController();
-
   static PhoneNumber? phoneNumber;
   static String? code;
   static String? fakeCode;

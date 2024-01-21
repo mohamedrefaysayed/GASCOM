@@ -7,6 +7,8 @@ import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/auth/presentation/view/widgets/text_field_data_builder.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/location_cubit/cubit/location_cubit.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/log_in_cubit/log_in_cubit.dart';
+import 'package:dinar_store/features/auth/presentation/view_model/store_data_cubit/store_data_cubit.dart';
+import 'package:dinar_store/features/home/presentation/view/bottom_nav_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +32,7 @@ class LoginData extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.w),
             child: Form(
-              key: LogInCubit.formKey,
+              key: StoreDataCubit.formKey,
               autovalidateMode: AutovalidateMode.disabled,
               child: ListView(
                 children: [
@@ -52,6 +54,7 @@ class LoginData extends StatelessWidget {
                     height: 50.h,
                   ),
                   TextFieldDataBulder(
+                    controller: StoreDataCubit.nameController,
                     title: 'الاسم الثلاثي لصاحب العمل',
                     onChanged: (value) {},
                     validator: (v) {
@@ -62,6 +65,7 @@ class LoginData extends StatelessWidget {
                     },
                   ),
                   TextFieldDataBulder(
+                    controller: StoreDataCubit.marketNameController,
                     title: 'أسم الماركت ',
                     onChanged: (value) {},
                     validator: (v) {
@@ -72,6 +76,7 @@ class LoginData extends StatelessWidget {
                     },
                   ),
                   TextFieldDataBulder(
+                    controller: StoreDataCubit.govController,
                     title: 'المحافظة',
                     onChanged: (value) {},
                     validator: (v) {
@@ -82,6 +87,7 @@ class LoginData extends StatelessWidget {
                     },
                   ),
                   TextFieldDataBulder(
+                    controller: StoreDataCubit.addressController,
                     title: 'العنوان الكامل مع اقرب نقطة دالة',
                     onChanged: (value) {},
                     validator: (v) {
@@ -92,6 +98,8 @@ class LoginData extends StatelessWidget {
                     },
                   ),
                   TextFieldDataBulder(
+                    keyType: TextInputType.number,
+                    controller: StoreDataCubit.marketPhoneController,
                     title: 'رقم هاتف الماركت(العمل)',
                     onChanged: (value) {},
                     validator: (v) {
@@ -148,22 +156,45 @@ class LoginData extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.h),
-                    child: AppDefaultButton(
-                      textStyle: TextStyles.textStyle16.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.w700),
-                      onPressed: () {
-                        if (LocationCubit.currentPosition != null) {
-                          if (LogInCubit.formKey.currentState!.validate()) {
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, '/BottomNavBarView', (route) => false);
-                          }
-                        } else {
+                    child: BlocConsumer<StoreDataCubit, StoreDataState>(
+                      listener: (context, state) {
+                        if (state is StoreDataSuccess) {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, BottomNavBarView.id, (route) => false);
                           ScaffoldMessenger.of(context).showSnackBar(
-                              messageSnackBar(message: "حدد الموقع"));
+                              messageSnackBar(
+                                  message: "تم الحفظ بنجاح !",
+                                  isBottomNavBar: true));
+                        }
+                        if (state is StoreDataFailure) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              messageSnackBar(message: state.errMessage));
                         }
                       },
-                      title: 'حفظ',
-                      color: AppColors.kASDCPrimaryColor,
+                      builder: (context, state) {
+                        if (state is StoreDataLoading) {
+                          return AppLoadingButton(
+                            width: 10.w,
+                          );
+                        }
+                        return AppDefaultButton(
+                          textStyle: TextStyles.textStyle16.copyWith(
+                              color: Colors.white, fontWeight: FontWeight.w700),
+                          onPressed: () {
+                            if (LocationCubit.currentPosition != null) {
+                              if (StoreDataCubit.formKey.currentState!
+                                  .validate()) {
+                                context.read<StoreDataCubit>().storeData();
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  messageSnackBar(message: "حدد الموقع"));
+                            }
+                          },
+                          title: 'حفظ',
+                          color: AppColors.kASDCPrimaryColor,
+                        );
+                      },
                     ),
                   ),
                 ],

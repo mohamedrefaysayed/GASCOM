@@ -4,6 +4,8 @@ import 'package:dinar_store/core/utils/app_routes.dart';
 import 'package:dinar_store/core/utils/constants.dart';
 import 'package:dinar_store/features/auth/data/services/log_in_services.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/log_in_cubit/log_in_cubit.dart';
+import 'package:dinar_store/features/auth/presentation/view_model/log_out_cubit/log_out_cubit.dart';
+import 'package:dinar_store/features/auth/presentation/view_model/store_data_cubit/store_data_cubit.dart';
 import 'package:dinar_store/features/home/data/services/ads_services.dart';
 import 'package:dinar_store/features/home/data/services/cart_services.dart';
 import 'package:dinar_store/features/home/data/services/categories_services.dart';
@@ -90,6 +92,20 @@ class MyApp extends StatelessWidget {
           create: (context) => CartCubit(
               cartServices: CartServices(
             dioHelper: DioHelper(),
+          )),
+        ),
+        BlocProvider(
+          create: (context) => StoreDataCubit(
+              logInServices: LogInServices(
+            dioHelper: DioHelper(),
+            secureStorage: const FlutterSecureStorage(),
+          )),
+        ),
+        BlocProvider(
+          create: (context) => LogOutCubit(
+              logInServices: LogInServices(
+            dioHelper: DioHelper(),
+            secureStorage: const FlutterSecureStorage(),
           )),
         ),
       ],

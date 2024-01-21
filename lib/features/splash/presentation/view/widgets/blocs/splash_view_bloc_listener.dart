@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:dinar_store/features/auth/presentation/view/login_view.dart';
+import 'package:dinar_store/features/home/presentation/view/bottom_nav_view.dart';
 import 'package:dinar_store/features/splash/presentation/view/widgets/columns/splash_view_body_column.dart';
 import 'package:dinar_store/features/splash/presentation/view_model/manage_navigation_cubit/manage_navigation_cubit.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,10 @@ class _SplashViewBlocListenerState extends State<SplashViewBlocListener> {
         if (state is NavigateToLogInView) {
           Navigator.pushReplacementNamed(context, LogInView.id);
         }
-        // if (state is NavigateToNavBarView) {
-        //   Navigator.pushReplacementNamed(context, HomeView.id);
-        // } else if (state is NavigateToLogInView) {
+        if (state is NavigateToNavBarView) {
+          Navigator.pushReplacementNamed(context, BottomNavBarView.id);
+        }
+        // else if (state is NavigateToLogInView) {
         //   Navigator.pushReplacementNamed(context, LogInView.id);
         // } else if (state is NavigateToQrView) {
         //   Navigator.pushReplacementNamed(context, QrCodeAuthView.id);
