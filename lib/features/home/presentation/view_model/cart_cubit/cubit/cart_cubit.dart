@@ -16,6 +16,9 @@ class CartCubit extends Cubit<CartState> {
 
   static CartItemsModel cartItemsModel = CartItemsModel();
 
+  static double totalPrice = 0;
+  static double totalDiscount = 0;
+
   getAllItems() async {
     emit(GetCartLoading());
     Either<ServerFailure, CartItemsModel> result =
@@ -32,6 +35,10 @@ class CartCubit extends Cubit<CartState> {
       },
       //success
       (cartItems) async {
+        for (var element in cartItems.cart!) {
+          totalPrice = totalPrice +
+              (double.parse(element.price!) * double.parse(element.quantity!));
+        }
         cartItemsModel = cartItems;
         emit(GetCartSuccess(cartItemsModel: cartItems));
       },

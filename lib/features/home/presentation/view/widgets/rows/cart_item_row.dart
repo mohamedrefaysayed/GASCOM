@@ -32,11 +32,14 @@ class CartItemRow extends StatelessWidget {
                       listener: (context, state) {
                         if (state is DeleteItemFailuer) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                              messageSnackBar(message: state.errMessage));
+                              messageSnackBar(
+                                  message: state.errMessage,
+                                  isBottomNavBar: true));
                         }
                         if (state is DeleteItemSuccess) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                              messageSnackBar(message: "تم الحذف"));
+                              messageSnackBar(
+                                  message: "تم الحذف", isBottomNavBar: true));
                         }
                       },
                       builder: (context, state) {

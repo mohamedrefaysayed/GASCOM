@@ -2,7 +2,6 @@
 
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/app_images.dart';
-import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/auth/presentation/view/widgets/code_builder.dart';
 import 'package:dinar_store/features/auth/presentation/view/widgets/phone_builder.dart';

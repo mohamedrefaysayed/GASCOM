@@ -1,4 +1,4 @@
-// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member, use_build_context_synchronously
 
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
@@ -389,14 +389,15 @@ class _ProductViewState extends State<ProductView> {
                                   color: Colors.white,
                                   size: 20.w,
                                 ),
-                                onPressed: () {
-                                  context.read<CartCubit>().storeItem(
+                                onPressed: () async {
+                                  await context.read<CartCubit>().storeItem(
                                         productId: widget.product.id!,
                                         quantity: retailCount.value,
                                         unitId: int.parse(
                                             widget.product.retailUnitId!),
                                         price: totalRetailPrice.value,
                                       );
+                                  context.read<CartCubit>().getAllItems();
                                 },
                                 title: 'إضافة إلى عربة التسوق',
                                 textStyle: TextStyles.textStyle12.copyWith(

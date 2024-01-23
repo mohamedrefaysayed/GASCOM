@@ -35,8 +35,8 @@ class _CartViewState extends State<CartView> {
         child: BlocConsumer<CartCubit, CartState>(
           listener: (context, state) {
             if (state is GetCartFailuer) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(messageSnackBar(message: state.errMessage));
+              ScaffoldMessenger.of(context).showSnackBar(messageSnackBar(
+                  message: state.errMessage, isBottomNavBar: true));
             }
           },
           builder: (context, state) {
@@ -113,6 +113,7 @@ class _CartViewState extends State<CartView> {
                     padding: EdgeInsets.zero,
                     children: [
                       ListView.builder(
+                        reverse: true,
                         physics: const NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
@@ -278,7 +279,7 @@ class _CartViewState extends State<CartView> {
                             Row(
                               children: [
                                 Text(
-                                  '\$89.29',
+                                  "\$${CartCubit.totalPrice}",
                                   style: TextStyles.textStyle14.copyWith(
                                     fontWeight: FontWeight.w700,
                                   ),
