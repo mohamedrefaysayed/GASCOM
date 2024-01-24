@@ -9,7 +9,7 @@ import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/presentation/view/cart_view.dart';
 import 'package:dinar_store/features/home/presentation/view/categories_view.dart';
 import 'package:dinar_store/features/home/presentation/view/home_view.dart';
-import 'package:dinar_store/features/home/presentation/view/setting_view.dart';
+import 'package:dinar_store/features/home/presentation/view/profile_view.dart';
 import 'package:dinar_store/features/home/presentation/view_model/bottom_nav_cubit.dart/cubit/bottton_nav_bar_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,7 +47,7 @@ class _BottomNavBarViewState extends State<BottomNavBarView>
             body: IndexedStack(
               index: BottomNavBarCubit.index,
               children: const [
-                SettingView(),
+                ProfileView(),
                 Center(
                   child: Text("2"),
                 ),

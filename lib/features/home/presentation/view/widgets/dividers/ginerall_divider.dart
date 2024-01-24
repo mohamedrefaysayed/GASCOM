@@ -11,7 +11,9 @@ class GeneralDivider extends StatelessWidget {
       child: Container(
         height: 10.h,
         width: double.infinity,
-        color: const Color(0xffF8F9FD),
+        decoration: BoxDecoration(
+            color: const Color(0xffF8F9FD),
+            borderRadius: BorderRadius.circular(15.w)),
       ),
     );
   }

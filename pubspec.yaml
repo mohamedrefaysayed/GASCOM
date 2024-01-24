@@ -56,6 +56,10 @@ dependencies:
   shimmer: ^3.0.0
   vertical_tabs_flutter: ^1.0.0
   dotted_border: ^2.1.0
+  url_launcher: ^6.2.4
+  google_maps_flutter: ^2.5.3
+  geocoding: ^2.1.1
+
 
 
 

@@ -114,45 +114,41 @@ class LoginData extends StatelessWidget {
                       )
                     ],
                   ),
-                  BlocProvider(
-                    create: (context) => LocationCubit(),
-                    child: BlocBuilder<LocationCubit, LocationState>(
-                      builder: (context, state) {
-                        if (state is LocationLoading) {
-                          return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 40.w, vertical: 10.h),
-                              child: const AppLoadingButton());
-                        }
+                  BlocBuilder<LocationCubit, LocationState>(
+                    builder: (context, state) {
+                      if (state is LocationLoading) {
                         return Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 40.w, vertical: 10.h),
-                          child: AppDefaultButton(
-                            icon: (state is LocationSuccess)
-                                ? Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                    size: 25.w,
-                                  )
-                                : Icon(
-                                    Icons.location_on,
-                                    color: Colors.white,
-                                    size: 25.w,
-                                  ),
-                            textStyle: TextStyles.textStyle16.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                            onPressed: () async {
-                              await context
-                                  .read<LocationCubit>()
-                                  .getCurrentLocation(context: context);
-                            },
-                            title: 'تحديد موقعي',
-                            color: AppColors.kASDCPrimaryColor,
-                          ),
-                        );
-                      },
-                    ),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 40.w, vertical: 10.h),
+                            child: const AppLoadingButton());
+                      }
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 40.w, vertical: 10.h),
+                        child: AppDefaultButton(
+                          icon: (state is LocationSuccess)
+                              ? Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                  size: 25.w,
+                                )
+                              : Icon(
+                                  Icons.location_on,
+                                  color: Colors.white,
+                                  size: 25.w,
+                                ),
+                          textStyle: TextStyles.textStyle16.copyWith(
+                              color: Colors.white, fontWeight: FontWeight.w700),
+                          onPressed: () async {
+                            await context
+                                .read<LocationCubit>()
+                                .getCurrentLocation(context: context);
+                          },
+                          title: 'تحديد موقعي',
+                          color: AppColors.kASDCPrimaryColor,
+                        ),
+                      );
+                    },
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.h),
