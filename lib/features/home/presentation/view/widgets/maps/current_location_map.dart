@@ -28,6 +28,12 @@ class CurrentLocationMap extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15.w),
         child: GoogleMap(
+          markers: {
+            Marker(
+              markerId: const MarkerId('موقع المتجر'),
+              position: LatLng(lat, lng),
+            )
+          },
           myLocationEnabled: true,
           liteModeEnabled: true,
           compassEnabled: false,
