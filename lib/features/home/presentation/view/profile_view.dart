@@ -1,62 +1,98 @@
 import 'package:dinar_store/core/animations/right_slide_transition.dart';
-import 'package:dinar_store/core/utils/app_colors.dart';
-import 'package:dinar_store/core/utils/text_styles.dart';
-import 'package:dinar_store/core/widgets/app_default_button.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/containers/log_out_container.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/rows/profile_settings_row.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/setting_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
 
   @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
-        child: ListView(
-          shrinkWrap: true,
+        child: Column(
           children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: AppDefaultButton(
-                width: 150.w,
-                color: AppColors.kASDCPrimaryColor,
-                onPressed: () {
-                  Navigator.push(
-                      context, RightSlideTransition(page: const SettingView()));
-                },
-                icon: Icon(
-                  Icons.settings,
-                  size: 25.w,
-                  color: Colors.white,
-                ),
-                title: ' الاعدادات',
-                textStyle: TextStyles.textStyle14.copyWith(
-                  color: AppColors.kWhite,
-                ),
-              ),
+            SizedBox(
+              height: 100.h,
             ),
-            const GeneralDivider(),
+            ProfileSettingsRow(
+              title: 'البيانات الشخصية',
+              onTap: () {
+                Navigator.push(
+                    context, RightSlideTransition(page: const SettingView()));
+              },
+              icon: Icons.person_2_outlined,
+              wDevider: true,
+            ),
             ProfileSettingsRow(
               title: 'معلومات عن التطبيق',
               onTap: () {},
+              icon: Icons.data_object_outlined,
+              wDevider: true,
             ),
-            const GeneralDivider(),
             ProfileSettingsRow(
               title: 'معلومات عن المطوريين',
               onTap: () {},
+              icon: Icons.developer_mode_outlined,
+              wDevider: true,
             ),
-            const GeneralDivider(),
             ProfileSettingsRow(
               title: 'الدعم',
               onTap: () {},
+              icon: Icons.support_agent_outlined,
+              wDevider: true,
+            ),
+            const LogOutContainer(),
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  "assets/icons/facebook.svg",
+                  height: 20.w,
+                  width: 20.w,
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.6), BlendMode.srcATop),
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+                SvgPicture.asset(
+                  "assets/icons/instagram.svg",
+                  height: 20.w,
+                  width: 20.w,
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.6), BlendMode.srcATop),
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+                SvgPicture.asset(
+                  "assets/icons/globe.svg",
+                  height: 20.w,
+                  width: 20.w,
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.6), BlendMode.srcATop),
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

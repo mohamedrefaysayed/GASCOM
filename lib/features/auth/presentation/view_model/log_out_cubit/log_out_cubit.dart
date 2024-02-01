@@ -1,18 +1,11 @@
 import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
-import 'package:dinar_store/features/auth/data/services/log_in_services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 part 'log_out_state.dart';
 
 class LogOutCubit extends Cubit<LogOutState> {
-  LogOutCubit({
-    required LogInServices logInServices,
-  }) : super(LogOutInitial()) {
-    _logInServices = logInServices;
-  }
-
-  late LogInServices _logInServices;
+  LogOutCubit() : super(LogOutInitial());
 
   Future<void> logOut() async {
     emit(LogOutLoading());

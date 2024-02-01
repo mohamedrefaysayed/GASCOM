@@ -3,6 +3,7 @@ import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/data/models/categories_model.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/sub_category_container_home.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/sub_category_view.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/sub_sub_categories_view.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ class CategoryContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250.h,
       color: AppColors.kWhite,
       child: Column(
         children: [
@@ -46,8 +46,10 @@ class CategoryContainer extends StatelessWidget {
                 width: 200.w,
                 child: Text(
                   category.categoryName!,
-                  style: TextStyles.textStyle16
-                      .copyWith(fontWeight: FontWeight.w700),
+                  style: TextStyles.textStyle16.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16.w,
+                  ),
                   overflow: TextOverflow.ellipsis,
                   textDirection: TextDirection.rtl,
                 ),
@@ -68,7 +70,7 @@ class CategoryContainer extends StatelessWidget {
             height: 10.h,
           ),
           SizedBox(
-            height: 170.h,
+            height: 180.h,
             child: category.subCategories!.isEmpty
                 ? SizedBox(
                     height: 150.h,
@@ -99,7 +101,8 @@ class CategoryContainer extends StatelessWidget {
                       );
                     },
                   ),
-          )
+          ),
+          const GeneralDivider(),
         ],
       ),
     );

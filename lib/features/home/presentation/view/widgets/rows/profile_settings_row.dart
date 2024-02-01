@@ -1,5 +1,6 @@
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,63 +9,62 @@ class ProfileSettingsRow extends StatelessWidget {
     super.key,
     required this.title,
     required this.onTap,
+    required this.icon,
+    this.wDevider,
   });
 
   final String title;
   final void Function() onTap;
+  final IconData icon;
+  final bool? wDevider;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 10.h,
-          ),
-          child: Container(
-            height: 60.h,
-            decoration: BoxDecoration(
-                color: AppColors.kWhite,
-                borderRadius: BorderRadius.circular(15.w),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.kGrey.withOpacity(0.3),
-                    blurRadius: 10.w,
-                    spreadRadius: 5.w,
-                  )
-                ]),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              child: Row(
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Row(
                 children: [
-                  Icon(
-                    Icons.arrow_back_ios,
-                    size: 30.w,
-                    color: AppColors.kASDCPrimaryColor,
-                  ),
+                  if (wDevider != null && wDevider!)
+                    Icon(
+                      Icons.arrow_back_ios,
+                      size: 20.w,
+                      color: AppColors.kASDCPrimaryColor,
+                    ),
                   const Spacer(),
                   Text(
                     title,
                     style: TextStyles.textStyle16,
-                  )
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Icon(
+                    icon,
+                    size: 20.w,
+                    color: AppColors.kASDCPrimaryColor,
+                  ),
                 ],
               ),
-            ),
-          ),
-        ),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(15.w),
-          child: Material(
-            color: AppColors.kTransparent,
-            child: SizedBox(
-              height: 80.h,
-              child: InkWell(
-                onTap: onTap,
+              Positioned.fill(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15.w),
+                  child: Material(
+                    color: AppColors.kTransparent,
+                    child: InkWell(
+                      onTap: onTap,
+                    ),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        )
-      ],
+          if (wDevider != null && wDevider!) const GeneralDivider(),
+        ],
+      ),
     );
   }
 }

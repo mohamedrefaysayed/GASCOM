@@ -48,6 +48,7 @@ class _AddsViewState extends State<AddsView> {
                       ClipRRect(
                           borderRadius: BorderRadius.circular(15.w),
                           child: MyCachedNetworkImage(
+                            width: double.infinity,
                             url: state.adsModel.ads![itemIndex].image!,
                             errorIcon: Icon(
                               Icons.image,

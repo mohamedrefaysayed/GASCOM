@@ -32,7 +32,6 @@ class _CompaniesViewState extends State<CompaniesView> {
       builder: (context, state) {
         if (state is CompaniesSuccess) {
           return SizedBox(
-            height: 200.h,
             child: Column(
               children: [
                 Row(
@@ -40,8 +39,10 @@ class _CompaniesViewState extends State<CompaniesView> {
                   children: [
                     Text(
                       'الشركـــــــــــات',
-                      style: TextStyles.textStyle16
-                          .copyWith(fontWeight: FontWeight.w700),
+                      style: TextStyles.textStyle16.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16.w,
+                      ),
                     ),
                   ],
                 ),

@@ -37,6 +37,7 @@ class ProductContainer extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15.w),
                         child: MyCachedNetworkImage(
+                          fit: BoxFit.contain,
                           height: 70.h,
                           width: 90.w,
                           url: product.image!,

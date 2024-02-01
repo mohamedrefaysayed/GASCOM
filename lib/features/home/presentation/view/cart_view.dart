@@ -18,7 +18,8 @@ class CartView extends StatefulWidget {
   State<CartView> createState() => _CartViewState();
 }
 
-class _CartViewState extends State<CartView> {
+class _CartViewState extends State<CartView>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     context.read<CartCubit>().getAllItems();
@@ -27,6 +28,7 @@ class _CartViewState extends State<CartView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
@@ -43,15 +45,50 @@ class _CartViewState extends State<CartView> {
             if (state is GetCartLoading) {
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.w),
-                child: const AllCompaniesPlaceHolder(),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.only(right: 30.w, left: 30.w, top: 40.h),
+                      child: Row(
+                        children: [
+                          const Spacer(
+                            flex: 3,
+                          ),
+                          Text(
+                            'ســــــلة المشــــــتريات',
+                            style: TextStyles.textStyle16.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16.w,
+                            ),
+                          ),
+                          const Spacer(
+                            flex: 2,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const GeneralDivider(),
+                    const Expanded(child: AllCompaniesPlaceHolder()),
+                  ],
+                ),
               );
             }
             if (state is GetCartFailuer) {
-              return Center(
-                child: Text(
-                  "حدث خطأ",
-                  style: TextStyles.textStyle16,
-                ),
+              return ListView(
+                children: [
+                  SizedBox(
+                    height: 300.h,
+                    child: Center(
+                      child: Text(
+                        "حدث خطأ",
+                        style: TextStyles.textStyle16.copyWith(
+                          fontSize: 16.w,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               );
             }
             return Column(
@@ -97,8 +134,10 @@ class _CartViewState extends State<CartView> {
                       ),
                       Text(
                         'ســــــلة المشــــــتريات',
-                        style: TextStyles.textStyle16
-                            .copyWith(fontWeight: FontWeight.w700),
+                        style: TextStyles.textStyle16.copyWith(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16.w,
+                        ),
                       ),
                       const Spacer(
                         flex: 2,
@@ -370,4 +409,7 @@ class _CartViewState extends State<CartView> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

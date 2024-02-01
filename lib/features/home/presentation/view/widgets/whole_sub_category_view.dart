@@ -3,7 +3,6 @@
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/data/models/categories_model.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/buttons/action_icon_button.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/cachedNetworkImage/my_cached_nework_Image.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/listviews/whole_sub_category_list_view.dart';
@@ -29,8 +28,10 @@ class WholeSubCategoryView extends StatefulWidget {
 
 class _WholeSubCategoryViewState extends State<WholeSubCategoryView>
     with SingleTickerProviderStateMixin {
-  double imageHight = 350.h;
-  ScrollController scrollController = ScrollController();
+  ValueNotifier<double> imageHight = ValueNotifier(350.h);
+  ValueNotifier<ScrollController> scrollController = ValueNotifier(
+    ScrollController(initialScrollOffset: 0.0, keepScrollOffset: true),
+  );
   int initialIndex = 0;
   late TabController tabController;
 
@@ -42,25 +43,22 @@ class _WholeSubCategoryViewState extends State<WholeSubCategoryView>
       }
     }
     tabController = TabController(
-        initialIndex: initialIndex,
-        length: widget.subCategories.length,
-        vsync: this);
+      initialIndex: initialIndex,
+      length: widget.subCategories.length,
+      vsync: this,
+    );
     context
         .read<SubCategoryProductCubit>()
         .getSubCategoryWithProduct(catId: widget.subCategory.id!);
 
-    scrollController.addListener(() {
+    scrollController.value.addListener(() {
       if (SubCategoryProductCubit.subCategoryProductsModel.products!.length >
           5) {
-        if (scrollController.offset > 100) {
-          setState(() {
-            imageHight = 0;
-          });
+        if (scrollController.value.offset > 100) {
+          imageHight.value = 0;
         }
-        if (scrollController.offset == 0) {
-          setState(() {
-            imageHight = 350.h;
-          });
+        if (scrollController.value.offset == 0) {
+          imageHight.value = 350.h;
         }
       }
     });
@@ -69,184 +67,170 @@ class _WholeSubCategoryViewState extends State<WholeSubCategoryView>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: PopScope(
-        canPop: imageHight == 0 ? false : true,
-        onPopInvoked: (didPop) {
-          if (imageHight == 0) {
-            tabController.index = initialIndex;
-            SubCategoryProductCubit.subCategoriesController.clear();
-            imageHight = 350.h;
-            context
-                .read<SubCategoryProductCubit>()
-                .getSubCategoryWithProduct(catId: widget.subCategory.id!);
-            setState(() {});
-          }
-        },
-        child: Scaffold(
-          body: RefreshIndicator(
-            onRefresh: () async {
+    return ValueListenableBuilder(
+      valueListenable: imageHight,
+      builder: (BuildContext context, double imgHeight, Widget? child) {
+        return PopScope(
+          canPop: imgHeight == 0 ? false : true,
+          onPopInvoked: (didPop) {
+            if (imgHeight == 0) {
+              tabController.index = initialIndex;
+              SubCategoryProductCubit.subCategoriesController.clear();
+              imageHight.value = 350.h;
               context
                   .read<SubCategoryProductCubit>()
                   .getSubCategoryWithProduct(catId: widget.subCategory.id!);
-            },
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                children: [
-                  AnimatedContainer(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.w)),
-                    height: imageHight,
-                    duration: const Duration(milliseconds: 500),
-                    child: Stack(
-                      children: [
-                        Hero(
-                          tag: 'SubCat${widget.subCategory.id}',
-                          child: MyCachedNetworkImage(
-                            url: widget.subCategory.image!,
-                            height: imageHight,
-                            errorIcon: Icon(
-                              Icons.image,
-                              size: 150.w,
-                              color: AppColors.kASDCPrimaryColor,
-                            ),
-                            loadingWidth: 13.w,
+            }
+          },
+          child: Scaffold(
+            body: RefreshIndicator(
+              onRefresh: () async {
+                context
+                    .read<SubCategoryProductCubit>()
+                    .getSubCategoryWithProduct(catId: widget.subCategory.id!);
+              },
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    AnimatedContainer(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.w)),
+                      height: imgHeight,
+                      duration: const Duration(milliseconds: 800),
+                      child: Hero(
+                        tag: 'SubCat${widget.subCategory.id}',
+                        child: MyCachedNetworkImage(
+                          url: widget.subCategory.image!,
+                          height: imgHeight,
+                          width: double.infinity,
+                          errorIcon: Icon(
+                            Icons.image,
+                            size: 150.w,
+                            color: AppColors.kASDCPrimaryColor,
                           ),
+                          loadingWidth: 13.w,
                         ),
-                        Positioned(
-                          bottom: 0,
-                          left: 0,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 30.w),
-                            child: const Row(
-                              children: [
-                                ActionIconButton(
-                                  icon: Icons.favorite_border_outlined,
-                                ),
-                                ActionIconButton(icon: Icons.share),
-                                ActionIconButton(
-                                  icon: Icons.search,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 30.w, vertical: 15.h),
-                      child: Column(
-                        children: [
-                          imageHight == 0
-                              ? SizedBox(
-                                  height: 50.h,
-                                  child: TabBar(
-                                      controller: tabController,
-                                      onTap: (index) {
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 30.w, vertical: 15.h),
+                        child: Column(
+                          children: [
+                            AnimatedContainer(
+                              duration: const Duration(seconds: 2),
+                              height: imgHeight == 0 ? null : 0,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 50.h,
+                                    child: TabBar(
+                                        controller: tabController,
+                                        onTap: (index) {
+                                          context
+                                              .read<SubCategoryProductCubit>()
+                                              .getSubCategoryWithProduct(
+                                                  catId: widget
+                                                      .subCategories[index]
+                                                      .id!);
+                                        },
+                                        tabs: List.generate(
+                                            widget.subCategories.length,
+                                            (index) => Tab(
+                                                  height: 60.h,
+                                                  child: Text(
+                                                    widget.subCategories[index]
+                                                        .categoryName!,
+                                                    style:
+                                                        TextStyles.textStyle14,
+                                                  ),
+                                                ))),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  SearchRow(
+                                      textEditingController:
+                                          SubCategoryProductCubit
+                                              .subCategoriesController,
+                                      hintText: 'ابحث عن المنتج',
+                                      canGoBack: true,
+                                      whenBack: () {
+                                        tabController.index = initialIndex;
+                                        SubCategoryProductCubit
+                                            .subCategoriesController
+                                            .clear();
+                                        imageHight.value = 350.h;
                                         context
                                             .read<SubCategoryProductCubit>()
                                             .getSubCategoryWithProduct(
-                                                catId: widget
-                                                    .subCategories[index].id!);
+                                                catId: widget.subCategory.id!);
                                       },
-                                      tabs: List.generate(
-                                          widget.subCategories.length,
-                                          (index) => Tab(
-                                                text: widget
-                                                    .subCategories[index]
-                                                    .categoryName,
-                                              ))),
-                                )
-                              : SizedBox(
-                                  width: double.infinity,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        widget.subCategory.categoryName!,
-                                        style: TextStyles.textStyle16.copyWith(
-                                            fontWeight: FontWeight.w400),
-                                        overflow: TextOverflow.ellipsis,
-                                        textDirection: TextDirection.rtl,
-                                      ),
-                                      Text(
-                                        widget.subCategory.description!,
-                                        style: TextStyles.textStyle10.copyWith(
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.grey),
-                                        textDirection: TextDirection.rtl,
-                                      ),
-                                    ],
+                                      haveFilter: false,
+                                      onChanged: (_) {
+                                        context
+                                            .read<SubCategoryProductCubit>()
+                                            .searchInProducts();
+                                      }),
+                                  SizedBox(
+                                    height: 20.h,
                                   ),
-                                ),
-                          const GeneralDivider(),
-                          imageHight == 0
-                              ? Expanded(
-                                  child: Column(
-                                    children: [
-                                      SearchRow(
-                                          textEditingController:
-                                              SubCategoryProductCubit
-                                                  .subCategoriesController,
-                                          hintText: 'ابحث عن المنتج',
-                                          canGoBack: true,
-                                          whenBack: () {
-                                            tabController.index = initialIndex;
-                                            SubCategoryProductCubit
-                                                .subCategoriesController
-                                                .clear();
-                                            imageHight = 350.h;
-                                            context
-                                                .read<SubCategoryProductCubit>()
-                                                .getSubCategoryWithProduct(
-                                                    catId:
-                                                        widget.subCategory.id!);
-                                            setState(() {});
-                                          },
-                                          haveFilter: false,
-                                          onChanged: (_) {
-                                            context
-                                                .read<SubCategoryProductCubit>()
-                                                .searchInProducts();
-                                            setState(() {});
-                                          }),
-                                      SizedBox(
-                                        height: 20.h,
+                                ],
+                              ),
+                            ),
+                            AnimatedContainer(
+                              duration: const Duration(seconds: 2),
+                              height: imgHeight != 0 ? null : 0,
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      widget.subCategory.categoryName!,
+                                      style: TextStyles.textStyle16.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16.w,
                                       ),
-                                      Expanded(
-                                        child: TabBarView(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            controller: tabController,
-                                            children: List.generate(
-                                              widget.subCategories.length,
-                                              (index) =>
-                                                  WholeSubCategoryListView(
-                                                      scrollController:
-                                                          scrollController),
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : Expanded(
-                                  child: WholeSubCategoryListView(
-                                      scrollController: scrollController),
+                                      overflow: TextOverflow.ellipsis,
+                                      textDirection: TextDirection.rtl,
+                                    ),
+                                    Text(
+                                      widget.subCategory.description!,
+                                      style: TextStyles.textStyle10.copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey),
+                                      textDirection: TextDirection.rtl,
+                                    ),
+                                  ],
                                 ),
-                        ],
+                              ),
+                            ),
+                            const GeneralDivider(),
+                            Expanded(
+                              child: TabBarView(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  controller: tabController,
+                                  children: List.generate(
+                                    widget.subCategories.length,
+                                    (index) => WholeSubCategoryListView(
+                                      scrollController: scrollController,
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

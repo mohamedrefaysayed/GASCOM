@@ -16,7 +16,6 @@ class CompaniesPlaceHolder extends StatelessWidget {
       baseColor: Colors.grey.withOpacity(0.3),
       highlightColor: AppColors.kASDCPrimaryColor.withOpacity(0.5),
       child: SizedBox(
-        height: 200.h,
         child: Column(
           children: [
             Row(
@@ -24,8 +23,10 @@ class CompaniesPlaceHolder extends StatelessWidget {
               children: [
                 Text(
                   'الشركـــــــــــات',
-                  style: TextStyles.textStyle16
-                      .copyWith(fontWeight: FontWeight.w700),
+                  style: TextStyles.textStyle16.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16.w,
+                  ),
                 ),
               ],
             ),

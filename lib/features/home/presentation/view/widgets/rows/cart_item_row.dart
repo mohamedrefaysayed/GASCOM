@@ -22,7 +22,6 @@ class CartItemRow extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 30.w),
           child: SizedBox(
-            height: 100.h,
             width: double.infinity,
             child: Row(
               children: [

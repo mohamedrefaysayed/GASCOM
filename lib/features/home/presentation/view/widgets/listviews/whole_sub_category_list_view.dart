@@ -6,100 +6,97 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class WholeSubCategoryListView extends StatelessWidget {
+class WholeSubCategoryListView extends StatefulWidget {
   const WholeSubCategoryListView({
     super.key,
     required this.scrollController,
   });
 
-  final ScrollController scrollController;
+  final ValueNotifier<ScrollController> scrollController;
 
   @override
-  Widget build(BuildContext context) {
-    return ListView(
-      controller: scrollController,
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      children: [
-        BlocConsumer<SubCategoryProductCubit, SubCategoryProductState>(
-          listener: (context, state) {
-            if (state is SubCategoryProductSuccess) {
-              SubCategoryProductCubit.subCategoryProductsModel =
-                  state.subCategoryProductsModel;
-            }
-          },
-          builder: (context, state) {
-            if (state is SubCategoryProductSuccess) {
-              return SubCategoryProductCubit
-                      .subCategoriesController.text.isEmpty
-                  ? SubCategoryProductCubit
-                          .subCategoryProductsModel.products!.isEmpty
-                      ? ListView(
-                          shrinkWrap: true,
-                          children: [
-                            SizedBox(
-                              height: 150.h,
-                              child: Center(
-                                child: Text(
-                                  'لا يوجد عناصر',
-                                  style: TextStyles.textStyle14
-                                      .copyWith(color: Colors.grey),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      : ListView.builder(
-                          padding: EdgeInsets.zero,
-                          physics: const BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: SubCategoryProductCubit
-                              .subCategoryProductsModel.products!.length,
-                          itemBuilder: (context, index) {
-                            return ProductContainer(
-                              product: SubCategoryProductCubit
-                                  .subCategoryProductsModel.products![index],
-                            );
-                          },
-                        )
-                  : SubCategoryProductCubit
-                          .subCategoryProductsModelSearch.products!.isEmpty
-                      ? ListView(
-                          shrinkWrap: true,
-                          children: [
-                            SizedBox(
-                              height: 150.h,
-                              child: Center(
-                                child: Text(
-                                  'لا يوجد',
-                                  style: TextStyles.textStyle14
-                                      .copyWith(color: Colors.grey),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      : ListView.builder(
-                          padding: EdgeInsets.zero,
-                          physics: const BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: SubCategoryProductCubit
-                              .subCategoryProductsModelSearch.products!.length,
-                          itemBuilder: (context, index) {
-                            return ProductContainer(
-                              product: SubCategoryProductCubit
-                                  .subCategoryProductsModelSearch
-                                  .products![index],
-                            );
-                          },
-                          addAutomaticKeepAlives: true,
-                        );
-            }
+  State<WholeSubCategoryListView> createState() =>
+      _WholeSubCategoryListViewState();
+}
 
-            return const ProductsPlaceHolder();
-          },
-        ),
-      ],
+class _WholeSubCategoryListViewState extends State<WholeSubCategoryListView> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<SubCategoryProductCubit, SubCategoryProductState>(
+      listener: (context, state) {
+        if (state is SubCategoryProductSuccess) {
+          SubCategoryProductCubit.subCategoryProductsModel =
+              state.subCategoryProductsModel;
+        }
+      },
+      builder: (context, state) {
+        if (state is SubCategoryProductSuccess) {
+          return SubCategoryProductCubit.subCategoriesController.text.isEmpty
+              ? SubCategoryProductCubit
+                      .subCategoryProductsModel.products!.isEmpty
+                  ? ListView(
+                      shrinkWrap: true,
+                      children: [
+                        SizedBox(
+                          height: 150.h,
+                          child: Center(
+                            child: Text(
+                              'لا يوجد عناصر',
+                              style: TextStyles.textStyle14
+                                  .copyWith(color: Colors.grey),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : ListView.builder(
+                      controller: widget.scrollController.value,
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      itemCount: SubCategoryProductCubit
+                          .subCategoryProductsModel.products!.length,
+                      itemBuilder: (context, index) {
+                        return ProductContainer(
+                          product: SubCategoryProductCubit
+                              .subCategoryProductsModel.products![index],
+                        );
+                      },
+                    )
+              : SubCategoryProductCubit
+                      .subCategoryProductsModelSearch.products!.isEmpty
+                  ? ListView(
+                      shrinkWrap: true,
+                      children: [
+                        SizedBox(
+                          height: 150.h,
+                          child: Center(
+                            child: Text(
+                              'لا يوجد',
+                              style: TextStyles.textStyle14
+                                  .copyWith(color: Colors.grey),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : ListView.builder(
+                      padding: EdgeInsets.zero,
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: SubCategoryProductCubit
+                          .subCategoryProductsModelSearch.products!.length,
+                      itemBuilder: (context, index) {
+                        return ProductContainer(
+                          product: SubCategoryProductCubit
+                              .subCategoryProductsModelSearch.products![index],
+                        );
+                      },
+                      addAutomaticKeepAlives: true,
+                    );
+        }
+
+        return const ProductsPlaceHolder();
+      },
     );
   }
 }

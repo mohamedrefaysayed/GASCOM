@@ -21,6 +21,7 @@ import 'package:dinar_store/features/home/presentation/view_model/profile_cubit/
 import 'package:dinar_store/features/home/presentation/view_model/sub_categories_cubit/sub_categories_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/sub_category_products_cubit/sub_category_product_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/sub_sub_categories_cubit/sub_sub_categories_cubit.dart';
+import 'package:dinar_store/features/splash/presentation/view_model/manage_navigation_cubit/manage_navigation_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -33,6 +34,11 @@ class MainMultiBlocProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => ManageNavigationCubit(
+            secureStorage: const FlutterSecureStorage(),
+          ),
+        ),
         BlocProvider(
           create: (context) => LogInCubit(
               logInServices: LogInServices(
@@ -91,10 +97,11 @@ class MainMultiBlocProvider extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => LogOutCubit(
-              logInServices: LogInServices(
-            dioHelper: DioHelper(),
-            secureStorage: const FlutterSecureStorage(),
-          )),
+              // logInServices: LogInServices(
+              //   dioHelper: DioHelper(),
+              //   secureStorage: const FlutterSecureStorage(),
+              // ),
+              ),
         ),
         BlocProvider(
           create: (context) => ProfileCubit(

@@ -1,4 +1,5 @@
 import 'package:dinar_store/core/utils/app_colors.dart';
+import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -30,8 +31,15 @@ class SearchRow extends StatelessWidget {
         if (haveFilter)
           IconButton(
             onPressed: onFilter,
-            icon: SvgPicture.asset('assets/icons/search_Filter.svg'),
+            icon: SvgPicture.asset(
+              'assets/icons/search_Filter.svg',
+              height: 20.w,
+              width: 20.w,
+            ),
           ),
+        SizedBox(
+          width: 5.w,
+        ),
         Expanded(
           child: SizedBox(
             child: TextField(
@@ -41,16 +49,20 @@ class SearchRow extends StatelessWidget {
                 contentPadding: EdgeInsets.symmetric(vertical: 5.h),
                 hintText: hintText,
                 hintTextDirection: TextDirection.rtl,
+                hintStyle: TextStyles.textStyle10,
                 filled: true,
                 fillColor: AppColors.kASDCPrimaryColor.withOpacity(0.09),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.w),
                   borderSide: BorderSide.none,
                 ),
-                suffixIcon: Icon(
-                  Icons.search_rounded,
-                  color: AppColors.kASDCPrimaryColor,
-                  size: 30.w,
+                suffixIcon: Padding(
+                  padding: EdgeInsets.all(5.w),
+                  child: Icon(
+                    Icons.search_rounded,
+                    color: AppColors.kASDCPrimaryColor,
+                    size: 30.w,
+                  ),
                 ),
               ),
               onChanged: onChanged,

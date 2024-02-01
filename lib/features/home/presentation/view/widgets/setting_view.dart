@@ -1,5 +1,3 @@
-import 'package:dinar_store/features/home/presentation/view/widgets/containers/log_out_container.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/profile_container.dart';
 import 'package:dinar_store/features/home/presentation/view_model/profile_cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +20,6 @@ class SettingView extends StatelessWidget {
             height: 30.h,
           ),
           const ProfileContainer(),
-          const GeneralDivider(),
-          const LogOutContainer(),
         ],
       ),
     ));

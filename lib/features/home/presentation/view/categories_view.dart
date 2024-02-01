@@ -16,7 +16,8 @@ class CategoriesView extends StatefulWidget {
   State<CategoriesView> createState() => _CategoriesViewState();
 }
 
-class _CategoriesViewState extends State<CategoriesView> {
+class _CategoriesViewState extends State<CategoriesView>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     context.read<CategoriesCubit>().getAllCategories();
@@ -25,6 +26,7 @@ class _CategoriesViewState extends State<CategoriesView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: [
         Center(
@@ -32,8 +34,10 @@ class _CategoriesViewState extends State<CategoriesView> {
             padding: EdgeInsets.only(top: 50.h),
             child: Text(
               'المجموعـــــــــات',
-              style:
-                  TextStyles.textStyle16.copyWith(fontWeight: FontWeight.w700),
+              style: TextStyles.textStyle16.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 16.w,
+              ),
             ),
           ),
         ),
@@ -67,4 +71,7 @@ class _CategoriesViewState extends State<CategoriesView> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

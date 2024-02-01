@@ -44,8 +44,9 @@ class _BottomNavBarViewState extends State<BottomNavBarView>
         return PopScope(
           canPop: false,
           child: Scaffold(
-            body: IndexedStack(
-              index: BottomNavBarCubit.index,
+            body: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: BottomNavBarCubit.controller,
               children: const [
                 ProfileView(),
                 Center(
@@ -56,17 +57,18 @@ class _BottomNavBarViewState extends State<BottomNavBarView>
                 HomeView(),
               ],
             ),
-            bottomNavigationBar: BottomBarCreative(
+            bottomNavigationBar: BottomBarDefault(
+              iconSize: 25.w,
               items: BottomNavBarCubit.items,
               backgroundColor: Colors.white,
               color: Colors.grey,
               colorSelected: AppColors.kASDCPrimaryColor,
               indexSelected: BottomNavBarCubit.index,
-              highlightStyle: const HighlightStyle(),
               titleStyle:
                   TextStyles.textStyle12.copyWith(fontWeight: FontWeight.w700),
               onTap: (int tappedIndex) {
                 BottomNavBarCubit.index = tappedIndex;
+                BottomNavBarCubit.controller.jumpToPage(tappedIndex);
                 context.read<BottomNavBarCubit>().emit(BottomNavBarUpdate());
               },
               boxShadow: [

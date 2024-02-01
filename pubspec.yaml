@@ -59,6 +59,7 @@ dependencies:
   url_launcher: ^6.2.4
   google_maps_flutter: ^2.5.3
   geocoding: ^2.1.1
+  device_preview: ^1.1.0
 
 
 

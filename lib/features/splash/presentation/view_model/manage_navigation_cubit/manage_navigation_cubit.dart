@@ -34,8 +34,6 @@ class ManageNavigationCubit extends Cubit<ManageNavigationState> {
 
     await showPermissions();
 
-    emit(NavigateToLogInView());
-
     if (AppCubit.token != null) {
       emit(NavigateToNavBarView());
     } else {
