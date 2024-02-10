@@ -1,7 +1,6 @@
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/widgets/app_default_button.dart';
-import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/home/data/models/cart_items_model.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/cachedNetworkImage/my_cached_nework_Image.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
@@ -29,78 +28,145 @@ class CartItemRow extends StatelessWidget {
                   children: [
                     BlocConsumer<CartCubit, CartState>(
                       listener: (context, state) {
-                        if (state is DeleteItemFailuer) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              messageSnackBar(
-                                  message: state.errMessage,
-                                  isBottomNavBar: true));
-                        }
-                        if (state is DeleteItemSuccess) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              messageSnackBar(
-                                  message: "تم الحذف", isBottomNavBar: true));
+                        if (state is DeleteItemLoading) {
+                        } else {
+                          cartItem.loading = false;
                         }
                       },
                       builder: (context, state) {
-                        if (state is DeleteItemLoading) {
-                          cartItem.loading = true;
+                        if (cartItem.isRequired == '0') {
+                          if (cartItem.loading) {
+                            return SizedBox(
+                              width: 20.w,
+                              height: 20.h,
+                              child: const CircularProgressIndicator(
+                                color: AppColors.kRed,
+                              ),
+                            );
+                          } else {
+                            return IconButton(
+                                onPressed: () {
+                                  cartItem.loading = true;
+
+                                  context.read<CartCubit>().deleteItem(
+                                        itemId: cartItem.id!,
+                                      );
+                                },
+                                icon: Icon(
+                                  Icons.delete_forever_rounded,
+                                  size: 25.w,
+                                  color: AppColors.kRed,
+                                ));
+                          }
+                        } else {
+                          return const SizedBox();
                         }
-                        if (state is DeleteItemSuccess ||
-                            state is DeleteItemFailuer) {
-                          cartItem.loading = false;
-                        }
-                        return IconButton(
-                            onPressed: () {
-                              context.read<CartCubit>().deleteItem(
-                                    itemId: cartItem.id!,
-                                  );
-                            },
-                            icon: Icon(
-                              Icons.delete_forever_rounded,
-                              size: 25.w,
-                              color: AppColors.kRed,
-                            ));
                       },
                     ),
                     SizedBox(
                       height: 15.h,
                     ),
-                    Row(
-                      children: [
-                        AppDefaultButton(
-                          color: AppColors.kLightGrey,
-                          width: 27.w,
-                          height: 27.w,
-                          onPressed: () {},
-                          title: '',
-                          icon: Icon(
-                            Icons.remove,
-                            size: 20.w,
+                    cartItem.isRequired == '0'
+                        ? Row(
+                            children: [
+                              AppDefaultButton(
+                                color: AppColors.kLightGrey,
+                                width: 27.w,
+                                height: 27.w,
+                                onPressed: () async {
+                                  cartItem.updating = true;
+                                  await context.read<CartCubit>().updateItem(
+                                        itemId: cartItem.id!,
+                                        productId:
+                                            int.parse(cartItem.productId!),
+                                        quantity:
+                                            double.parse(cartItem.quantity!)
+                                                    .toInt() -
+                                                1,
+                                        unitId: int.parse(cartItem.unitId!),
+                                        price: double.parse(cartItem.price!),
+                                        isRequired: cartItem.isRequired!,
+                                      );
+                                },
+                                title: '',
+                                icon: Icon(
+                                  Icons.remove,
+                                  size: 20.w,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                child: BlocConsumer<CartCubit, CartState>(
+                                  listener: (context, state) {
+                                    if (state is UpdateItemLoading) {
+                                    } else {
+                                      cartItem.updating = false;
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    if (cartItem.updating) {
+                                      return SizedBox(
+                                        width: 20.w,
+                                        height: 20.h,
+                                        child: const CircularProgressIndicator(
+                                          color: AppColors.kASDCPrimaryColor,
+                                        ),
+                                      );
+                                    }
+                                    return Text(
+                                      double.parse(cartItem.quantity!)
+                                          .toInt()
+                                          .toString(),
+                                      style: TextStyles.textStyle16.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              AppDefaultButton(
+                                color: AppColors.kLightRed,
+                                width: 27.w,
+                                height: 27.w,
+                                onPressed: () async {
+                                  cartItem.updating = true;
+                                  await context.read<CartCubit>().updateItem(
+                                        itemId: cartItem.id!,
+                                        productId:
+                                            int.parse(cartItem.productId!),
+                                        quantity:
+                                            double.parse(cartItem.quantity!)
+                                                    .toInt() +
+                                                1,
+                                        unitId: int.parse(cartItem.unitId!),
+                                        price: double.parse(cartItem.price!),
+                                        isRequired: cartItem.isRequired!,
+                                      );
+                                },
+                                title: '',
+                                icon: Icon(
+                                  Icons.add,
+                                  size: 20.w,
+                                  color: AppColors.kRed,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 37.w),
+                                child: Text(
+                                  double.parse(cartItem.quantity!)
+                                      .toInt()
+                                      .toString(),
+                                  style: TextStyles.textStyle16.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          child: Text(
-                            double.parse(cartItem.quantity!).toInt().toString(),
-                            style: TextStyles.textStyle16.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                        AppDefaultButton(
-                          color: AppColors.kLightRed,
-                          width: 27.w,
-                          height: 27.w,
-                          onPressed: () {},
-                          title: '',
-                          icon: Icon(
-                            Icons.add,
-                            size: 20.w,
-                            color: AppColors.kRed,
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
                 const Spacer(),

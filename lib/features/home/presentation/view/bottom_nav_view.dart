@@ -43,41 +43,43 @@ class _BottomNavBarViewState extends State<BottomNavBarView>
       builder: (context, state) {
         return PopScope(
           canPop: false,
-          child: Scaffold(
-            body: PageView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: BottomNavBarCubit.controller,
-              children: const [
-                ProfileView(),
-                Center(
-                  child: Text("2"),
-                ),
-                CartView(),
-                CategoriesView(),
-                HomeView(),
-              ],
-            ),
-            bottomNavigationBar: BottomBarDefault(
-              iconSize: 25.w,
-              items: BottomNavBarCubit.items,
-              backgroundColor: Colors.white,
-              color: Colors.grey,
-              colorSelected: AppColors.kASDCPrimaryColor,
-              indexSelected: BottomNavBarCubit.index,
-              titleStyle:
-                  TextStyles.textStyle12.copyWith(fontWeight: FontWeight.w700),
-              onTap: (int tappedIndex) {
-                BottomNavBarCubit.index = tappedIndex;
-                BottomNavBarCubit.controller.jumpToPage(tappedIndex);
-                context.read<BottomNavBarCubit>().emit(BottomNavBarUpdate());
-              },
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 8.w,
-                  spreadRadius: 0.5.w,
-                  color: Colors.grey,
-                ),
-              ],
+          child: ScaffoldMessenger(
+            child: Scaffold(
+              body: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: BottomNavBarCubit.controller,
+                children: const [
+                  ProfileView(),
+                  Center(
+                    child: Text("2"),
+                  ),
+                  CartView(),
+                  CategoriesView(),
+                  HomeView(),
+                ],
+              ),
+              bottomNavigationBar: BottomBarDefault(
+                iconSize: 25.w,
+                items: BottomNavBarCubit.items,
+                backgroundColor: Colors.white,
+                color: Colors.grey,
+                colorSelected: AppColors.kASDCPrimaryColor,
+                indexSelected: BottomNavBarCubit.index,
+                titleStyle: TextStyles.textStyle12
+                    .copyWith(fontWeight: FontWeight.w700),
+                onTap: (int tappedIndex) {
+                  BottomNavBarCubit.index = tappedIndex;
+                  BottomNavBarCubit.controller.jumpToPage(tappedIndex);
+                  context.read<BottomNavBarCubit>().emit(BottomNavBarUpdate());
+                },
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 8.w,
+                    spreadRadius: 0.5.w,
+                    color: Colors.grey,
+                  ),
+                ],
+              ),
             ),
           ),
         );

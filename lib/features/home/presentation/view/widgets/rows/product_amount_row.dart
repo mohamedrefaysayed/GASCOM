@@ -102,7 +102,7 @@ class _ProductAmountRowState extends State<ProductAmountRow> {
                         width: 22.w,
                         noFuture: true,
                         onPressed: () {
-                          if (wholeSaleCounter.value > widget.minWhole) {
+                          if (wholeSaleCounter.value >= widget.minWhole) {
                             wholeSaleCounter.value =
                                 wholeSaleCounter.value - widget.minWhole;
                             widget.wholeCount.value =

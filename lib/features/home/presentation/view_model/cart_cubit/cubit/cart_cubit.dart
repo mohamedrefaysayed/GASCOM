@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
 import 'package:dinar_store/features/home/data/models/cart_items_model.dart';
+import 'package:dinar_store/features/home/data/models/sub_category_products_model.dart';
 import 'package:dinar_store/features/home/data/services/cart_services.dart';
 
 part 'cart_state.dart';
@@ -14,13 +15,13 @@ class CartCubit extends Cubit<CartState> {
 
   late CartServices _cartServices;
 
-  static CartItemsModel cartItemsModel = CartItemsModel();
+  static CartItemsModel? cartItemsModel;
 
   static double totalPrice = 0;
   static double totalDiscount = 0;
 
   getAllItems() async {
-    emit(GetCartLoading());
+    cartItemsModel == null ? emit(GetCartLoading()) : null;
     Either<ServerFailure, CartItemsModel> result =
         await _cartServices.getAllItems(
       token: AppCubit.token!,
@@ -50,14 +51,20 @@ class CartCubit extends Cubit<CartState> {
     required int quantity,
     required int unitId,
     required double price,
+    required String isRequired,
+    required bool isLast,
+    int? refrenceId,
+    required List<RequiredProducts> requiredProducts,
   }) async {
     emit(AddToCartLoading());
-    Either<ServerFailure, void> result = await _cartServices.storeItem(
+    Either<ServerFailure, int> result = await _cartServices.storeItem(
       token: AppCubit.token!,
       productId: productId,
       quantity: quantity,
       unitId: unitId,
       price: price,
+      isRequired: isRequired,
+      refrenceId: refrenceId,
     );
 
     result.fold(
@@ -68,8 +75,26 @@ class CartCubit extends Cubit<CartState> {
         );
       },
       //success
-      (categoriesModel) async {
-        emit(AddToCartSuccess());
+      (refId) async {
+        if (isLast) {
+          emit(AddToCartSuccess());
+        }
+        if (isRequired == '0') {
+          for (int i = 0; i < requiredProducts.length; i++) {
+            storeItem(
+              productId: requiredProducts[i].id!,
+              quantity:
+                  double.parse(requiredProducts[i].pivot!.quantity!).toInt(),
+              unitId: int.parse(requiredProducts[i].pivot!.unitId!),
+              price: double.parse(requiredProducts[i].retailPrice!),
+              isRequired: '1',
+              isLast: requiredProducts.length - 1 == i,
+              requiredProducts: [],
+              refrenceId: refId,
+            );
+            await Future.delayed(const Duration(milliseconds: 500));
+          }
+        }
       },
     );
   }
@@ -79,14 +104,19 @@ class CartCubit extends Cubit<CartState> {
     required int quantity,
     required int unitId,
     required double price,
+    required String isRequired,
+    required int itemId,
   }) async {
     emit(UpdateItemLoading());
-    Either<ServerFailure, void> result = await _cartServices.storeItem(
+    Either<ServerFailure, CartItemsModel> result =
+        await _cartServices.updateItem(
       token: AppCubit.token!,
       productId: productId,
       quantity: quantity,
       unitId: unitId,
       price: price,
+      isRequired: isRequired,
+      itemId: itemId,
     );
 
     result.fold(
@@ -97,8 +127,8 @@ class CartCubit extends Cubit<CartState> {
         );
       },
       //success
-      (categoriesModel) async {
-        emit(UpdateItemSuccess());
+      (cartItemsModel) async {
+        emit(UpdateItemSuccess(cartItemsModel: cartItemsModel));
       },
     );
   }
@@ -107,7 +137,8 @@ class CartCubit extends Cubit<CartState> {
     required int itemId,
   }) async {
     emit(DeleteItemLoading());
-    Either<ServerFailure, void> result = await _cartServices.deleteItem(
+    Either<ServerFailure, CartItemsModel> result =
+        await _cartServices.deleteItem(
       token: AppCubit.token!,
       itemId: itemId,
     );
@@ -120,8 +151,8 @@ class CartCubit extends Cubit<CartState> {
         );
       },
       //success
-      (categoriesModel) async {
-        emit(DeleteItemSuccess());
+      (cartItemsModel) async {
+        emit(DeleteItemSuccess(cartItemsModel: cartItemsModel));
       },
     );
   }

@@ -8,6 +8,7 @@ import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/home/data/models/sub_category_products_model.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/cachedNetworkImage/my_cached_nework_Image.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/required_products_show.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/rows/product_amount_row.dart';
 import 'package:dinar_store/features/home/presentation/view_model/cart_cubit/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
@@ -172,17 +173,6 @@ class _ProductViewState extends State<ProductView> {
                 children: [
                   Row(
                     children: [
-                      // AppDefaultButton(
-                      //     height: 30.h,
-                      //     width: 90.w,
-                      //     color: AppColors.kASDCPrimaryColor,
-                      //     onPressed: () {},
-                      //     textStyle: TextStyles.textStyle10.copyWith(
-                      //       fontWeight: FontWeight.w400,
-                      //       color: Colors.white,
-                      //       fontSize: 10.w,
-                      //     ),
-                      //     title: 'فرض مع المنتج'),
                       const Spacer(),
                       Text(
                         'ملاحظات أخرى',
@@ -354,13 +344,8 @@ class _ProductViewState extends State<ProductView> {
                         flex: 1,
                         child: BlocConsumer<CartCubit, CartState>(
                           listener: (context, state) {
-                            if (state is AddToCartFailuer) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  messageSnackBar(message: state.errMessage));
-                            }
                             if (state is AddToCartSuccess) {
                               Navigator.pop(context);
-
                               ScaffoldMessenger.of(context).showSnackBar(
                                   messageSnackBar(
                                       message: "تمت الإضافة الى العربة"));
@@ -378,14 +363,38 @@ class _ProductViewState extends State<ProductView> {
                                 size: 20.w,
                               ),
                               onPressed: () async {
-                                await context.read<CartCubit>().storeItem(
+                                if ((totalRetailPrice.value +
+                                        totalWholePrice.value) >
+                                    0) {
+                                  if (widget
+                                      .product.requiredProducts!.isNotEmpty) {
+                                    await showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return RequiredProductsShow(
+                                          product: widget.product,
+                                          retailCount: retailCount,
+                                          totalRetailPrice: totalRetailPrice,
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    await context.read<CartCubit>().storeItem(
                                       productId: widget.product.id!,
                                       quantity: retailCount.value,
                                       unitId: int.parse(
                                           widget.product.retailUnitId!),
                                       price: totalRetailPrice.value,
+                                      isRequired: '0',
+                                      isLast: true,
+                                      requiredProducts: [],
                                     );
-                                context.read<CartCubit>().getAllItems();
+                                  }
+                                  context.read<CartCubit>().getAllItems();
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      messageSnackBar(message: "أختر الكمية"));
+                                }
                               },
                               title: 'إضافة',
                               textStyle: TextStyles.textStyle12.copyWith(

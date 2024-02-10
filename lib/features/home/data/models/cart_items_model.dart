@@ -32,9 +32,12 @@ class CartItem {
   String? deletedAt;
   String? createdAt;
   String? updatedAt;
+  String? isRequired;
+  String? refCartId;
   Product? product;
-  bool loading = false;
   Unit? unit;
+  bool loading = false;
+  bool updating = false;
 
   CartItem({
     this.id,
@@ -47,9 +50,12 @@ class CartItem {
     this.deletedAt,
     this.createdAt,
     this.updatedAt,
+    this.isRequired,
+    this.refCartId,
     this.product,
     this.unit,
     required this.loading,
+    required this.updating,
   });
 
   CartItem.fromJson(Map<String, dynamic> json) {
@@ -63,6 +69,8 @@ class CartItem {
     deletedAt = json['deleted_at'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    isRequired = json['is_required'];
+    refCartId = json['ref_cart_id'];
     product =
         json['product'] != null ? Product.fromJson(json['product']) : null;
     unit = json['unit'] != null ? Unit.fromJson(json['unit']) : null;
@@ -80,6 +88,8 @@ class CartItem {
     data['deleted_at'] = deletedAt;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
+    data['is_required'] = isRequired;
+    data['ref_cart_id'] = refCartId;
     if (product != null) {
       data['product'] = product!.toJson();
     }
@@ -228,8 +238,7 @@ class Unit {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    // ignore: unnecessary_this
-    data['id'] = this.id;
+    data['id'] = id;
     data['unit_name'] = unitName;
     data['eq'] = eq;
     data['unit_group_id'] = unitGroupId;

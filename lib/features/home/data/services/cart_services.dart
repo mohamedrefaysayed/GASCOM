@@ -39,15 +39,17 @@ class CartServices implements CartRepo {
   }
 
   @override
-  Future<Either<ServerFailure, void>> storeItem({
+  Future<Either<ServerFailure, int>> storeItem({
     required String token,
     required int productId,
     required int quantity,
     required int unitId,
     required double price,
+    required String isRequired,
+    int? refrenceId,
   }) async {
     try {
-      await _dioHelper.postRequest(
+      Map<String, dynamic> data = await _dioHelper.postRequest(
         token: token,
         endPoint: 'cart',
         body: {
@@ -55,9 +57,11 @@ class CartServices implements CartRepo {
           'quantity': quantity,
           'unit_id': unitId,
           'price': price,
+          'is_required': isRequired,
+          if (refrenceId != null) "ref_cart_id": refrenceId,
         },
       );
-      return right(null);
+      return right(data['inserted_item'] ?? 0);
     } on DioException catch (error) {
       return left(
         ServerFailure.fromDioException(dioException: error),
@@ -70,19 +74,22 @@ class CartServices implements CartRepo {
   }
 
   @override
-  Future<Either<ServerFailure, void>> deleteItem({
+  Future<Either<ServerFailure, CartItemsModel>> deleteItem({
     required String token,
     required int itemId,
   }) async {
+    CartItemsModel cartItemsModel;
     try {
-      await _dioHelper.deleteRequest(
+      Map<String, dynamic> data = await _dioHelper.postRequest(
         token: token,
-        endPoint: 'cart',
-        queryParameters: {
+        endPoint: 'cart/$itemId',
+        body: {
+          '_method': "delete",
           'id': itemId,
         },
       );
-      return right(null);
+      cartItemsModel = CartItemsModel.fromJson(data);
+      return right(cartItemsModel);
     } on DioException catch (error) {
       return left(
         ServerFailure.fromDioException(dioException: error),
@@ -95,25 +102,31 @@ class CartServices implements CartRepo {
   }
 
   @override
-  Future<Either<ServerFailure, void>> updateItem({
+  Future<Either<ServerFailure, CartItemsModel>> updateItem({
     required String token,
     required int productId,
     required int quantity,
     required int unitId,
     required double price,
+    required String isRequired,
+    required int itemId,
   }) async {
+    CartItemsModel cartItemsModel;
     try {
-      await _dioHelper.patchRequest(
+      Map<String, dynamic> data = await _dioHelper.postRequest(
         token: token,
-        endPoint: 'cart',
+        endPoint: 'cart/$itemId',
         body: {
+          '_method': "put",
           'product_id': productId,
           'quantity': quantity,
           'unit_id': unitId,
           'price': price,
+          'is_required': isRequired,
         },
       );
-      return right(null);
+      cartItemsModel = CartItemsModel.fromJson(data);
+      return right(cartItemsModel);
     } on DioException catch (error) {
       return left(
         ServerFailure.fromDioException(dioException: error),

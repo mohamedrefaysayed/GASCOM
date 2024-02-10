@@ -14,9 +14,15 @@ final class UpdateItemLoading extends CartState {}
 
 final class AddToCartSuccess extends CartState {}
 
-final class DeleteItemSuccess extends CartState {}
+final class DeleteItemSuccess extends CartState {
+  final CartItemsModel cartItemsModel;
+  DeleteItemSuccess({required this.cartItemsModel});
+}
 
-final class UpdateItemSuccess extends CartState {}
+final class UpdateItemSuccess extends CartState {
+  final CartItemsModel cartItemsModel;
+  UpdateItemSuccess({required this.cartItemsModel});
+}
 
 final class GetCartSuccess extends CartState {
   CartItemsModel cartItemsModel;

@@ -31,46 +31,49 @@ class _HomeViewState extends State<HomeView>
         await context.read<CategoriesCubit>().getAllCategories();
       },
       child: SafeArea(
-        child: Scaffold(
-          body: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                child: SearchRow(
-                  textEditingController: TextEditingController(),
-                  hintText: 'إبحث عن المتجر او القطعة',
-                  canGoBack: false,
-                  whenBack: () {},
-                  haveFilter: true,
-                  onFilter: () {},
-                  onChanged: (_) {},
+        child: ScaffoldMessenger(
+          child: Scaffold(
+            body: Column(
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                  child: SearchRow(
+                    textEditingController: TextEditingController(),
+                    hintText: 'إبحث عن المتجر او القطعة',
+                    canGoBack: false,
+                    whenBack: () {},
+                    haveFilter: true,
+                    onFilter: () {},
+                    onChanged: (_) {},
+                  ),
                 ),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: GestureDetector(
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                    },
-                    child: Column(
-                      children: [
-                        const AddsView(),
-                        const GeneralDivider(),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          child: const CompaniesView(),
-                        ),
-                        const GeneralDivider(),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          child: const CategoriesViewHome(),
-                        ),
-                      ],
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                      },
+                      child: Column(
+                        children: [
+                          const AddsView(),
+                          const GeneralDivider(),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            child: const CompaniesView(),
+                          ),
+                          const GeneralDivider(),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            child: const CategoriesViewHome(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

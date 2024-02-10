@@ -13,6 +13,7 @@ abstract class CartRepo {
     required int quantity,
     required int unitId,
     required double price,
+    required String isRequired,
   });
 
   Future<Either<ServerFailure, void>> deleteItem({
@@ -26,5 +27,7 @@ abstract class CartRepo {
     required int quantity,
     required int unitId,
     required double price,
+    required String isRequired,
+    required int itemId,
   });
 }
