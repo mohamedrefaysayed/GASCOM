@@ -40,7 +40,7 @@ class LocationCubit extends Cubit<LocationState> {
       // continue accessing the position of the device.
 
       currentPosition = await Geolocator.getCurrentPosition();
-      emit(LocationSuccess());
+      emit(LocationSuccess(position: currentPosition!));
     } catch (error) {
       emit(LocationFailuer());
       ScaffoldMessenger.of(context).showSnackBar(

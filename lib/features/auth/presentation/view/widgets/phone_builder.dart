@@ -24,6 +24,8 @@ class PhoneBuilder extends StatelessWidget {
           "يجب ان يكون رقم الهاتف مسجل بالواتساب",
           style: TextStyles.textStyle16.copyWith(
             fontWeight: FontWeight.w900,
+            color: Colors.black,
+            fontSize: 16.w,
           ),
         ),
         SizedBox(
@@ -66,8 +68,11 @@ class PhoneBuilder extends StatelessWidget {
               color: AppColors.kASDCPrimaryColor,
               borderRadius: BorderRadius.circular(15.w),
               width: double.infinity,
-              textStyle: TextStyles.textStyle16
-                  .copyWith(color: Colors.white, fontWeight: FontWeight.w700),
+              textStyle: TextStyles.textStyle16.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 16.w,
+              ),
             );
           },
         ),

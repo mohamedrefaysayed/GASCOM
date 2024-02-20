@@ -35,6 +35,7 @@ class ResultDialog extends StatelessWidget {
       ),
       contentTextStyle: TextStyles.textStyle16.copyWith(
         color: AppColors.kBlack,
+        fontSize: 16.w,
       ),
       content: Text(
         message,

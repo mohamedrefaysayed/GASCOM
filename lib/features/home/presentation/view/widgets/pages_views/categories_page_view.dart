@@ -30,8 +30,10 @@ class CategoriesPgeView extends StatelessWidget {
                   padding: EdgeInsets.only(top: 40.h),
                   child: Text(
                     category.categoryName!,
-                    style: TextStyles.textStyle16
-                        .copyWith(fontWeight: FontWeight.w700, fontSize: 16.w),
+                    style: TextStyles.textStyle16.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16.w,
+                    ),
                   ),
                 ),
               ),

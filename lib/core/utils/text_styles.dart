@@ -1,3 +1,4 @@
+import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -33,7 +34,7 @@ class TextStyles {
   ///font size 16
   static TextStyle textStyle16 = TextStyle(
     fontSize: 16.w,
-    color: Colors.black,
+    color: AppColors.kBlack,
     overflow: TextOverflow.ellipsis,
   );
 

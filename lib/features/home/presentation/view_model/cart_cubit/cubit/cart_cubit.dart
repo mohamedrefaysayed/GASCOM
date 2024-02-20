@@ -20,6 +20,8 @@ class CartCubit extends Cubit<CartState> {
   static double totalPrice = 0;
   static double totalDiscount = 0;
 
+  static double finalPrice = 0;
+
   getAllItems() async {
     cartItemsModel == null ? emit(GetCartLoading()) : null;
     Either<ServerFailure, CartItemsModel> result =
@@ -36,10 +38,7 @@ class CartCubit extends Cubit<CartState> {
       },
       //success
       (cartItems) async {
-        for (var element in cartItems.cart!) {
-          totalPrice = totalPrice +
-              (double.parse(element.price!) * double.parse(element.quantity!));
-        }
+        countTotal(items: cartItems.cart!);
         cartItemsModel = cartItems;
         emit(GetCartSuccess(cartItemsModel: cartItems));
       },
@@ -128,6 +127,7 @@ class CartCubit extends Cubit<CartState> {
       },
       //success
       (cartItemsModel) async {
+        countTotal(items: cartItemsModel.cart!);
         emit(UpdateItemSuccess(cartItemsModel: cartItemsModel));
       },
     );
@@ -152,8 +152,25 @@ class CartCubit extends Cubit<CartState> {
       },
       //success
       (cartItemsModel) async {
+        countTotal(items: cartItemsModel.cart!);
         emit(DeleteItemSuccess(cartItemsModel: cartItemsModel));
       },
     );
+  }
+
+  Future<void> countTotal({
+    required List<CartItem> items,
+  }) async {
+    totalPrice = 0;
+    totalDiscount = 0;
+    for (var element in items) {
+      totalPrice = totalPrice +
+          (double.parse(element.price!) * double.parse(element.quantity!));
+      totalDiscount = totalDiscount +
+          (((double.parse(element.price!) / 100) *
+                  double.parse(element.product!.discount!)) *
+              double.parse(element.quantity!));
+    }
+    finalPrice = totalPrice - totalDiscount;
   }
 }

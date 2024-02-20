@@ -68,8 +68,10 @@ class _ProductViewState extends State<ProductView> {
                   children: [
                     Text(
                       widget.product.productName!,
-                      style: TextStyles.textStyle16
-                          .copyWith(fontWeight: FontWeight.w400),
+                      style: TextStyles.textStyle16.copyWith(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16.w,
+                      ),
                       overflow: TextOverflow.ellipsis,
                       textDirection: TextDirection.rtl,
                     ),
@@ -93,8 +95,10 @@ class _ProductViewState extends State<ProductView> {
                           TextSpan(
                             text: "\$${widget.product.wholeSalePrice}",
                             style: TextStyles.textStyle16.copyWith(
-                                fontWeight: FontWeight.w400,
-                                color: Colors.green),
+                              fontWeight: FontWeight.w400,
+                              color: Colors.green,
+                              fontSize: 16.w,
+                            ),
                           ),
                         ]),
                         overflow: TextOverflow.ellipsis,
@@ -112,8 +116,10 @@ class _ProductViewState extends State<ProductView> {
                   padding: EdgeInsets.symmetric(horizontal: 30.w),
                   child: Text(
                     'النكهات',
-                    style: TextStyles.textStyle16
-                        .copyWith(fontWeight: FontWeight.w700),
+                    style: TextStyles.textStyle16.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16.w,
+                    ),
                     overflow: TextOverflow.ellipsis,
                     textDirection: TextDirection.rtl,
                   ),
@@ -366,8 +372,9 @@ class _ProductViewState extends State<ProductView> {
                                 if ((totalRetailPrice.value +
                                         totalWholePrice.value) >
                                     0) {
-                                  if (widget
-                                      .product.requiredProducts!.isNotEmpty) {
+                                  if (widget.product.requiredProducts != null &&
+                                      widget.product.requiredProducts!
+                                          .isNotEmpty) {
                                     await showModalBottomSheet(
                                       context: context,
                                       builder: (context) {

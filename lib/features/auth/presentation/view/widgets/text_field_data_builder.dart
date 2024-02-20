@@ -32,7 +32,10 @@ class TextFieldDataBulder extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyles.textStyle16.copyWith(fontWeight: FontWeight.w700),
+            style: TextStyles.textStyle16.copyWith(
+              fontWeight: FontWeight.w700,
+              fontSize: 16.w,
+            ),
           ),
           SizedBox(
             height: 10.h,

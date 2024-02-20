@@ -6,7 +6,10 @@ final class LocationInitial extends LocationState {}
 
 final class LocationLoading extends LocationState {}
 
-final class LocationSuccess extends LocationState {}
+final class LocationSuccess extends LocationState {
+  Position position;
+  LocationSuccess({required this.position});
+}
 
 final class AddressSuccess extends LocationState {
   Map<String, dynamic> locationData;

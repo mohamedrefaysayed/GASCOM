@@ -138,7 +138,10 @@ class LoginData extends StatelessWidget {
                                   size: 25.w,
                                 ),
                           textStyle: TextStyles.textStyle16.copyWith(
-                              color: Colors.white, fontWeight: FontWeight.w700),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16.w,
+                          ),
                           onPressed: () async {
                             await context
                                 .read<LocationCubit>()
@@ -175,7 +178,10 @@ class LoginData extends StatelessWidget {
                         }
                         return AppDefaultButton(
                           textStyle: TextStyles.textStyle16.copyWith(
-                              color: Colors.white, fontWeight: FontWeight.w700),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16.w,
+                          ),
                           onPressed: () {
                             if (LocationCubit.currentPosition != null) {
                               if (StoreDataCubit.formKey.currentState!

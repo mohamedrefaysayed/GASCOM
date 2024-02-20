@@ -37,7 +37,9 @@ class ProfileSettingsRow extends StatelessWidget {
                   const Spacer(),
                   Text(
                     title,
-                    style: TextStyles.textStyle16,
+                    style: TextStyles.textStyle16.copyWith(
+                      fontSize: 16.w,
+                    ),
                   ),
                   SizedBox(
                     width: 10.w,

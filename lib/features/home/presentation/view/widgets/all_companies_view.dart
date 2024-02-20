@@ -45,8 +45,10 @@ class _AllCompaniesViewState extends State<AllCompaniesView> {
                     ),
                     Text(
                       'الشركـــــــــــات',
-                      style: TextStyles.textStyle16
-                          .copyWith(fontWeight: FontWeight.w700),
+                      style: TextStyles.textStyle16.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16.w,
+                      ),
                     ),
                     const Spacer(
                       flex: 1,

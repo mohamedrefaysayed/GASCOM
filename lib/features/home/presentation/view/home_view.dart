@@ -1,10 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:dinar_store/core/animations/top_slide_transition.dart';
+import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/adds_view.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/categories_view_home.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/companies_view.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/search_rows/search_row.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/search_view.dart';
 import 'package:dinar_store/features/home/presentation/view_model/ads_cubit/ads_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/categories_cubit/categories_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/companies_cubit/companies_cubit.dart';
@@ -38,14 +41,39 @@ class _HomeViewState extends State<HomeView>
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                  child: SearchRow(
-                    textEditingController: TextEditingController(),
-                    hintText: 'إبحث عن المتجر او القطعة',
-                    canGoBack: false,
-                    whenBack: () {},
-                    haveFilter: true,
-                    onFilter: () {},
-                    onChanged: (_) {},
+                  child: Stack(
+                    children: [
+                      Hero(
+                        tag: "HomeSearch",
+                        child: Material(
+                          child: SearchRow(
+                            textEditingController: TextEditingController(),
+                            hintText: 'إبحث عن المتجر او القطعة',
+                            canGoBack: false,
+                            whenBack: () {},
+                            haveFilter: true,
+                            onFilter: () {},
+                            onChanged: (_) {},
+                          ),
+                        ),
+                      ),
+                      Positioned.fill(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15.w),
+                          child: Material(
+                            color: AppColors.kTransparent,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    TopSlideTransition(
+                                        page: const SearchView()));
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Expanded(

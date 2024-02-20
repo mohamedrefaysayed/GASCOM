@@ -9,6 +9,7 @@ import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/home/presentation/view/cart_view.dart';
 import 'package:dinar_store/features/home/presentation/view/categories_view.dart';
 import 'package:dinar_store/features/home/presentation/view/home_view.dart';
+import 'package:dinar_store/features/home/presentation/view/orders_view.dart';
 import 'package:dinar_store/features/home/presentation/view/profile_view.dart';
 import 'package:dinar_store/features/home/presentation/view_model/bottom_nav_cubit.dart/cubit/bottton_nav_bar_cubit.dart';
 import 'package:flutter/material.dart';
@@ -50,9 +51,7 @@ class _BottomNavBarViewState extends State<BottomNavBarView>
                 controller: BottomNavBarCubit.controller,
                 children: const [
                   ProfileView(),
-                  Center(
-                    child: Text("2"),
-                  ),
+                  OrdersView(),
                   CartView(),
                   CategoriesView(),
                   HomeView(),

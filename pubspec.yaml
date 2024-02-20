@@ -60,6 +60,8 @@ dependencies:
   google_maps_flutter: ^2.5.3
   geocoding: ^2.1.1
   device_preview: ^1.1.0
+  google_places_flutter: ^2.0.8
+  map_location_picker: ^1.2.8+3
 
 
 

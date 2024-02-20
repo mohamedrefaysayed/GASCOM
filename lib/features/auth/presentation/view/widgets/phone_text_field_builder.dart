@@ -29,10 +29,13 @@ class PhoneTextFieldBuilder extends StatelessWidget {
         IntlPhoneField(
           onChanged: onChanged,
           initialCountryCode: 'IQ',
-          style: TextStyles.textStyle16,
+          style: TextStyles.textStyle16.copyWith(
+            fontSize: 16.w,
+          ),
           autovalidateMode: AutovalidateMode.disabled,
           dropdownTextStyle: TextStyles.textStyle16.copyWith(
             fontWeight: FontWeight.w700,
+            fontSize: 16.w,
           ),
           dropdownDecoration: BoxDecoration(
             borderRadius: BorderRadius.circular(kIsTablet ? 10.w : 15.w),

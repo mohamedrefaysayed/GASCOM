@@ -1,7 +1,9 @@
+import 'package:dinar_store/core/animations/right_slide_transition.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/widgets/app_default_button.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
+import 'package:dinar_store/features/home/presentation/view/order_confirm_view.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/all_companies_place_holder.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/rows/cart_item_row.dart';
@@ -245,6 +247,7 @@ class _CartViewState extends State<CartView>
                                                 color:
                                                     AppColors.kASDCPrimaryColor,
                                                 fontWeight: FontWeight.bold,
+                                                fontSize: 16.w,
                                               ),
                                             ),
                                           ),
@@ -316,6 +319,7 @@ class _CartViewState extends State<CartView>
                                                 color:
                                                     AppColors.kASDCPrimaryColor,
                                                 fontWeight: FontWeight.bold,
+                                                fontSize: 16.w,
                                               ),
                                             ),
                                           ),
@@ -335,6 +339,7 @@ class _CartViewState extends State<CartView>
                                   'اجمالي الطلب',
                                   style: TextStyles.textStyle16.copyWith(
                                     fontWeight: FontWeight.w700,
+                                    fontSize: 16.w,
                                   ),
                                 ),
                               ),
@@ -368,9 +373,10 @@ class _CartViewState extends State<CartView>
                                   Row(
                                     children: [
                                       Text(
-                                        '\$2.29',
+                                        "\$${CartCubit.totalDiscount}",
                                         style: TextStyles.textStyle14.copyWith(
                                           fontWeight: FontWeight.w700,
+                                          color: AppColors.kRed,
                                         ),
                                       ),
                                       const Spacer(),
@@ -424,6 +430,40 @@ class _CartViewState extends State<CartView>
                                         ),
                                       ),
                                     ],
+                                  ),
+                                  const GeneralDivider(),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "\$${CartCubit.finalPrice}",
+                                        style: TextStyles.textStyle14.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        'السعر النهائى',
+                                        style: TextStyles.textStyle14.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColors.kASDCPrimaryColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const GeneralDivider(),
+                                  AppDefaultButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          RightSlideTransition(
+                                              page: const OrderConfirmView()));
+                                    },
+                                    color: AppColors.kASDCPrimaryColor,
+                                    title: "إتمام الطلب",
+                                    textStyle: TextStyles.textStyle16.copyWith(
+                                      color: AppColors.kWhite,
+                                      fontSize: 16.w,
+                                    ),
                                   ),
                                 ],
                               ),

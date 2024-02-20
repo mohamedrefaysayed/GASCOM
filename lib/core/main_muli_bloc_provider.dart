@@ -10,14 +10,18 @@ import 'package:dinar_store/features/home/data/services/ads_services.dart';
 import 'package:dinar_store/features/home/data/services/cart_services.dart';
 import 'package:dinar_store/features/home/data/services/categories_services.dart';
 import 'package:dinar_store/features/home/data/services/companies_services.dart';
+import 'package:dinar_store/features/home/data/services/orders_services.dart';
 import 'package:dinar_store/features/home/data/services/profile_services.dart';
+import 'package:dinar_store/features/home/data/services/search_services.dart';
 import 'package:dinar_store/features/home/data/services/sub_categories_services.dart';
 import 'package:dinar_store/features/home/presentation/view_model/ads_cubit/ads_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/bottom_nav_cubit.dart/cubit/bottton_nav_bar_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/cart_cubit/cubit/cart_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/categories_cubit/categories_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/companies_cubit/companies_cubit.dart';
+import 'package:dinar_store/features/home/presentation/view_model/order_cubit/cubit/order_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/profile_cubit/profile_cubit.dart';
+import 'package:dinar_store/features/home/presentation/view_model/search_cubit/cubit/search_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/sub_categories_cubit/sub_categories_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/sub_category_products_cubit/sub_category_product_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/sub_sub_categories_cubit/sub_sub_categories_cubit.dart';
@@ -114,6 +118,14 @@ class MainMultiBlocProvider extends StatelessWidget {
           create: (context) => LocationCubit(
             locationServices: LocationServices(),
           ),
+        ),
+        BlocProvider(
+          create: (context) => OrderCubit(
+              ordersServices: OrdersServices(dioHelper: DioHelper())),
+        ),
+        BlocProvider(
+          create: (context) => SearchCubit(
+              searchServices: SearchServices(dioHelper: DioHelper())),
         ),
       ],
       child: child,

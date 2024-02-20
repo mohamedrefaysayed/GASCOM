@@ -119,6 +119,7 @@ class CartItemRow extends StatelessWidget {
                                           .toString(),
                                       style: TextStyles.textStyle16.copyWith(
                                         fontWeight: FontWeight.w400,
+                                        fontSize: 16.w,
                                       ),
                                     );
                                   },
@@ -162,6 +163,7 @@ class CartItemRow extends StatelessWidget {
                                       .toString(),
                                   style: TextStyles.textStyle16.copyWith(
                                     fontWeight: FontWeight.w400,
+                                    fontSize: 16.w,
                                   ),
                                 ),
                               ),
@@ -199,6 +201,7 @@ class CartItemRow extends StatelessWidget {
                           style: TextStyles.textStyle16.copyWith(
                             fontWeight: FontWeight.w400,
                             color: AppColors.kRed,
+                            fontSize: 16.w,
                           ),
                           textDirection: TextDirection.rtl,
                         ),

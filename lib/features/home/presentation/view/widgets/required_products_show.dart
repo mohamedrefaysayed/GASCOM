@@ -76,6 +76,7 @@ class RequiredProductsShow extends StatelessWidget {
                     color: AppColors.kASDCPrimaryColor,
                     textStyle: TextStyles.textStyle16.copyWith(
                       color: AppColors.kWhite,
+                      fontSize: 16.w,
                     ),
                     width: 100.w,
                     onPressed: () async {

@@ -75,35 +75,45 @@ class _ProfileContainerState extends State<ProfileContainer> {
                     ),
                     Text(
                       "اسم صاحب المتجر : ${state.profileModel.user!.first.store!.ownerName!}",
-                      style: TextStyles.textStyle16,
+                      style: TextStyles.textStyle16.copyWith(
+                        fontSize: 16.w,
+                      ),
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
                     Text(
                       "${state.profileModel.user!.first.store!.storeName!} : اسم المتجر",
-                      style: TextStyles.textStyle16,
+                      style: TextStyles.textStyle16.copyWith(
+                        fontSize: 16.w,
+                      ),
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
                     Text(
                       "المحافظة : ${state.profileModel.user!.first.store!.district!}",
-                      style: TextStyles.textStyle16,
+                      style: TextStyles.textStyle16.copyWith(
+                        fontSize: 16.w,
+                      ),
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
                     Text(
                       "العنوان : ${state.profileModel.user!.first.store!.address!}",
-                      style: TextStyles.textStyle16,
+                      style: TextStyles.textStyle16.copyWith(
+                        fontSize: 16.w,
+                      ),
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
                     Text(
                       "${state.profileModel.user!.first.store!.phone!} : رقم المتجر",
-                      style: TextStyles.textStyle16,
+                      style: TextStyles.textStyle16.copyWith(
+                        fontSize: 16.w,
+                      ),
                     ),
                     SizedBox(
                       height: 20.h,

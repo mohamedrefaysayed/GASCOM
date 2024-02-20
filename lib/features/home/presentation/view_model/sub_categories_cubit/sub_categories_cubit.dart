@@ -38,6 +38,7 @@ class SubCategoriesCubit extends Cubit<SubCategoriesState> {
       },
       //success
       (categories) async {
+        subCategories = categories;
         emit(SubCategoriesSuccess(categories: categories));
       },
     );

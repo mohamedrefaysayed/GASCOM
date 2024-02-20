@@ -17,9 +17,11 @@ class SubCategoryView extends StatefulWidget {
   const SubCategoryView({
     super.key,
     required this.category,
+    this.getData,
   });
 
   final Categories category;
+  final bool? getData;
 
   @override
   State<SubCategoryView> createState() => _SubCategoryViewState();
@@ -28,7 +30,13 @@ class SubCategoryView extends StatefulWidget {
 class _SubCategoryViewState extends State<SubCategoryView> {
   @override
   void initState() {
-    SubCategoriesCubit.subCategories = widget.category.subCategories!;
+    if (widget.getData != null && widget.getData!) {
+      context
+          .read<SubCategoriesCubit>()
+          .getAllSubSubCategories(catId: widget.category.id!);
+    } else {
+      SubCategoriesCubit.subCategories = widget.category.subCategories!;
+    }
 
     super.initState();
   }

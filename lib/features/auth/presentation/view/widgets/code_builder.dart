@@ -25,6 +25,7 @@ class CodeBuilder extends StatelessWidget {
           "ستصلك رسالة الى الواتساب فيها رمز التأكيد",
           style: TextStyles.textStyle16.copyWith(
             fontWeight: FontWeight.w900,
+            fontSize: 16.w,
           ),
         ),
         SizedBox(
@@ -34,6 +35,7 @@ class CodeBuilder extends StatelessWidget {
           LogInCubit.fakeCode ?? "no",
           style: TextStyles.textStyle16.copyWith(
             fontWeight: FontWeight.w900,
+            fontSize: 16.w,
           ),
         ),
         SizedBox(
@@ -94,8 +96,11 @@ class CodeBuilder extends StatelessWidget {
               color: AppColors.kASDCPrimaryColor,
               borderRadius: BorderRadius.circular(15.w),
               width: double.infinity,
-              textStyle: TextStyles.textStyle16
-                  .copyWith(color: Colors.white, fontWeight: FontWeight.w700),
+              textStyle: TextStyles.textStyle16.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 16.w,
+              ),
             );
           },
         ),
