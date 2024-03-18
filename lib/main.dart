@@ -1,12 +1,29 @@
+import 'package:dinar_store/core/helpers/app_cache/cahch_helper.dart';
 import 'package:dinar_store/core/main_muli_bloc_provider.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/app_routes.dart';
 import 'package:dinar_store/core/utils/constants.dart';
+import 'package:dinar_store/core/utils/genrall.dart';
+import 'package:dinar_store/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  // Notifications.initilization(FlutterLocalNotificationsPlugin());
+
+  await CahchHelper.init();
+
+  userPhone = "201276252138";
+
+  // userPhone = CahchHelper.getData(key: "userPhone");
+
   runApp(
     // DevicePreview(
     //   enabled: !kReleaseMode,
@@ -38,7 +55,7 @@ class MyApp extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Dinar',
+          title: 'GASCOM',
           theme: ThemeData(
             fontFamily: 'SegoeUI',
             scaffoldBackgroundColor: Colors.white,

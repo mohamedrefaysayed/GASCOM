@@ -6,8 +6,6 @@ import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:dinar_store/core/helpers/internet_connection/InternetConnection.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
-import 'package:dinar_store/features/home/presentation/view/cart_view.dart';
-import 'package:dinar_store/features/home/presentation/view/categories_view.dart';
 import 'package:dinar_store/features/home/presentation/view/home_view.dart';
 import 'package:dinar_store/features/home/presentation/view/orders_view.dart';
 import 'package:dinar_store/features/home/presentation/view/profile_view.dart';
@@ -31,6 +29,7 @@ class _BottomNavBarViewState extends State<BottomNavBarView>
 
   @override
   void initState() {
+    BottomNavBarCubit.index = 2;
     WidgetsBinding.instance.addObserver(this);
     internetTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
       context.checkInternet();
@@ -52,8 +51,6 @@ class _BottomNavBarViewState extends State<BottomNavBarView>
                 children: const [
                   ProfileView(),
                   OrdersView(),
-                  CartView(),
-                  CategoriesView(),
                   HomeView(),
                 ],
               ),

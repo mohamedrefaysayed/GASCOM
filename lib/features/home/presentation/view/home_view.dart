@@ -1,16 +1,17 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:dinar_store/core/animations/top_slide_transition.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
+import 'package:dinar_store/core/utils/genrall.dart';
+import 'package:dinar_store/core/utils/text_styles.dart';
+import 'package:dinar_store/core/widgets/app_default_button.dart';
+import 'package:dinar_store/core/widgets/app_loading_button.dart';
+import 'package:dinar_store/core/widgets/message_snack_bar.dart';
+import 'package:dinar_store/features/auth/presentation/view_model/location_cubit/cubit/location_cubit.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/Supplier_widget.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/adds_view.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/categories_view_home.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/companies_view.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/cards/send_order_card.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/search_rows/search_row.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/search_view.dart';
-import 'package:dinar_store/features/home/presentation/view_model/ads_cubit/ads_cubit.dart';
-import 'package:dinar_store/features/home/presentation/view_model/categories_cubit/categories_cubit.dart';
-import 'package:dinar_store/features/home/presentation/view_model/companies_cubit/companies_cubit.dart';
+import 'package:dinar_store/features/home/presentation/view_model/order_cubit/cubit/order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,83 +25,167 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView>
     with AutomaticKeepAliveClientMixin {
+  ValueNotifier<int> counter = ValueNotifier<int>(1);
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return RefreshIndicator(
       onRefresh: () async {
-        await context.read<AdsCubit>().getAllAds();
-        await context.read<CompaniesCubit>().getAllCompanies();
-        await context.read<CategoriesCubit>().getAllCategories();
+        // await context.read<AdsCubit>().getAllAds();
       },
       child: SafeArea(
         child: ScaffoldMessenger(
           child: Scaffold(
-            body: Column(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                  child: Stack(
-                    children: [
-                      Hero(
-                        tag: "HomeSearch",
-                        child: Material(
-                          child: SearchRow(
-                            textEditingController: TextEditingController(),
-                            hintText: 'إبحث عن المتجر او القطعة',
-                            canGoBack: false,
-                            whenBack: () {},
-                            haveFilter: true,
-                            onFilter: () {},
-                            onChanged: (_) {},
-                          ),
-                        ),
-                      ),
-                      Positioned.fill(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15.w),
-                          child: Material(
-                            color: AppColors.kTransparent,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    TopSlideTransition(
-                                        page: const SearchView()));
+            body: Padding(
+              padding: EdgeInsets.only(top: 50.h),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: GestureDetector(
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                        },
+                        child: Column(
+                          children: [
+                            const AddsView(),
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            Text(
+                              "املأ الاسطوانه وانت مرتاح",
+                              style: TextStyles.textStyle24.copyWith(
+                                color: AppColors.kASDCPrimaryColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const GeneralDivider(),
+                            BlocBuilder<LocationCubit, LocationState>(
+                              builder: (context, state) {
+                                if (state is LocationLoading) {
+                                  return Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 40.w, vertical: 10.h),
+                                      child: const AppLoadingButton());
+                                }
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 40.w, vertical: 10.h),
+                                  child: Column(
+                                    children: [
+                                      AppDefaultButton(
+                                        icon: (state is LocationSuccess)
+                                            ? Icon(
+                                                Icons.check,
+                                                color: Colors.white,
+                                                size: 25.w,
+                                              )
+                                            : Icon(
+                                                Icons.location_on,
+                                                color: Colors.white,
+                                                size: 25.w,
+                                              ),
+                                        textStyle:
+                                            TextStyles.textStyle16.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16.w,
+                                        ),
+                                        onPressed: () async {
+                                          await context
+                                              .read<LocationCubit>()
+                                              .getCurrentLocation(
+                                                  context: context);
+                                        },
+                                        title: 'تحديد موقعي',
+                                        color: AppColors.kASDCPrimaryColor,
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Text(
+                                        LocationCubit.address != null
+                                            ? LocationCubit.address!.street!
+                                            : "",
+                                        style: TextStyles.textStyle16.copyWith(
+                                          color: AppColors.kASDCPrimaryColor,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.w,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
                               },
                             ),
-                          ),
+                            const GeneralDivider(),
+                            SupplierWidget(
+                              counter: counter,
+                            ),
+                            const GeneralDivider(),
+                            BlocBuilder<OrderCubit, OrderState>(
+                              builder: (context, state) {
+                                return OrderCubit.selectedValue != null
+                                    ? SendOrderCard(
+                                        supplier: OrderCubit
+                                            .suppliersModel!.agents!
+                                            .firstWhere((element) =>
+                                                element.name ==
+                                                OrderCubit.selectedValue),
+                                        counter: counter,
+                                      )
+                                    : const SizedBox();
+                              },
+                            ),
+                            BlocBuilder<OrderCubit, OrderState>(
+                              builder: (context, state) {
+                                if (state is AddToOrdersLoading) {
+                                  return const AppLoadingButton();
+                                }
+                                return AppDefaultButton(
+                                  color: AppColors.kASDCPrimaryColor,
+                                  textStyle: TextStyles.textStyle14.copyWith(
+                                    color: AppColors.kWhite,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  onPressed: () async {
+                                    if (OrderCubit.selectedValue != null) {
+                                      context.read<OrderCubit>().storeOrder(
+                                            userPhone: userPhone!,
+                                            supplierPhone: OrderCubit
+                                                .suppliersModel!.agents!
+                                                .firstWhere((element) =>
+                                                    element.name ==
+                                                    OrderCubit.selectedValue)
+                                                .mobNo!,
+                                            totalPrice: counter.value * 100,
+                                            tubsNumber: counter.value,
+                                          );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        messageSnackBar(
+                                          isBottomNavBar: true,
+                                          message: "أختر موزع",
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  title: 'إرسال الطلب',
+                                );
+                              },
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: GestureDetector(
-                      onTap: () {
-                        FocusScope.of(context).unfocus();
-                      },
-                      child: Column(
-                        children: [
-                          const AddsView(),
-                          const GeneralDivider(),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            child: const CompaniesView(),
-                          ),
-                          const GeneralDivider(),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            child: const CategoriesViewHome(),
-                          ),
-                        ],
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -36,3 +36,17 @@ final class DeleteOrderFailuer extends OrderState {
   final String errMessage;
   DeleteOrderFailuer({required this.errMessage});
 }
+
+final class GetSuppliersLoading extends OrderState {}
+
+final class GetSuppliersSuccess extends OrderState {
+  SuppliersModel suppliersModel;
+  GetSuppliersSuccess({
+    required this.suppliersModel,
+  });
+}
+
+final class GetSuppliersFailuer extends OrderState {
+  final String errMessage;
+  GetSuppliersFailuer({required this.errMessage});
+}

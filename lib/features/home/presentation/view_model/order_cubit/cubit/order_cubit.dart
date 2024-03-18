@@ -2,10 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
+import 'package:dinar_store/core/utils/genrall.dart';
 import 'package:dinar_store/features/home/data/models/orders_model.dart';
-import 'package:dinar_store/features/home/data/models/send_order_model.dart';
+import 'package:dinar_store/features/home/data/models/suppliers_model.dart';
 import 'package:dinar_store/features/home/data/services/orders_services.dart';
-import 'package:dinar_store/features/home/presentation/view_model/cart_cubit/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -19,12 +19,16 @@ class OrderCubit extends Cubit<OrderState> {
 
   late OrdersServices _ordersServices;
 
+  static SuppliersModel? suppliersModel;
+
   static String payment = 'الدفع عند الاستلام';
   static TimeOfDay initialTime = TimeOfDay.now();
   static TimeOfDay? pickedTime;
   static LatLng? markerPosition;
   static String currentAddress = "أختر عنوان";
   static Marker? marker;
+
+  static String? selectedValue;
 
   static OrdersModel? ordersModel;
 
@@ -51,43 +55,19 @@ class OrderCubit extends Cubit<OrderState> {
   }
 
   storeOrder({
-    required int status,
-    required double discount,
-    required double tax,
-    required double price,
-    required int addressId,
+    required String userPhone,
+    required String supplierPhone,
+    required int tubsNumber,
+    required int totalPrice,
   }) async {
     emit(AddToOrdersLoading());
 
-    SendOrderModel sendOrderModel = SendOrderModel();
-
-    List<Map<String, dynamic>> orderDetails = [];
-
-    for (var cartItem in CartCubit.cartItemsModel!.cart!) {
-      orderDetails.add(
-        SendOrderDetails(
-          productId: int.parse(cartItem.productId!),
-          unitId: double.parse(cartItem.unitId!).toInt(),
-          qty: double.parse(cartItem.quantity!).toInt(),
-          price: double.parse(cartItem.price!).toInt(),
-        ).toJson(),
-      );
-    }
-    sendOrderModel = SendOrderModel.fromJson({
-      'status': status,
-      'discount': discount.toInt(),
-      'tax': tax.toInt(),
-      'address_id': addressId,
-      'order_details': orderDetails,
-    });
-
     Either<ServerFailure, void> result = await _ordersServices.storeOrder(
       token: AppCubit.token!,
-      status: status,
-      discount: discount,
-      tax: tax,
-      addressId: addressId,
-      sendOrderModel: sendOrderModel,
+      userPhone: userPhone,
+      supplierPhone: supplierPhone,
+      tubsNumber: tubsNumber,
+      totalPrice: totalPrice,
     );
 
     result.fold(
@@ -121,5 +101,28 @@ class OrderCubit extends Cubit<OrderState> {
       currentAddress = '${place.street}';
       emit(OrderInitial());
     });
+  }
+
+  getSuppliers() async {
+    emit(GetSuppliersLoading());
+    Either<ServerFailure, SuppliersModel> result =
+        await _ordersServices.getSuppliers(
+      token: AppCubit.token!,
+      phone: userPhone!,
+    );
+
+    result.fold(
+      //error
+      (serverFailure) {
+        emit(
+          GetSuppliersFailuer(errMessage: serverFailure.errMessage),
+        );
+      },
+      //success
+      (suppliers) async {
+        suppliersModel = suppliers;
+        emit(GetSuppliersSuccess(suppliersModel: suppliers));
+      },
+    );
   }
 }

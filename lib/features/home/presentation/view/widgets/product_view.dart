@@ -193,7 +193,6 @@ class _ProductViewState extends State<ProductView> {
                     height: 10.h,
                   ),
                   TextField(
-                    minLines: 4,
                     maxLines: null,
                     textDirection: TextDirection.rtl,
                     onTapOutside: (event) {

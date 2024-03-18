@@ -1,12 +1,14 @@
 import 'package:dartz/dartz.dart';
-import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
 import 'package:dinar_store/core/helpers/dio_helper.dart';
 import 'package:dinar_store/core/utils/constants.dart';
+import 'package:dinar_store/features/auth/data/models/model/login_model.dart';
+import 'package:dinar_store/features/auth/data/models/model/verfiy_model.dart';
 import 'package:dinar_store/features/auth/data/repos/log_in_repo.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:map_location_picker/map_location_picker.dart';
 
 class LogInServices implements LogInRepo {
   LogInServices({
@@ -22,20 +24,19 @@ class LogInServices implements LogInRepo {
   String? fcmToken;
 
   @override
-  Future<Either<ServerFailure, Map<String, dynamic>>> register({
-    required String countryCode,
+  Future<Either<ServerFailure, LoginModel>> logIn({
     required String phoneNumber,
   }) async {
     try {
-      Map<String, dynamic> data = await _dioHelper.postRequest(
-        body: {
-          'country_code': countryCode,
-          'phone': phoneNumber,
+      Map<String, dynamic> data = await _dioHelper.getRequest(
+        endPoint: 'login_customer',
+        queryParameters: {
+          'mob_no': phoneNumber,
         },
-        endPoint: 'register',
       );
-
-      return right(data);
+      return right(
+        LoginModel.fromJson(data),
+      );
     } on DioException catch (error) {
       return left(
         ServerFailure.fromDioException(dioException: error),
@@ -48,17 +49,23 @@ class LogInServices implements LogInRepo {
   }
 
   @override
-  Future<Either<ServerFailure, Map<String, dynamic>>> sendVCode({
-    required String code,
+  Future<Either<ServerFailure, VerfiyModel>> verify({
+    required String otp,
+    required String phoneNumber,
   }) async {
     try {
-      Map<String, dynamic> data = await _dioHelper.postRequest(
-        body: {
-          'verification_code': code,
+      fcmToken = await FirebaseMessaging.instance.getToken();
+      Map<String, dynamic> data = await _dioHelper.getRequest(
+        endPoint: 'otp_customer',
+        queryParameters: {
+          // 'token': fcmToken,
+          'mob_no': phoneNumber,
+          'otp': otp,
         },
-        endPoint: 'verify',
       );
-      return right(data);
+      return right(
+        VerfiyModel.fromJson(data),
+      );
     } on DioException catch (error) {
       return left(
         ServerFailure.fromDioException(dioException: error),
@@ -71,30 +78,25 @@ class LogInServices implements LogInRepo {
   }
 
   @override
-  Future<Either<ServerFailure, void>> storeData({
-    required String ownerName,
-    required String storeName,
-    required String district,
-    required String address,
-    required String phone,
+  Future<Either<ServerFailure, VerfiyModel>> register({
+    required String name,
+    required String phoneNumber,
     required Position position,
-    required String token,
   }) async {
     try {
-      await _dioHelper.postRequest(
-        token: token,
-        body: {
-          'owner_name': ownerName,
-          'store_name': storeName,
-          'district': district,
-          'address': address,
-          'phone': phone,
-          'lng': position.longitude,
-          'lat': position.latitude,
+      fcmToken = await FirebaseMessaging.instance.getToken();
+      Map<String, dynamic> data = await _dioHelper.getRequest(
+        endPoint: 'signup_customer',
+        queryParameters: {
+          'mob_no': phoneNumber,
+          'location': "${position.longitude},${position.latitude}",
+          'name': name,
+          'fcm': fcmToken,
         },
-        endPoint: 'store',
       );
-      return right(null);
+      return right(
+        VerfiyModel.fromJson(data),
+      );
     } on DioException catch (error) {
       return left(
         ServerFailure.fromDioException(dioException: error),
@@ -108,7 +110,12 @@ class LogInServices implements LogInRepo {
 
   @override
   Future<void> storeTokenInSecureStorage({required String token}) async {
-    AppCubit.token = token;
     await _secureStorage.write(key: kSecureStorageKey, value: token);
+  }
+
+  @override
+  Future<String?> getTokenFromSecureStorage() async {
+    String? token = await _secureStorage.read(key: kSecureStorageKey);
+    return token;
   }
 }

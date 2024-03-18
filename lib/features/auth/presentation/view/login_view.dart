@@ -1,6 +1,5 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member, use_build_context_synchronously
 
-import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/app_images.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/auth/presentation/view/widgets/code_builder.dart';
@@ -51,16 +50,6 @@ class LogInView extends StatelessWidget {
                       },
                     ),
                     const Spacer(),
-                    // TextButton(
-                    //     onPressed: () {
-                    //       Navigator.pushNamedAndRemoveUntil(
-                    //           context, '/BottomNavBarView', (route) => false);
-                    //     },
-                    //     child: Text(
-                    //       "تخطى",
-                    //       style: TextStyles.textStyle18
-                    //           .copyWith(color: Colors.grey),
-                    //     ))
                   ],
                 ),
                 SizedBox(
@@ -68,27 +57,13 @@ class LogInView extends StatelessWidget {
                 ),
                 Center(
                   child: Image.asset(
-                    AppImages.loginCart,
+                    AppImages.gascomLogo,
                     height: 177.w,
                     width: 177.w,
                   ),
                 ),
                 SizedBox(
-                  height: 20.h,
-                ),
-                Hero(
-                  tag: 'dinar_logo',
-                  child: Center(
-                    child: Image.asset(
-                      AppImages.dinarLogo,
-                      height: 40.w,
-                      width: 177.w,
-                      color: AppColors.kASDCPrimaryColor,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 70.h,
+                  height: 130.h,
                 ),
                 BlocConsumer<LogInCubit, LogInState>(
                   listener: (context, state) {
@@ -98,7 +73,7 @@ class LogInView extends StatelessWidget {
                     }
                     if (state is SendCodeSuccess) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                          messageSnackBar(message: state.message));
+                          messageSnackBar(message: "تم إرسال رقم التأكيد"));
                     }
                   },
                   builder: (context, state) {

@@ -1,7 +1,6 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 
 import 'package:dinar_store/core/helpers/internet_connection/InternetConnection.dart';
-import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/features/splash/presentation/view/widgets/splash_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +18,6 @@ class SplashViewFutureBuilder extends StatelessWidget {
         context.checkInternet();
       }),
       builder: (context, snapShot) => const Scaffold(
-        backgroundColor: AppColors.kASDCPrimaryColor,
         body: SplashViewBody(),
       ),
     );

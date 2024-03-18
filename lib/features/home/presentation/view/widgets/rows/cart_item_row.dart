@@ -74,19 +74,23 @@ class CartItemRow extends StatelessWidget {
                                 width: 27.w,
                                 height: 27.w,
                                 onPressed: () async {
-                                  cartItem.updating = true;
-                                  await context.read<CartCubit>().updateItem(
-                                        itemId: cartItem.id!,
-                                        productId:
-                                            int.parse(cartItem.productId!),
-                                        quantity:
-                                            double.parse(cartItem.quantity!)
-                                                    .toInt() -
-                                                1,
-                                        unitId: int.parse(cartItem.unitId!),
-                                        price: double.parse(cartItem.price!),
-                                        isRequired: cartItem.isRequired!,
-                                      );
+                                  if (double.parse(cartItem.quantity!).toInt() -
+                                          1 >
+                                      0) {
+                                    cartItem.updating = true;
+                                    await context.read<CartCubit>().updateItem(
+                                          itemId: cartItem.id!,
+                                          productId:
+                                              int.parse(cartItem.productId!),
+                                          quantity:
+                                              double.parse(cartItem.quantity!)
+                                                      .toInt() -
+                                                  1,
+                                          unitId: int.parse(cartItem.unitId!),
+                                          price: double.parse(cartItem.price!),
+                                          isRequired: cartItem.isRequired!,
+                                        );
+                                  }
                                 },
                                 title: '',
                                 icon: Icon(

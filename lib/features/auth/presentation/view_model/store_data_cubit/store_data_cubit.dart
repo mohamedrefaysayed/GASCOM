@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
 import 'package:dinar_store/features/auth/data/services/log_in_services.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/location_cubit/cubit/location_cubit.dart';
+import 'package:dinar_store/features/auth/presentation/view_model/log_in_cubit/log_in_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,22 +20,14 @@ class StoreDataCubit extends Cubit<StoreDataState> {
   static GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   static TextEditingController nameController = TextEditingController();
-  static TextEditingController marketNameController = TextEditingController();
-  static TextEditingController govController = TextEditingController();
-  static TextEditingController addressController = TextEditingController();
-  static TextEditingController marketPhoneController = TextEditingController();
 
   Future<void> storeData() async {
     emit(StoreDataLoading());
 
-    Either<ServerFailure, void> result = await _logInServices.storeData(
-      ownerName: nameController.text,
-      storeName: marketNameController.text,
-      district: govController.text,
-      address: addressController.text,
-      phone: marketPhoneController.text,
+    Either<ServerFailure, void> result = await _logInServices.register(
       position: LocationCubit.currentPosition!,
-      token: AppCubit.token!,
+      name: nameController.text,
+      phoneNumber: LogInCubit.phoneNumber!.completeNumber,
     );
 
     result.fold(
@@ -49,10 +41,7 @@ class StoreDataCubit extends Cubit<StoreDataState> {
       (data) async {
         emit(StoreDataSuccess());
         nameController.clear();
-        marketNameController.clear();
-        govController.clear();
-        addressController.clear();
-        marketPhoneController.clear();
+
         LocationCubit.currentPosition == null;
       },
     );

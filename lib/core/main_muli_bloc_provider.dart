@@ -1,4 +1,4 @@
-import 'package:dinar_store/core/data/services/locatio_service.dart';
+import 'package:dinar_store/core/data/services/location_service.dart';
 import 'package:dinar_store/core/helpers/dio_helper.dart';
 
 import 'package:dinar_store/features/auth/data/services/log_in_services.dart';
@@ -47,7 +47,8 @@ class MainMultiBlocProvider extends StatelessWidget {
           create: (context) => LogInCubit(
               logInServices: LogInServices(
                   dioHelper: DioHelper(),
-                  secureStorage: const FlutterSecureStorage())),
+                  secureStorage: const FlutterSecureStorage()),
+              locationServices: LocationServices(dioHelper: DioHelper())),
         ),
         BlocProvider(create: (context) => BottomNavBarCubit()),
         BlocProvider(
@@ -116,7 +117,7 @@ class MainMultiBlocProvider extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => LocationCubit(
-            locationServices: LocationServices(),
+            locationServices: LocationServices(dioHelper: DioHelper()),
           ),
         ),
         BlocProvider(

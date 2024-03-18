@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1087832704269",
+    "project_id": "prizm-energy",
+    "storage_bucket": "prizm-energy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087832704269:android:7031908dd28213202a9c44",
+        "android_client_info": {
+          "package_name": "com.example.Iraq.Gascom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_nG_pCyJ44ShfDOb539vsZ82yxVkxYZ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087832704269:android:6896d7fbe9e499642a9c44",
+        "android_client_info": {
+          "package_name": "com.example.prizm_energy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_nG_pCyJ44ShfDOb539vsZ82yxVkxYZ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

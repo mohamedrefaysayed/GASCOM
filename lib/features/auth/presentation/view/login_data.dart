@@ -43,10 +43,9 @@ class LoginData extends StatelessWidget {
                     tag: 'dinar_logo',
                     child: Center(
                       child: Image.asset(
-                        AppImages.dinarLogo,
-                        height: 40.w,
-                        width: 177.w,
-                        color: AppColors.kASDCPrimaryColor,
+                        AppImages.gascomLogo,
+                        height: 100.w,
+                        width: 100.w,
                       ),
                     ),
                   ),
@@ -55,7 +54,7 @@ class LoginData extends StatelessWidget {
                   ),
                   TextFieldDataBulder(
                     controller: StoreDataCubit.nameController,
-                    title: 'الاسم الثلاثي لصاحب العمل',
+                    title: 'الاسم',
                     onChanged: (value) {},
                     validator: (v) {
                       if (v == null || v.isEmpty) {
@@ -64,55 +63,8 @@ class LoginData extends StatelessWidget {
                       return null;
                     },
                   ),
-                  TextFieldDataBulder(
-                    controller: StoreDataCubit.marketNameController,
-                    title: 'أسم الماركت ',
-                    onChanged: (value) {},
-                    validator: (v) {
-                      if (v == null || v.isEmpty) {
-                        return 'أدخل أسم الماركت ';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFieldDataBulder(
-                    controller: StoreDataCubit.govController,
-                    title: 'المحافظة',
-                    onChanged: (value) {},
-                    validator: (v) {
-                      if (v == null || v.isEmpty) {
-                        return 'أدخل المحافظة';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFieldDataBulder(
-                    controller: StoreDataCubit.addressController,
-                    title: 'العنوان الكامل مع اقرب نقطة دالة',
-                    onChanged: (value) {},
-                    validator: (v) {
-                      if (v == null || v.isEmpty) {
-                        return 'أدخل العنوان';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFieldDataBulder(
-                    keyType: TextInputType.number,
-                    controller: StoreDataCubit.marketPhoneController,
-                    title: 'رقم هاتف الماركت(العمل)',
-                    onChanged: (value) {},
-                    validator: (v) {
-                      if (v == null || v.isEmpty) {
-                        return 'أدخل رقم الهاتف';
-                      }
-                      return null;
-                    },
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                        RegExp(r"[0-9]"),
-                      )
-                    ],
+                  SizedBox(
+                    height: 100.h,
                   ),
                   BlocBuilder<LocationCubit, LocationState>(
                     builder: (context, state) {
@@ -152,6 +104,9 @@ class LoginData extends StatelessWidget {
                         ),
                       );
                     },
+                  ),
+                  SizedBox(
+                    height: 100.h,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.h),

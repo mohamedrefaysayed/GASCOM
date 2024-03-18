@@ -9,7 +9,7 @@ class BottomNavBarCubit extends Cubit<BottomNavBarState> {
 
   static int index = 4;
   static PageController controller = PageController(
-    initialPage: 5,
+    initialPage: 3,
   );
   static List<TabItem> items = [
     const TabItem(
@@ -19,14 +19,6 @@ class BottomNavBarCubit extends Cubit<BottomNavBarState> {
     const TabItem(
       icon: Icons.receipt_long_rounded,
       title: 'الطلبات',
-    ),
-    const TabItem(
-      icon: Icons.shopping_cart_rounded,
-      title: 'العربة',
-    ),
-    const TabItem(
-      icon: Icons.category_rounded,
-      title: 'الأقسام',
     ),
     const TabItem(
       icon: Icons.home_rounded,

@@ -21,11 +21,11 @@ class PhoneBuilder extends StatelessWidget {
     return Column(
       children: [
         Text(
-          "يجب ان يكون رقم الهاتف مسجل بالواتساب",
-          style: TextStyles.textStyle16.copyWith(
+          "غازك واصل لباب البيت",
+          style: TextStyles.textStyle20.copyWith(
             fontWeight: FontWeight.w900,
             color: Colors.black,
-            fontSize: 16.w,
+            fontSize: 20.w,
           ),
         ),
         SizedBox(
@@ -54,7 +54,7 @@ class PhoneBuilder extends StatelessWidget {
                 if (LogInCubit.phoneNumber != null) {
                   try {
                     LogInCubit.phoneNumber!.isValidNumber();
-                    await BlocProvider.of<LogInCubit>(context).register();
+                    await BlocProvider.of<LogInCubit>(context).login();
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
                         messageSnackBar(message: "أدخل رقم صحيح"));

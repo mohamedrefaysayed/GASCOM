@@ -14,14 +14,14 @@ class PropertyRightsRichText extends StatelessWidget {
           TextSpan(
             text: 'All Rights Reserved To ',
             style: TextStyles.textStyle16.copyWith(
-              color: AppColors.kWhite.withOpacity(0.7),
+              color: AppColors.kBlack.withOpacity(0.7),
               fontSize: 16.w,
             ),
           ),
           TextSpan(
-            text: 'Dinar',
+            text: 'GASCOM',
             style: TextStyles.textStyle16.copyWith(
-              color: Colors.white,
+              color: AppColors.kASDCPrimaryColor,
               fontSize: 16.w,
             ),
           ),

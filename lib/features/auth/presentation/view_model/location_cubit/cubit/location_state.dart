@@ -8,7 +8,11 @@ final class LocationLoading extends LocationState {}
 
 final class LocationSuccess extends LocationState {
   Position position;
-  LocationSuccess({required this.position});
+  Placemark address;
+  LocationSuccess({
+    required this.position,
+    required this.address,
+  });
 }
 
 final class AddressSuccess extends LocationState {

@@ -8,6 +8,7 @@ import 'package:dinar_store/core/widgets/app_loading_button.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/auth/presentation/view/login_data.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/log_in_cubit/log_in_cubit.dart';
+import 'package:dinar_store/features/home/presentation/view/bottom_nav_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,7 @@ class CodeBuilder extends StatelessWidget {
     return Column(
       children: [
         Text(
-          "ستصلك رسالة الى الواتساب فيها رمز التأكيد",
+          "املأ الاسطوانه وانت مرتاح",
           style: TextStyles.textStyle16.copyWith(
             fontWeight: FontWeight.w900,
             fontSize: 16.w,
@@ -44,7 +45,7 @@ class CodeBuilder extends StatelessWidget {
         Center(
           child: VerificationCode(
               underlineWidth: 2,
-              length: 6,
+              length: 4,
               underlineColor: AppColors.kASDCPrimaryColor,
               textStyle: TextStyle(
                   color: AppColors.kASDCPrimaryColor, fontSize: 20.sp),
@@ -64,8 +65,13 @@ class CodeBuilder extends StatelessWidget {
         BlocConsumer<LogInCubit, LogInState>(
           listener: (context, state) {
             if (state is VerficationSuccess) {
-              Navigator.push(
-                  context, LeftSlideTransition(page: const LoginData()));
+              if (LogInCubit.isExist) {
+                Navigator.push(context,
+                    LeftSlideTransition(page: const BottomNavBarView()));
+              } else {
+                Navigator.push(
+                    context, LeftSlideTransition(page: const LoginData()));
+              }
             }
           },
           builder: (context, state) {
@@ -81,7 +87,7 @@ class CodeBuilder extends StatelessWidget {
                 HapticFeedback.lightImpact();
 
                 if (LogInCubit.code != null) {
-                  if (LogInCubit.code!.length == 6) {
+                  if (LogInCubit.code!.length == 4) {
                     context.read<LogInCubit>().sendVerficationCode();
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

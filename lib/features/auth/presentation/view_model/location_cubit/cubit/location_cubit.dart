@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:dartz/dartz.dart';
-import 'package:dinar_store/core/data/services/locatio_service.dart';
+import 'package:dinar_store/core/data/services/location_service.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +20,8 @@ class LocationCubit extends Cubit<LocationState> {
   late LocationServices _locationServices;
 
   static Position? currentPosition;
+
+  static Placemark? address;
 
   Future getCurrentLocation({required BuildContext context}) async {
     try {
@@ -40,7 +42,20 @@ class LocationCubit extends Cubit<LocationState> {
       // continue accessing the position of the device.
 
       currentPosition = await Geolocator.getCurrentPosition();
-      emit(LocationSuccess(position: currentPosition!));
+      Either<ServerFailure, Placemark> result =
+          await _locationServices.convertPositionToAddress(
+        lat: currentPosition!.latitude,
+        lng: currentPosition!.longitude,
+      );
+      result.fold(
+          //error
+          (error) => emit(LocationFailuer()),
+          //success
+          (newAddress) {
+        address = newAddress;
+
+        emit(LocationSuccess(position: currentPosition!, address: newAddress));
+      });
     } catch (error) {
       emit(LocationFailuer());
       ScaffoldMessenger.of(context).showSnackBar(
@@ -62,13 +77,13 @@ class LocationCubit extends Cubit<LocationState> {
         );
       },
       //success
-      (address) {
+      (newAddress) {
         emit(
           AddressSuccess(
             locationData: {
               'lat': lat,
               'lng': lng,
-              'address': address,
+              'address': newAddress,
             },
           ),
         );

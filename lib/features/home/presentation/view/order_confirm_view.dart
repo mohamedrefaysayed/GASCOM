@@ -109,7 +109,6 @@ class _OrderConfirmViewState extends State<OrderConfirmView> {
                             height: 10.h,
                           ),
                           TextField(
-                            minLines: 4,
                             maxLines: null,
                             textDirection: TextDirection.rtl,
                             onTapOutside: (event) {
@@ -212,7 +211,11 @@ class _OrderConfirmViewState extends State<OrderConfirmView> {
                                 messageSnackBar(message: "تم إرسال الطلب"));
                             Navigator.of(context).popUntil(
                                 ModalRoute.withName(BottomNavBarView.id));
+                            context.read<CartCubit>().getAllItems();
                             context.read<OrderCubit>().getAllOrders();
+                            OrderCubit.markerPosition = null;
+                            OrderCubit.pickedTime = null;
+                            OrderCubit.currentAddress = "أختر عنوان";
                           }
                         },
                         builder: (context, state) {
@@ -221,13 +224,30 @@ class _OrderConfirmViewState extends State<OrderConfirmView> {
                           }
                           return AppDefaultButton(
                             onPressed: () async {
-                              await context.read<OrderCubit>().storeOrder(
-                                    status: 0,
-                                    discount: CartCubit.totalDiscount,
-                                    tax: 14,
-                                    price: CartCubit.totalPrice,
-                                    addressId: 1,
-                                  );
+                              if (OrderCubit.markerPosition != null) {
+                                if (OrderCubit.pickedTime != null &&
+                                    (OrderCubit.pickedTime!.hour >
+                                            TimeOfDay.now().hour ||
+                                        OrderCubit.pickedTime!.minute >
+                                            TimeOfDay.now().minute + 29)) {
+                                  // await context.read<OrderCubit>().storeOrder(
+                                  //       status: 0,
+                                  //       discount: CartCubit.totalDiscount,
+                                  //       tax: 14,
+                                  //       price: CartCubit.totalPrice,
+                                  //       addressId: 1,
+                                  //       paymentMethod: 'عند الاستلام',
+                                  //     );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      messageSnackBar(
+                                          message:
+                                              "اختر وقت التوصيل بطريقة صحيحة"));
+                                }
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    messageSnackBar(message: "اختر الموقع"));
+                              }
                             },
                             color: AppColors.kASDCPrimaryColor,
                             title: "إتمام الطلب",

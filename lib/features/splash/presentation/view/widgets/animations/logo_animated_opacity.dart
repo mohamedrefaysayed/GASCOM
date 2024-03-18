@@ -1,5 +1,7 @@
+import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/app_images.dart';
 import 'package:dinar_store/core/utils/constants.dart';
+import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,12 +32,26 @@ class _LogoAnimatedOpacityState extends State<LogoAnimatedOpacity> {
         builder: (context, opacity, child) => AnimatedOpacity(
           opacity: opacity,
           duration: const Duration(milliseconds: 1500),
-          child: Image.asset(
-            color: Colors.white,
-            AppImages.dinarLogo,
-            height: kIsTablet ? 150.h : 90.h,
-            width: 190.w,
-            fit: BoxFit.fill,
+          child: Column(
+            children: [
+              Image.asset(
+                AppImages.gascomLogo,
+                height: kIsTablet ? 150.h : 150.h,
+                width: 150.w,
+                fit: BoxFit.fill,
+              ),
+              SizedBox(
+                height: 30.h,
+              ),
+              Text(
+                'GASCOM',
+                style: TextStyles.textStyle24.copyWith(
+                  color: AppColors.kASDCPrimaryColor,
+                  fontSize: 24.w,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ),
       ),
