@@ -73,12 +73,14 @@ class LocationCubit extends Cubit<LocationState> {
 
   Future<void> getAddress(double lat, double lng) async {
     emit(LocationLoading());
+
     Either<ServerFailure, Placemark> addressResult =
         await _locationServices.convertPositionToAddress(lat: lat, lng: lng);
 
     addressResult.fold(
       //error
       (serverFailure) {
+        print(serverFailure.errMessage);
         emit(
           AddressFailuer(errorMessage: serverFailure.errMessage),
         );

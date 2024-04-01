@@ -2,7 +2,6 @@ import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/location_cubit/cubit/location_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/columns/current_location_column.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/map_place_holder.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/profile_place_holder.dart';
 import 'package:dinar_store/features/home/presentation/view_model/profile_cubit/profile_cubit.dart';
@@ -47,9 +46,13 @@ class _ProfileContainerState extends State<ProfileContainer> {
           BlocConsumer<ProfileCubit, ProfileState>(
             listener: (context, state) {
               if (state is ProfileSuccess) {
-                context.read<LocationCubit>().getAddress(
-                    double.parse(state.profileModel.user!.first.store!.lat!),
-                    double.parse(state.profileModel.user!.first.store!.lng!));
+                String location = state.profileModel.customer!.location!;
+                List<String> latLng = location.split(",");
+                double latitude = double.parse(latLng[0]);
+                double longitude = double.parse(latLng[1]);
+                context.read<LocationCubit>().getAddress(latitude, longitude);
+                print(latitude);
+                print(longitude);
               }
             },
             builder: (context, state) {
@@ -58,23 +61,23 @@ class _ProfileContainerState extends State<ProfileContainer> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "${state.profileModel.user!.first.countryCode! + state.profileModel.user!.first.phone!} : رقم الهاتف",
-                      style: TextStyles.textStyle18,
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    const GeneralDivider(),
-                    Text(
-                      "بيانات المتجر",
-                      style: TextStyles.textStyle18
-                          .copyWith(fontWeight: FontWeight.bold),
+                      "الاسم: ${state.profileModel.customer!.name}",
+                      style: TextStyles.textStyle16.copyWith(
+                        fontSize: 16.w,
+                      ),
                     ),
                     SizedBox(
                       height: 20.h,
                     ),
                     Text(
-                      "اسم صاحب المتجر : ${state.profileModel.user!.first.store!.ownerName!}",
+                      "${state.profileModel.customer!.mobNo!} : رقم الهاتف",
+                      style: TextStyles.textStyle18,
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text(
+                      "عدد الطلبات : ${state.profileModel.customer!.noOrders ?? 0}",
                       style: TextStyles.textStyle16.copyWith(
                         fontSize: 16.w,
                       ),
@@ -83,37 +86,11 @@ class _ProfileContainerState extends State<ProfileContainer> {
                       height: 10.h,
                     ),
                     Text(
-                      "${state.profileModel.user!.first.store!.storeName!} : اسم المتجر",
+                      "العنوان : ${LocationCubit.address}",
                       style: TextStyles.textStyle16.copyWith(
                         fontSize: 16.w,
                       ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text(
-                      "المحافظة : ${state.profileModel.user!.first.store!.district!}",
-                      style: TextStyles.textStyle16.copyWith(
-                        fontSize: 16.w,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text(
-                      "العنوان : ${state.profileModel.user!.first.store!.address!}",
-                      style: TextStyles.textStyle16.copyWith(
-                        fontSize: 16.w,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text(
-                      "${state.profileModel.user!.first.store!.phone!} : رقم المتجر",
-                      style: TextStyles.textStyle16.copyWith(
-                        fontSize: 16.w,
-                      ),
+                      textDirection: TextDirection.rtl,
                     ),
                     SizedBox(
                       height: 20.h,

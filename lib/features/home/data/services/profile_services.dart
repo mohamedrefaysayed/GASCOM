@@ -21,7 +21,7 @@ class ProfileServices implements ProfileRepo {
     try {
       Map<String, dynamic> data = await _dioHelper.getRequest(
         token: token,
-        endPoint: 'get-user',
+        endPoint: 'customer_data',
       );
       profileModel = ProfileModel.fromJson(data);
       return right(profileModel);

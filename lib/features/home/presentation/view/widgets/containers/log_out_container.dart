@@ -1,7 +1,6 @@
 import 'package:dinar_store/core/functions/show_alert_dialog.dart';
 import 'package:dinar_store/core/widgets/app_loading_button.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
-import 'package:dinar_store/features/auth/presentation/view/login_view.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/log_out_cubit/log_out_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/rows/profile_settings_row.dart';
 import 'package:flutter/material.dart';

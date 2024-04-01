@@ -30,7 +30,7 @@ class CurrentLocationMap extends StatelessWidget {
         child: GoogleMap(
           markers: {
             Marker(
-              markerId: const MarkerId('موقع المتجر'),
+              markerId: const MarkerId('موقعك'),
               position: LatLng(lat, lng),
             )
           },
