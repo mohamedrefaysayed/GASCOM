@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
 import 'package:dinar_store/core/helpers/dio_helper.dart';
-import 'package:dinar_store/features/home/data/models/cart_items_model.dart';
 import 'package:dinar_store/features/home/data/models/orders_model.dart';
 import 'package:dinar_store/features/home/data/models/suppliers_model.dart';
 import 'package:dinar_store/features/home/data/repos/orders_repo.dart';
@@ -25,7 +24,7 @@ class OrdersServices implements OrdersRepo {
     try {
       Map<String, dynamic> data = await _dioHelper.getRequest(
         token: token,
-        endPoint: 'orders',
+        endPoint: 'view_customer_orders',
       );
       ordersModel = OrdersModel.fromJson(data);
       return right(ordersModel);
@@ -72,36 +71,7 @@ class OrdersServices implements OrdersRepo {
   }
 
   @override
-  Future<Either<ServerFailure, CartItemsModel>> deleteOrder({
-    required String token,
-    required int itemId,
-  }) async {
-    CartItemsModel cartItemsModel;
-    try {
-      Map<String, dynamic> data = await _dioHelper.postRequest(
-        token: token,
-        endPoint: 'orders/$itemId',
-        body: {
-          '_method': "delete",
-          'id': itemId,
-        },
-      );
-      cartItemsModel = CartItemsModel.fromJson(data);
-      return right(cartItemsModel);
-    } on DioException catch (error) {
-      return left(
-        ServerFailure.fromDioException(dioException: error),
-      );
-    } catch (error) {
-      return left(
-        ServerFailure(errMessage: error.toString()),
-      );
-    }
-  }
-
-  @override
   Future<Either<ServerFailure, SuppliersModel>> getSuppliers({
-    required String phone,
     required String token,
   }) async {
     SuppliersModel suppliersModel;
@@ -109,9 +79,6 @@ class OrdersServices implements OrdersRepo {
       Map<String, dynamic> data = await _dioHelper.getRequest(
         token: token,
         endPoint: 'view_agents',
-        queryParameters: {
-          'customer_mob_no': phone,
-        },
       );
       suppliersModel = SuppliersModel.fromJson(data);
       return right(suppliersModel);

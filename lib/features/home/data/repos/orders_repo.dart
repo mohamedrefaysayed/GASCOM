@@ -16,13 +16,7 @@ abstract class OrdersRepo {
     required String token,
   });
 
-  Future<Either<ServerFailure, void>> deleteOrder({
-    required String token,
-    required int itemId,
-  });
-
   Future<Either<ServerFailure, SuppliersModel>> getSuppliers({
-    required String phone,
     required String token,
   });
 }

@@ -23,7 +23,7 @@ class AdsServices implements AdsRepo {
     try {
       Map<String, dynamic> data = await _dioHelper.getRequest(
         token: token,
-        endPoint: 'ads',
+        endPoint: 'show_ad',
       );
       adsModel = AdsModel.fromJson(data);
       return right(adsModel);

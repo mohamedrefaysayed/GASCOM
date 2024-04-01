@@ -12,10 +12,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:map_location_picker/map_location_picker.dart';
 
-part 'log_in_state.dart';
+part 'log_in_agent_state.dart';
 
-class LogInCubit extends Cubit<LogInState> {
-  LogInCubit({
+class LogInAgentCubit extends Cubit<LogInAgentState> {
+  LogInAgentCubit({
     required LogInServices logInServices,
     required LocationServices locationServices,
   }) : super(LogInInitial()) {

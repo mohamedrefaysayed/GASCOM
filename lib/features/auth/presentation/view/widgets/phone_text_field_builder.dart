@@ -43,8 +43,12 @@ class PhoneTextFieldBuilder extends StatelessWidget {
           pickerDialogStyle: PickerDialogStyle(
             countryCodeStyle: TextStyles.textStyle12.copyWith(
               fontWeight: FontWeight.w700,
+              fontSize: 12.w,
             ),
-            countryNameStyle: TextStyles.textStyle12,
+            countryNameStyle: TextStyles.textStyle12.copyWith(
+              fontWeight: FontWeight.w700,
+              fontSize: 12.w,
+            ),
           ),
           decoration: InputDecoration(
             prefixIconColor: AppColors.kASDCPrimaryColor,

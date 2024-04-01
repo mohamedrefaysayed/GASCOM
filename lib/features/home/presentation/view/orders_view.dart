@@ -1,10 +1,8 @@
 import 'package:dinar_store/core/utils/text_styles.dart';
-import 'package:dinar_store/core/widgets/app_default_button.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/columns/order_column.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/old_orders_view.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/all_companies_place_holder.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/rows/order_row.dart';
 import 'package:dinar_store/features/home/presentation/view_model/order_cubit/cubit/order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +20,7 @@ class _OrdersViewState extends State<OrdersView>
   @override
   void initState() {
     context.read<OrderCubit>().getAllOrders();
+
     super.initState();
   }
 
@@ -71,98 +70,55 @@ class _OrdersViewState extends State<OrdersView>
                 ],
               );
             }
-            if (state is OrderSuccess) {
-              OrderCubit.ordersModel!.currentOrders!.reversed;
-              return (OrderCubit.ordersModel != null &&
-                      OrderCubit.ordersModel!.currentOrders!.isNotEmpty)
-                  ? Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                              right: 30.w, left: 30.w, top: 40.h),
-                          child: Text(
-                            'الطلبــــــات',
-                            style: TextStyles.textStyle16.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16.w,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              AppDefaultButton(
-                                width: 30.w,
-                                height: 30.w,
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => (OrderCubit
-                                                    .ordersModel !=
-                                                null &&
-                                            OrderCubit.ordersModel!.oldOrders!
-                                                .isNotEmpty)
-                                        ? const OldOrdersView()
-                                        : ListView(
-                                            children: [
-                                              SizedBox(
-                                                height: 300.h,
-                                              ),
-                                              Center(
-                                                child: Text(
-                                                  "لا توجد طلبات سابقة",
-                                                  style: TextStyles.textStyle18,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                  );
-                                },
-                                title: '',
-                                icon: Icon(
-                                  Icons.history,
-                                  size: 25.w,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const GeneralDivider(),
-                        Expanded(
-                          child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            itemCount:
-                                OrderCubit.ordersModel!.currentOrders!.length,
-                            itemBuilder: (context, index) {
-                              return OrderRow(
-                                  order: OrderCubit
-                                      .ordersModel!.currentOrders![index]);
-                            },
-                          ),
-                        ),
-                      ],
-                    )
-                  : ListView(
-                      children: [
-                        SizedBox(
-                          height: 300.h,
-                        ),
-                        Center(
-                          child: Text(
-                            "لا توجد طلبات",
-                            style: TextStyles.textStyle18,
-                          ),
-                        ),
-                      ],
-                    );
+            if (state is OrderLoading) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30.w),
+                child: const AllCompaniesPlaceHolder(),
+              );
             }
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.w),
-              child: const AllCompaniesPlaceHolder(),
-            );
+
+            return (OrderCubit.ordersModel != null &&
+                    OrderCubit.ordersModel!.orders!.isNotEmpty)
+                ? Column(
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.only(right: 30.w, left: 30.w, top: 40.h),
+                        child: Text(
+                          'الطلبــــــات',
+                          style: TextStyles.textStyle16.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16.w,
+                          ),
+                        ),
+                      ),
+                      const GeneralDivider(),
+                      Expanded(
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          itemCount: OrderCubit.ordersModel!.orders!.length,
+                          itemBuilder: (context, index) {
+                            return OrderColumn(
+                                order: OrderCubit.ordersModel!.orders![index]);
+                          },
+                        ),
+                      ),
+                    ],
+                  )
+                : ListView(
+                    children: [
+                      SizedBox(
+                        height: 300.h,
+                      ),
+                      Center(
+                        child: Text(
+                          "لا توجد طلبات",
+                          style: TextStyles.textStyle18,
+                        ),
+                      ),
+                    ],
+                  );
           },
         ),
       ),

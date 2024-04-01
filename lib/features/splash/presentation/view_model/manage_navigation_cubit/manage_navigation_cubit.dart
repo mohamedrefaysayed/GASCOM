@@ -37,7 +37,7 @@ class ManageNavigationCubit extends Cubit<ManageNavigationState> {
     if (AppCubit.token != null) {
       emit(NavigateToNavBarView());
     } else {
-      emit(NavigateToLogInView());
+      emit(NavigateToUserType());
     }
     // else {
     //   emit(NavigateToQrView());

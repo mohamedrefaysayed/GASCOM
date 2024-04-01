@@ -1,5 +1,7 @@
 import 'package:dinar_store/core/animations/right_slide_transition.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/containers/delete_account_container.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/log_out_container.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/rows/profile_settings_row.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/setting_view.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +56,8 @@ class _ProfileViewState extends State<ProfileView>
               wDevider: true,
             ),
             const LogOutContainer(),
+            const GeneralDivider(),
+            const DeleteAccountContainer(),
             const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

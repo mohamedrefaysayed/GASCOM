@@ -10,7 +10,6 @@ import 'package:dinar_store/features/auth/presentation/view_model/log_in_cubit/l
 import 'package:dinar_store/features/auth/presentation/view_model/store_data_cubit/store_data_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view/bottom_nav_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -77,30 +76,47 @@ class LoginData extends StatelessWidget {
                       return Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 40.w, vertical: 10.h),
-                        child: AppDefaultButton(
-                          icon: (state is LocationSuccess)
-                              ? Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                  size: 25.w,
-                                )
-                              : Icon(
-                                  Icons.location_on,
-                                  color: Colors.white,
-                                  size: 25.w,
-                                ),
-                          textStyle: TextStyles.textStyle16.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16.w,
-                          ),
-                          onPressed: () async {
-                            await context
-                                .read<LocationCubit>()
-                                .getCurrentLocation(context: context);
-                          },
-                          title: 'تحديد موقعي',
-                          color: AppColors.kASDCPrimaryColor,
+                        child: Column(
+                          children: [
+                            AppDefaultButton(
+                              icon: (state is LocationSuccess)
+                                  ? Icon(
+                                      Icons.check,
+                                      color: Colors.white,
+                                      size: 25.w,
+                                    )
+                                  : Icon(
+                                      Icons.location_on,
+                                      color: Colors.white,
+                                      size: 25.w,
+                                    ),
+                              textStyle: TextStyles.textStyle16.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16.w,
+                              ),
+                              onPressed: () async {
+                                await context
+                                    .read<LocationCubit>()
+                                    .getCurrentLocation(context: context);
+                              },
+                              title: 'تحديد موقعي',
+                              color: AppColors.kASDCPrimaryColor,
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            Text(
+                              LocationCubit.address != null
+                                  ? LocationCubit.address!.street!
+                                  : "",
+                              style: TextStyles.textStyle16.copyWith(
+                                color: AppColors.kASDCPrimaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.w,
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     },

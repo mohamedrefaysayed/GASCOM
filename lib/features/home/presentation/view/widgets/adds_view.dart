@@ -49,7 +49,7 @@ class _AddsViewState extends State<AddsView> {
                           borderRadius: BorderRadius.circular(15.w),
                           child: MyCachedNetworkImage(
                             width: double.infinity,
-                            url: state.adsModel.ads![itemIndex].image!,
+                            url: state.adsModel.ads![itemIndex].paths!,
                             errorIcon: Icon(
                               Icons.image,
                               size: 100.w,

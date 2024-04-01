@@ -38,6 +38,8 @@ class _SupplierWidgetState extends State<SupplierWidget> {
           OrderCubit.selectedValue = null;
           context.read<OrderCubit>().emit(OrderInitial());
           widget.counter.value = 1;
+          context.read<OrderCubit>().getAllOrders();
+          context.read<OrderCubit>().getSuppliers();
 
           ScaffoldMessenger.of(context).showSnackBar(messageSnackBar(
             message: "تم إرسال الطلب",
@@ -52,6 +54,9 @@ class _SupplierWidgetState extends State<SupplierWidget> {
         }
       },
       builder: (context, state) {
+        if (state is GetSuppliersLoading) {
+          return const CircularProgressIndicator();
+        }
         return Column(
           children: [
             Text(
@@ -91,28 +96,42 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                       items: OrderCubit.suppliersModel!.agents!
                           .map((Agents item) => DropdownMenuItem<String>(
                                 value: item.name,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      item.name!,
-                                      style: TextStyle(
-                                        fontSize: 14.w,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.kBlack,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.w, vertical: 5.h),
+                                  width: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        item.name!,
+                                        style: TextStyle(
+                                          fontSize: 14.w,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.kBlack,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      "يبعد عنك ${(item.distanceKm! * 1000).toStringAsFixed(2)} متر",
-                                      style: TextStyle(
-                                        fontSize: 14.w,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.kBlack,
+                                      Text(
+                                        "يبعد عنك :  ${(item.distanceKm! * 1000).toStringAsFixed(2)} متر",
+                                        style: TextStyle(
+                                          fontSize: 14.w,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.kBlack,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
+                                      Text(
+                                        "سعر الاسطوانة :  ${item.price}",
+                                        style: TextStyle(
+                                          fontSize: 14.w,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.kBlack,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ))
                           .toList(),
@@ -122,7 +141,7 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                         context.read<OrderCubit>().emit(OrderInitial());
                       },
                       buttonStyleData: ButtonStyleData(
-                        height: 50.h,
+                        height: 80.h,
                         width: 300.w,
                         padding: EdgeInsets.only(left: 14.w, right: 14.w),
                         decoration: BoxDecoration(
@@ -156,8 +175,19 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                         ),
                       ),
                       menuItemStyleData: MenuItemStyleData(
-                        height: 50.h,
+                        height: 80.h,
                         padding: EdgeInsets.only(left: 14.w, right: 14.w),
+                        selectedMenuItemBuilder: (context, child) {
+                          return Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color:
+                                  AppColors.kASDCPrimaryColor.withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(14.w),
+                            ),
+                            child: child,
+                          );
+                        },
                       ),
                     ),
                   )

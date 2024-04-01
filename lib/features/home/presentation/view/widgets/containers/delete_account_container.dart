@@ -1,4 +1,5 @@
 import 'package:dinar_store/core/functions/show_alert_dialog.dart';
+import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/widgets/app_loading_button.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/auth/presentation/view/login_view.dart';
@@ -8,26 +9,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LogOutContainer extends StatelessWidget {
-  const LogOutContainer({super.key});
+class DeleteAccountContainer extends StatelessWidget {
+  const DeleteAccountContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LogOutCubit, LogOutState>(
       listener: (context, state) {
-        if (state is LogOutFailure) {
+        if (state is DeleteAccountFailure) {
           ScaffoldMessenger.of(context)
               .showSnackBar(messageSnackBar(message: state.errMessage));
         }
-        if (state is LogOutSuccess) {
+        if (state is DeleteAccountSuccess) {
           Navigator.pushNamedAndRemoveUntil(
-              context, 'usertype', (route) => false);
+              context, LogInView.id, (route) => false);
           ScaffoldMessenger.of(context)
-              .showSnackBar(messageSnackBar(message: "تم الخروج بنجاح"));
+              .showSnackBar(messageSnackBar(message: "تم حذف الحساب بنجاح"));
         }
       },
       builder: (context, state) {
-        if (state is LogOutLoading) {
+        if (state is DeleteAccountLoading) {
           return SizedBox(
             width: 250.w,
             child: AppLoadingButton(
@@ -36,11 +37,12 @@ class LogOutContainer extends StatelessWidget {
           );
         }
         return ProfileSettingsRow(
-          title: 'تسجيل الخروج',
+          title: 'حذف الحساب',
+          iconColor: AppColors.kRed,
           onTap: () {
             showAlertDialog(context,
                 child: AlertDialog(
-                  title: const Text('هل تريد تسجيل الخروج؟'),
+                  title: const Text('هل تريد حذف الحساب؟'),
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -50,15 +52,15 @@ class LogOutContainer extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        context.read<LogOutCubit>().logOut();
+                        BlocProvider.of<LogOutCubit>(context).deleteAccount();
                         Navigator.pop(context);
                       },
-                      child: const Text('خروج'),
+                      child: const Text('حذف'),
                     ),
                   ],
                 ));
           },
-          icon: Icons.logout_outlined,
+          icon: Icons.delete_forever,
         );
       },
     );

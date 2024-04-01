@@ -25,6 +25,7 @@ class Agents {
   String? mobNo;
   String? name;
   double? distanceKm;
+  String? price;
 
   Agents({this.mobNo, this.name, this.distanceKm});
 
@@ -32,6 +33,7 @@ class Agents {
     mobNo = json['mob_no'];
     name = json['name'];
     distanceKm = json['distance_km'];
+    price = json['price'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +41,7 @@ class Agents {
     data['mob_no'] = mobNo;
     data['name'] = name;
     data['distance_km'] = distanceKm;
+    data['price'] = price;
     return data;
   }
 }

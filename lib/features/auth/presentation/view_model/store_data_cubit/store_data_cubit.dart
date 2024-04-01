@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
+import 'package:dinar_store/features/auth/data/models/model/register_model.dart';
 import 'package:dinar_store/features/auth/data/services/log_in_services.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/location_cubit/cubit/location_cubit.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/log_in_cubit/log_in_cubit.dart';
@@ -24,7 +25,7 @@ class StoreDataCubit extends Cubit<StoreDataState> {
   Future<void> storeData() async {
     emit(StoreDataLoading());
 
-    Either<ServerFailure, void> result = await _logInServices.register(
+    Either<ServerFailure, RegisterModel> result = await _logInServices.register(
       position: LocationCubit.currentPosition!,
       name: nameController.text,
       phoneNumber: LogInCubit.phoneNumber!.completeNumber,
@@ -41,6 +42,10 @@ class StoreDataCubit extends Cubit<StoreDataState> {
       (data) async {
         emit(StoreDataSuccess());
         nameController.clear();
+
+        if (data.token != null) {
+          _logInServices.storeTokenInSecureStorage(token: data.token!);
+        }
 
         LocationCubit.currentPosition == null;
       },

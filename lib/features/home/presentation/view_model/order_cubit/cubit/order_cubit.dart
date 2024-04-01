@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
-import 'package:dinar_store/core/utils/genrall.dart';
 import 'package:dinar_store/features/home/data/models/orders_model.dart';
 import 'package:dinar_store/features/home/data/models/suppliers_model.dart';
 import 'package:dinar_store/features/home/data/services/orders_services.dart';
@@ -48,6 +47,7 @@ class OrderCubit extends Cubit<OrderState> {
       },
       //success
       (orders) async {
+        orders.orders = orders.orders!.reversed.toList();
         ordersModel = orders;
         emit(OrderSuccess(ordersModel: orders));
       },
@@ -108,7 +108,6 @@ class OrderCubit extends Cubit<OrderState> {
     Either<ServerFailure, SuppliersModel> result =
         await _ordersServices.getSuppliers(
       token: AppCubit.token!,
-      phone: userPhone!,
     );
 
     result.fold(

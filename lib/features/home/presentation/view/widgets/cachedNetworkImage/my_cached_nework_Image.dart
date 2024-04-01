@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
+import 'package:dinar_store/core/utils/genrall.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -28,7 +29,7 @@ class MyCachedNetworkImage extends StatelessWidget {
     return CachedNetworkImage(
       height: height,
       width: width,
-      imageUrl: "http://just.sd/dinar/public/storage/$url",
+      imageUrl: "$mainUrl$url",
       fit: fit ?? BoxFit.cover,
       errorWidget: (context, url, error) {
         return errorIcon;

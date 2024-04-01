@@ -92,17 +92,17 @@ class LocationServices implements LocationRepo {
   }
 
   @override
-  Future<Either<ServerFailure, void>> updateUserLocation(
-      {required String token, required Position position}) async {
+  Future<Either<ServerFailure, void>> updateUserLocation({
+    required String token,
+    required Position position,
+  }) async {
     try {
-      await _dioHelper.postRequest(
-        token: token,
-        endPoint: 'asdc-client-user/send-client-user-location',
-        body: {
-          'asdc_client_gps_location':
-              'https://www.google.com/maps?q=${position.latitude},${position.longitude}',
-        },
-      );
+      await _dioHelper.getRequest(
+          token: token,
+          endPoint: 'customer_location',
+          queryParameters: {
+            'location': "${position.longitude},${position.latitude}",
+          });
       return right(null);
     } on DioException catch (error) {
       return left(

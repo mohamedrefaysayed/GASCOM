@@ -1,7 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:dartz/dartz.dart';
-import 'package:dinar_store/core/data/services/location_service.dart';
+import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
+import 'package:dinar_store/features/home/data/services/location_service.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,12 @@ class LocationCubit extends Cubit<LocationState> {
       // continue accessing the position of the device.
 
       currentPosition = await Geolocator.getCurrentPosition();
+
+      if (AppCubit.token != null) {
+        await _locationServices.updateUserLocation(
+            token: AppCubit.token!, position: currentPosition!);
+      }
+
       Either<ServerFailure, Placemark> result =
           await _locationServices.convertPositionToAddress(
         lat: currentPosition!.latitude,

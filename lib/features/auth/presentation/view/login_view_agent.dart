@@ -10,10 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LogInView extends StatelessWidget {
-  const LogInView({super.key});
+class LogInViewAgent extends StatelessWidget {
+  const LogInViewAgent({super.key});
 
-  static const String id = '/LogInView';
+  static const String id = '/LogInViewAgent';
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class LogInView extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    "مستخدم",
+                    "وكيل",
                     style: TextStyles.textStyle24.copyWith(
                       fontSize: 24.w,
                       fontWeight: FontWeight.bold,

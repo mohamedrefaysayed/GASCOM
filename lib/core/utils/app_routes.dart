@@ -1,4 +1,5 @@
 import 'package:dinar_store/features/auth/presentation/view/login_view.dart';
+import 'package:dinar_store/features/auth/presentation/view/user_type.dart';
 import 'package:dinar_store/features/home/presentation/view/bottom_nav_view.dart';
 import 'package:dinar_store/features/splash/presentation/view/splash_view.dart';
 import 'package:flutter/material.dart';
@@ -8,5 +9,6 @@ abstract class AppRoutes {
     '/': (context) => const SplashView(),
     LogInView.id: (context) => const LogInView(),
     BottomNavBarView.id: (context) => const BottomNavBarView(),
+    "usertype": (context) => const UserType(),
   };
 }
