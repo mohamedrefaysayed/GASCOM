@@ -50,3 +50,17 @@ final class GetSuppliersFailuer extends OrderState {
   final String errMessage;
   GetSuppliersFailuer({required this.errMessage});
 }
+
+final class GetagentsOrdersLoading extends OrderState {}
+
+final class GetagentsOrdersSuccess extends OrderState {
+  OrdersModel ordersModel;
+  GetagentsOrdersSuccess({
+    required this.ordersModel,
+  });
+}
+
+final class GetagentsOrdersFailuer extends OrderState {
+  final String errMessage;
+  GetagentsOrdersFailuer({required this.errMessage});
+}

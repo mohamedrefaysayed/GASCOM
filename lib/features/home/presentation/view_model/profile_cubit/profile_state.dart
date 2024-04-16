@@ -20,3 +20,14 @@ final class ProfileFaliuer extends ProfileState {
   final String errMessage;
   ProfileFaliuer({required this.errMessage});
 }
+
+final class ProfileUpdate extends ProfileState {}
+
+final class UpdateProfileLoading extends ProfileState {}
+
+final class UpdateProfileSuccess extends ProfileState {}
+
+final class UpdateProfileFaliuer extends ProfileState {
+  final String errMessage;
+  UpdateProfileFaliuer({required this.errMessage});
+}

@@ -133,7 +133,7 @@ class _HomeViewState extends State<HomeView>
                               ? SendOrderCard(
                                   supplier: OrderCubit.suppliersModel!.agents!
                                       .firstWhere((element) =>
-                                          element.name ==
+                                          element.mobNo ==
                                           OrderCubit.selectedValue),
                                   counter: counter,
                                 )
@@ -158,14 +158,14 @@ class _HomeViewState extends State<HomeView>
                                       supplierPhone: OrderCubit
                                           .suppliersModel!.agents!
                                           .firstWhere((agent) =>
-                                              agent.name ==
+                                              agent.mobNo ==
                                               OrderCubit.selectedValue)
                                           .mobNo!,
                                       totalPrice: counter.value *
                                           int.parse(OrderCubit
                                               .suppliersModel!.agents!
                                               .firstWhere((agent) =>
-                                                  agent.name ==
+                                                  agent.mobNo ==
                                                   OrderCubit.selectedValue)
                                               .price!),
                                       tubsNumber: counter.value,

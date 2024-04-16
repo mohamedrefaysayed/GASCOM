@@ -65,6 +65,8 @@ dependencies:
   firebase_core: ^2.27.1
   firebase_messaging: ^14.7.20
   dropdown_button2: ^2.3.9
+  image_picker: ^1.0.8
+  image_cropper: ^5.0.1
 
 
 

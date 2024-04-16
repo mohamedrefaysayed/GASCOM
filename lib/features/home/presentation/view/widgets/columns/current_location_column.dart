@@ -1,6 +1,8 @@
 import 'package:dinar_store/core/utils/text_styles.dart';
+import 'package:dinar_store/features/auth/presentation/view_model/location_cubit/cubit/location_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/maps/current_location_map.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CurrentLocationColumn extends StatelessWidget {
@@ -10,21 +12,6 @@ class CurrentLocationColumn extends StatelessWidget {
   });
 
   final Map<String, dynamic> currentLocationData;
-
-  String getAddress() {
-    List<String> components = [
-      currentLocationData['address'].name ?? '',
-      currentLocationData['address'].thoroughfare ?? '',
-      currentLocationData['address'].locality ?? '',
-      currentLocationData['address'].administrativeArea ?? '',
-      currentLocationData['address'].country ?? '',
-    ];
-
-    // Filter out empty strings and join with commas
-    String address =
-        components.where((component) => component.isNotEmpty).join(', ');
-    return address;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +27,9 @@ class CurrentLocationColumn extends StatelessWidget {
         SizedBox(
           width: 250.w,
           child: Text(
-            getAddress(),
+            context
+                .read<LocationCubit>()
+                .getAddressValue(currentLocationData: currentLocationData),
             style: TextStyles.textStyle12.copyWith(
               fontWeight: FontWeight.w700,
             ),

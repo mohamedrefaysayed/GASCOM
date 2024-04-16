@@ -34,6 +34,8 @@ abstract class AppColors {
   ///FF9800
   static const Color kOrange = Color(0xFFFF9800);
 
+  static const Color kLightOrang = Color.fromARGB(255, 255, 223, 158);
+
   ///F54E58
   static const Color kRed = Color(0xFFF54E57);
 

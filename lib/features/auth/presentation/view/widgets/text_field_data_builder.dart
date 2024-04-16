@@ -13,15 +13,22 @@ class TextFieldDataBulder extends StatelessWidget {
     this.inputFormatters,
     required this.controller,
     this.keyType,
+    this.hint,
   });
 
   final String title;
 
   final void Function(String) onChanged;
+
   final String? Function(String?)? validator;
+
   final List<TextInputFormatter>? inputFormatters;
+
   final TextEditingController controller;
+
   final TextInputType? keyType;
+
+  final String? hint;
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +61,16 @@ class TextFieldDataBulder extends StatelessWidget {
               style: TextStyles.textStyle14,
               textDirection: TextDirection.rtl,
               decoration: InputDecoration(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15.w),
-                      borderSide: const BorderSide(
-                          color: AppColors.kASDCPrimaryColor))),
+                hintText: hint ?? "",
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.w),
+                  borderSide: const BorderSide(
+                    color: AppColors.kASDCPrimaryColor,
+                  ),
+                ),
+              ),
             ),
           ),
         ],

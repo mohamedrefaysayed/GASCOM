@@ -1,4 +1,5 @@
 import 'package:dinar_store/core/animations/right_slide_transition.dart';
+import 'package:dinar_store/features/home/presentation/view/Devoloper_data.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/delete_account_container.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/log_out_container.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
@@ -45,7 +46,10 @@ class _ProfileViewState extends State<ProfileView>
             ),
             ProfileSettingsRow(
               title: 'معلومات عن المطوريين',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context, RightSlideTransition(page: const DevoloperData()));
+              },
               icon: Icons.developer_mode_outlined,
               wDevider: true,
             ),

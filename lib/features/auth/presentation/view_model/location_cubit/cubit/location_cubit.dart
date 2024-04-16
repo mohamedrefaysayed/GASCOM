@@ -66,7 +66,10 @@ class LocationCubit extends Cubit<LocationState> {
     } catch (error) {
       emit(LocationFailuer());
       ScaffoldMessenger.of(context).showSnackBar(
-        messageSnackBar(message: "أفتح الموقع"),
+        messageSnackBar(
+          message: "أفتح الموقع",
+          isBottomNavBar: true,
+        ),
       );
     }
   }
@@ -80,7 +83,6 @@ class LocationCubit extends Cubit<LocationState> {
     addressResult.fold(
       //error
       (serverFailure) {
-        print(serverFailure.errMessage);
         emit(
           AddressFailuer(errorMessage: serverFailure.errMessage),
         );
@@ -98,5 +100,46 @@ class LocationCubit extends Cubit<LocationState> {
         );
       },
     );
+  }
+
+  Future<String> getAddressString(double lat, double lng) async {
+    emit(LocationLoading());
+
+    Either<ServerFailure, Placemark> addressResult =
+        await _locationServices.convertPositionToAddress(lat: lat, lng: lng);
+    String address = '';
+
+    addressResult.fold(
+      //error
+      (serverFailure) {
+        address = serverFailure.errMessage;
+      },
+      //success
+      (newAddress) {
+        address = getAddressValue(
+          currentLocationData: {
+            'lat': lat,
+            'lng': lng,
+            'address': newAddress,
+          },
+        );
+      },
+    );
+    return address;
+  }
+
+  String getAddressValue({required Map<String, dynamic> currentLocationData}) {
+    List<String> components = [
+      currentLocationData['address'].name ?? '',
+      currentLocationData['address'].thoroughfare ?? '',
+      currentLocationData['address'].locality ?? '',
+      currentLocationData['address'].administrativeArea ?? '',
+      currentLocationData['address'].country ?? '',
+    ];
+
+    // Filter out empty strings and join with commas
+    String address =
+        components.where((component) => component.isNotEmpty).join(', ');
+    return address;
   }
 }

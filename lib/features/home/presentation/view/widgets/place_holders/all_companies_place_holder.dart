@@ -12,6 +12,7 @@ class AllCompaniesPlaceHolder extends StatelessWidget {
       baseColor: Colors.grey.withOpacity(0.3),
       highlightColor: AppColors.kASDCPrimaryColor.withOpacity(0.5),
       child: ListView.builder(
+        shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         itemCount: 12,
         itemBuilder: (context, index) {

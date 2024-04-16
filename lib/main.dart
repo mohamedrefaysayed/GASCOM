@@ -20,9 +20,8 @@ void main() async {
 
   await CahchHelper.init();
 
-  // userPhone = "201276252138";
-
-  userPhone = CahchHelper.getData(key: "userPhone");
+  isCustomer = CahchHelper.getData(key: "isCustomer") ?? true;
+  userPhone = CahchHelper.getData(key: "userPhone") ?? "";
 
   runApp(
     // DevicePreview(

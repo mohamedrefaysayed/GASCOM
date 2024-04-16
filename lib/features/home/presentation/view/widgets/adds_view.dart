@@ -34,7 +34,7 @@ class _AddsViewState extends State<AddsView> {
             children: [
               Container(
                 padding: EdgeInsets.symmetric(vertical: 10.h),
-                height: 185.h,
+                height: 130.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -43,20 +43,21 @@ class _AddsViewState extends State<AddsView> {
                 child: CarouselSlider.builder(
                   itemCount: state.adsModel.ads!.length,
                   carouselController: _controller,
-                  itemBuilder: (BuildContext context, int itemIndex,
-                          int pageViewIndex) =>
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(15.w),
-                          child: MyCachedNetworkImage(
-                            width: double.infinity,
-                            url: state.adsModel.ads![itemIndex].paths!,
-                            errorIcon: Icon(
-                              Icons.image,
-                              size: 100.w,
-                              color: AppColors.kASDCPrimaryColor,
-                            ),
-                            loadingWidth: 30.w,
-                          )),
+                  itemBuilder:
+                      (BuildContext context, int itemIndex, int pageViewIndex) {
+                    return ClipRRect(
+                        borderRadius: BorderRadius.circular(15.w),
+                        child: MyCachedNetworkImage(
+                          width: double.infinity,
+                          url: state.adsModel.ads![itemIndex].paths!,
+                          errorIcon: Icon(
+                            Icons.image,
+                            size: 100.w,
+                            color: AppColors.kASDCPrimaryColor,
+                          ),
+                          loadingWidth: 30.w,
+                        ));
+                  },
                   options: CarouselOptions(
                       aspectRatio: 16 / 9,
                       viewportFraction: 0.95,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
 import 'package:dinar_store/features/auth/data/models/model/login_model.dart';
@@ -22,7 +24,28 @@ abstract class LogInRepo {
     required Position position,
   });
 
+  Future<Either<ServerFailure, RegisterModel>> registerAgent({
+    required String name,
+    required String phoneNumber,
+    required String agentNumber,
+    required Position position,
+    required File img,
+    required String price,
+  });
+
+  Future<Either<ServerFailure, RegisterModel>> updateData({
+    String? name,
+    LatLng? position,
+  });
+
+  Future<Either<ServerFailure, RegisterModel>> updateDataAgent({
+    String? name,
+    LatLng? position,
+  });
+
   Future<Either<ServerFailure, void>> deleteAccount();
+
+  Future<Either<String, String>> checkToken();
 
   ///use flutter secure storage to store the token
   Future<void> storeTokenInSecureStorage({

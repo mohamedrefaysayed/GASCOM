@@ -25,4 +25,19 @@ class BottomNavBarCubit extends Cubit<BottomNavBarState> {
       title: 'الرئيسية',
     ),
   ];
+
+  static List<TabItem> agentItems = [
+    const TabItem(
+      icon: Icons.person_2_rounded,
+      title: 'البروفايل',
+    ),
+    const TabItem(
+      icon: Icons.receipt_long_rounded,
+      title: 'الارشيف',
+    ),
+    const TabItem(
+      icon: Icons.home_rounded,
+      title: 'الطلبات',
+    ),
+  ];
 }

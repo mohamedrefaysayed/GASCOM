@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
 import 'package:dinar_store/core/helpers/dio_helper.dart';
 import 'package:dinar_store/core/utils/constants.dart';
+import 'package:dinar_store/core/utils/genrall.dart';
 import 'package:dinar_store/features/auth/data/models/model/login_model.dart';
 import 'package:dinar_store/features/auth/data/models/model/register_model.dart';
 import 'package:dinar_store/features/auth/data/models/model/verfiy_model.dart';
@@ -31,7 +34,7 @@ class LogInServices implements LogInRepo {
   }) async {
     try {
       Map<String, dynamic> data = await _dioHelper.getRequest(
-        endPoint: 'login_customer',
+        endPoint: isCustomer ? 'login_customer' : 'login_agent',
         queryParameters: {
           'mob_no': phoneNumber,
         },
@@ -58,7 +61,7 @@ class LogInServices implements LogInRepo {
     try {
       fcmToken = await FirebaseMessaging.instance.getToken();
       Map<String, dynamic> data = await _dioHelper.getRequest(
-        endPoint: 'otp_customer',
+        endPoint: isCustomer ? 'otp_customer' : 'otp_agent',
         queryParameters: {
           'fcm': fcmToken,
           'mob_no': phoneNumber,
@@ -111,11 +114,112 @@ class LogInServices implements LogInRepo {
   }
 
   @override
-  Future<Either<ServerFailure, void>> deleteAccount() async {
+  Future<Either<ServerFailure, RegisterModel>> updateData({
+    String? name,
+    LatLng? position,
+  }) async {
+    try {
+      Map<String, dynamic> data = await _dioHelper.getRequest(
+        endPoint: 'signup_customer',
+        queryParameters: {
+          'mob_no': userPhone,
+          if (position != null)
+            'location': "${position.longitude},${position.latitude}",
+          if (name != null) 'name': name,
+        },
+      );
+      return right(
+        RegisterModel.fromJson(data),
+      );
+    } on DioException catch (error) {
+      return left(
+        ServerFailure.fromDioException(dioException: error),
+      );
+    } catch (error) {
+      return left(
+        ServerFailure(errMessage: error.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, RegisterModel>> registerAgent({
+    required String name,
+    required String phoneNumber,
+    required String agentNumber,
+    required Position position,
+    required File img,
+    required String price,
+  }) async {
     try {
       fcmToken = await FirebaseMessaging.instance.getToken();
+      MultipartFile imgFile = await MultipartFile.fromFile(
+        img.path,
+        filename: img.path.split('/').last,
+      );
+
+      FormData formData = FormData.fromMap({
+        'mob_no': phoneNumber,
+        'agent_loc': "${position.longitude},${position.latitude}",
+        'agent_name': name,
+        'agent_no': agentNumber,
+        'agent_price': price,
+        'file': imgFile,
+        'fcm': fcmToken,
+      });
+      Map<String, dynamic> data = await _dioHelper.postRequest(
+        endPoint: 'api/signup_agent',
+        body: formData,
+      );
+      return right(
+        RegisterModel.fromJson(data),
+      );
+    } on DioException catch (error) {
+      return left(
+        ServerFailure.fromDioException(dioException: error),
+      );
+    } catch (error) {
+      return left(
+        ServerFailure(errMessage: error.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, RegisterModel>> updateDataAgent({
+    String? name,
+    LatLng? position,
+  }) async {
+    try {
+      FormData formData = FormData.fromMap({
+        'mob_no': userPhone,
+        if (position != null)
+          'agent_loc': "${position.longitude},${position.latitude}",
+        if (name != null) 'agent_name': name,
+      });
+      Map<String, dynamic> data = await _dioHelper.postRequest(
+        endPoint: 'api/signup_agent',
+        body: formData,
+      );
+      return right(
+        RegisterModel.fromJson(data),
+      );
+    } on DioException catch (error) {
+      return left(
+        ServerFailure.fromDioException(dioException: error),
+      );
+    } catch (error) {
+      return left(
+        ServerFailure(errMessage: error.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, void>> deleteAccount() async {
+    try {
       await _dioHelper.getRequest(
-        endPoint: 'delete_customerr',
+        endPoint: isCustomer ? 'delete_customerr' : 'delete_agentt',
       );
       return right(null);
     } on DioException catch (error) {
@@ -125,6 +229,23 @@ class LogInServices implements LogInRepo {
     } catch (error) {
       return left(
         ServerFailure(errMessage: error.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Either<String, String>> checkToken() async {
+    try {
+      Map<String, dynamic> data = await _dioHelper.getRequest(
+        endPoint: 'check_token',
+        token: AppCubit.token,
+      );
+      return right(data['token']);
+    } on DioException catch (error) {
+      return left(error.response!.data['token']);
+    } catch (error) {
+      return left(
+        error.toString(),
       );
     }
   }

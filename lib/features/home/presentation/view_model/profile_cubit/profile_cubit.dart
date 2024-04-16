@@ -6,7 +6,10 @@ import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
 import 'package:dinar_store/features/home/data/models/profile_model.dart';
 import 'package:dinar_store/features/home/data/services/profile_services.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 part 'profile_state.dart';
 
@@ -18,6 +21,18 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   late ProfileServices _profileServices;
+
+  static TextEditingController priceController = TextEditingController();
+
+  static TextEditingController nameController = TextEditingController();
+
+  static LatLng? markerPosition;
+
+  static Marker? marker;
+
+  static String currentAddress = "أختر عنوان";
+
+  static ProfileModel? profileModel;
 
   getProfile() async {
     emit(ProfileLoading());
@@ -34,9 +49,47 @@ class ProfileCubit extends Cubit<ProfileState> {
         );
       },
       //success
-      (profileModel) async {
-        emit(ProfileSuccess(profileModel: profileModel));
+      (profilemodel) async {
+        profileModel = profilemodel;
+        emit(ProfileSuccess(profileModel: profilemodel));
       },
     );
+  }
+
+  updateProfile() async {
+    emit(UpdateProfileLoading());
+    Either<ServerFailure, void> result = await _profileServices.getProfile(
+      token: AppCubit.token!,
+    );
+
+    result.fold(
+      //error
+      (serverFailure) {
+        emit(
+          UpdateProfileFaliuer(errMessage: serverFailure.errMessage),
+        );
+      },
+      //success
+      (_) async {
+        emit(UpdateProfileSuccess());
+      },
+    );
+  }
+
+  void addMarker(LatLng position) async {
+    markerPosition = position;
+    const markerId = MarkerId('marker_id');
+    marker = Marker(
+      markerId: markerId,
+      position: position,
+    );
+    emit(ProfileUpdate());
+
+    await placemarkFromCoordinates(position.latitude, position.longitude)
+        .then((List<Placemark> placemarks) {
+      Placemark place = placemarks[0];
+      currentAddress = '${place.street}';
+      emit(ProfileUpdate());
+    });
   }
 }

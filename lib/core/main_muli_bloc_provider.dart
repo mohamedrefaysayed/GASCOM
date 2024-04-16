@@ -10,6 +10,8 @@ import 'package:dinar_store/features/home/data/services/ads_services.dart';
 import 'package:dinar_store/features/home/data/services/orders_services.dart';
 import 'package:dinar_store/features/home/data/services/profile_services.dart';
 import 'package:dinar_store/features/home/presentation/view_model/ads_cubit/ads_cubit.dart';
+import 'package:dinar_store/features/home/presentation/view_model/agent_orders_actions_cubit/agent_order_actions_cubit.dart';
+import 'package:dinar_store/features/home/presentation/view_model/agent_orders_cubit/agent_order_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/bottom_nav_cubit.dart/cubit/bottton_nav_bar_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/order_cubit/cubit/order_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/profile_cubit/profile_cubit.dart';
@@ -74,6 +76,14 @@ class MainMultiBlocProvider extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => OrderCubit(
+              ordersServices: OrdersServices(dioHelper: DioHelper())),
+        ),
+        BlocProvider(
+          create: (context) => AgentOrderCubit(
+              ordersServices: OrdersServices(dioHelper: DioHelper())),
+        ),
+        BlocProvider(
+          create: (context) => AgentOrderActionsCubit(
               ordersServices: OrdersServices(dioHelper: DioHelper())),
         ),
       ],

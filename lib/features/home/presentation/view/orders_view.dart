@@ -1,5 +1,7 @@
+import 'package:dinar_store/core/utils/genrall.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/columns/agent_order_column.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/columns/order_column.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/all_companies_place_holder.dart';
@@ -85,7 +87,9 @@ class _OrdersViewState extends State<OrdersView>
                         padding:
                             EdgeInsets.only(right: 30.w, left: 30.w, top: 40.h),
                         child: Text(
-                          'الطلبــــــات',
+                          isCustomer
+                              ? 'الطلبــــــات'
+                              : 'الطلبــــــات الســــــابقة',
                           style: TextStyles.textStyle16.copyWith(
                             fontWeight: FontWeight.w700,
                             fontSize: 16.w,
@@ -99,8 +103,15 @@ class _OrdersViewState extends State<OrdersView>
                           shrinkWrap: true,
                           itemCount: OrderCubit.ordersModel!.orders!.length,
                           itemBuilder: (context, index) {
-                            return OrderColumn(
-                                order: OrderCubit.ordersModel!.orders![index]);
+                            return isCustomer
+                                ? OrderColumn(
+                                    order:
+                                        OrderCubit.ordersModel!.orders![index],
+                                  )
+                                : AgentOrderColumn(
+                                    order:
+                                        OrderCubit.ordersModel!.orders![index],
+                                  );
                           },
                         ),
                       ),

@@ -49,4 +49,23 @@ class LogOutCubit extends Cubit<LogOutState> {
       },
     );
   }
+
+  Future<void> checkToken() async {
+    Either<String, String> result = await _logInServices.checkToken();
+
+    result.fold(
+      //error
+      (serverFailure) {
+        if (serverFailure == 'expired') {
+          logOut();
+        }
+      },
+      //success
+      (data) async {
+        if (data == 'expired') {
+          logOut();
+        }
+      },
+    );
+  }
 }

@@ -31,6 +31,8 @@ class OrderCubit extends Cubit<OrderState> {
 
   static OrdersModel? ordersModel;
 
+  static OrdersModel? agentOrdersModel;
+
   getAllOrders() async {
     ordersModel == null ? emit(OrderLoading()) : null;
     Either<ServerFailure, OrdersModel> result =
@@ -113,6 +115,7 @@ class OrderCubit extends Cubit<OrderState> {
     result.fold(
       //error
       (serverFailure) {
+
         emit(
           GetSuppliersFailuer(errMessage: serverFailure.errMessage),
         );
@@ -121,6 +124,28 @@ class OrderCubit extends Cubit<OrderState> {
       (suppliers) async {
         suppliersModel = suppliers;
         emit(GetSuppliersSuccess(suppliersModel: suppliers));
+      },
+    );
+  }
+
+  getAllAgentOrders() async {
+    emit(GetagentsOrdersLoading());
+    Either<ServerFailure, OrdersModel> result =
+        await _ordersServices.getAllAgentOrders(
+      token: AppCubit.token!,
+    );
+
+    result.fold(
+      //error
+      (serverFailure) {
+        emit(
+          GetagentsOrdersFailuer(errMessage: serverFailure.errMessage),
+        );
+      },
+      //success
+      (ordersmodel) async {
+        agentOrdersModel = ordersmodel;
+        emit(GetagentsOrdersSuccess(ordersModel: ordersmodel));
       },
     );
   }

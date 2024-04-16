@@ -19,4 +19,27 @@ abstract class OrdersRepo {
   Future<Either<ServerFailure, SuppliersModel>> getSuppliers({
     required String token,
   });
+
+  Future<Either<ServerFailure, OrdersModel>> getAllAgentOrders({
+    required String token,
+  });
+
+  Future<Either<ServerFailure, void>> approveOrder({
+    required String token,
+    required String orderId,
+  });
+  Future<Either<ServerFailure, void>> rejectOrder({
+    required String token,
+    required String orderId,
+  });
+
+  Future<Either<ServerFailure, void>> deleverOrder({
+    required String token,
+    required String orderId,
+  });
+
+  Future<Either<ServerFailure, void>> changePrice({
+    required String token,
+    required String newPrice,
+  });
 }

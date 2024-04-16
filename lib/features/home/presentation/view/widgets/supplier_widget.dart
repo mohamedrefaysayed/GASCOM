@@ -52,10 +52,24 @@ class _SupplierWidgetState extends State<SupplierWidget> {
             isBottomNavBar: true,
           ));
         }
+        if (state is GetSuppliersFailuer) {
+          ScaffoldMessenger.of(context).showSnackBar(messageSnackBar(
+            message: state.errMessage,
+            isBottomNavBar: true,
+          ));
+        }
       },
       builder: (context, state) {
         if (state is GetSuppliersLoading) {
           return const CircularProgressIndicator();
+        }
+        if (state is GetSuppliersFailuer) {
+          return Text(
+            "حدث خطأ أثناء جلب أقرب الوكلاء ",
+            style: TextStyles.textStyle16.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          );
         }
         return Column(
           children: [
@@ -95,7 +109,7 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                       ),
                       items: OrderCubit.suppliersModel!.agents!
                           .map((Agents item) => DropdownMenuItem<String>(
-                                value: item.name,
+                                value: item.mobNo,
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 10.w, vertical: 5.h),
@@ -113,7 +127,7 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                       Text(
-                                        "يبعد عنك :  ${(item.distanceKm! * 1000).toStringAsFixed(2)} متر",
+                                        "يبعد عنك :  ${item.distanceKm!} كم",
                                         style: TextStyle(
                                           fontSize: 14.w,
                                           fontWeight: FontWeight.bold,
@@ -141,7 +155,7 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                         context.read<OrderCubit>().emit(OrderInitial());
                       },
                       buttonStyleData: ButtonStyleData(
-                        height: 80.h,
+                        height: 100.h,
                         width: 300.w,
                         padding: EdgeInsets.only(left: 14.w, right: 14.w),
                         decoration: BoxDecoration(
@@ -162,7 +176,6 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                         iconDisabledColor: Colors.grey,
                       ),
                       dropdownStyleData: DropdownStyleData(
-                        maxHeight: 200.h,
                         width: 300.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),

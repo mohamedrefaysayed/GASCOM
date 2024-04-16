@@ -34,6 +34,7 @@ class GascomOrder {
   String? createdAt;
   String? updatedAt;
   int? price;
+  bool? isLoading;
 
   GascomOrder({
     this.id,
@@ -48,6 +49,7 @@ class GascomOrder {
     this.createdAt,
     this.updatedAt,
     this.price,
+    this.isLoading,
   });
 
   GascomOrder.fromJson(Map<String, dynamic> json) {
@@ -63,6 +65,7 @@ class GascomOrder {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     price = int.parse(json['total_price']) ~/ int.parse(json['no_disks']);
+    isLoading = false;
   }
 
   Map<String, dynamic> toJson() {

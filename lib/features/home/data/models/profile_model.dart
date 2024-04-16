@@ -1,18 +1,20 @@
+import 'package:dinar_store/core/utils/genrall.dart';
+
 class ProfileModel {
   Customer? customer;
 
   ProfileModel({this.customer});
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
-    customer = json['Customer'] != null
-        ? Customer.fromJson(json['Customer'])
+    customer = json[isCustomer ? 'Customer' : 'Agent'] != null
+        ? Customer.fromJson(json[isCustomer ? 'Customer' : 'Agent'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (customer != null) {
-      data['Customer'] = customer!.toJson();
+      data[isCustomer ? 'Customer' : 'Agent'] = customer!.toJson();
     }
     return data;
   }
@@ -32,21 +34,24 @@ class Customer {
   String? isVerified;
   String? createdAt;
   String? updatedAt;
+  String? price;
 
-  Customer(
-      {this.name,
-      this.location,
-      this.government,
-      this.city,
-      this.mobNo,
-      this.otp,
-      this.noOrders,
-      this.totalOrders,
-      this.fcm,
-      this.token,
-      this.isVerified,
-      this.createdAt,
-      this.updatedAt});
+  Customer({
+    this.name,
+    this.location,
+    this.government,
+    this.city,
+    this.mobNo,
+    this.otp,
+    this.noOrders,
+    this.totalOrders,
+    this.fcm,
+    this.token,
+    this.isVerified,
+    this.createdAt,
+    this.updatedAt,
+    this.price,
+  });
 
   Customer.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -62,10 +67,11 @@ class Customer {
     isVerified = json['is_verified'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    price = json['price'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['location'] = location;
     data['government'] = government;

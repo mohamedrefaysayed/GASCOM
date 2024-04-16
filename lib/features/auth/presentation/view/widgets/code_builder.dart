@@ -2,11 +2,13 @@
 
 import 'package:dinar_store/core/animations/left_slide_transition.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
+import 'package:dinar_store/core/utils/genrall.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/widgets/app_default_button.dart';
 import 'package:dinar_store/core/widgets/app_loading_button.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/auth/presentation/view/login_data.dart';
+import 'package:dinar_store/features/auth/presentation/view/login_data_agent.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/log_in_cubit/log_in_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view/bottom_nav_view.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +72,11 @@ class CodeBuilder extends StatelessWidget {
                     LeftSlideTransition(page: const BottomNavBarView()));
               } else {
                 Navigator.push(
-                    context, LeftSlideTransition(page: const LoginData()));
+                    context,
+                    LeftSlideTransition(
+                        page: isCustomer
+                            ? const LoginData()
+                            : const LoginDataAgent()));
               }
             }
           },

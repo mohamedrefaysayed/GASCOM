@@ -1,12 +1,15 @@
+import 'package:dinar_store/core/animations/right_slide_transition.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/utils/time_date_handler.dart';
+import 'package:dinar_store/core/widgets/app_default_button.dart';
 import 'package:dinar_store/features/home/data/models/orders_model.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/order_follow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OrderColumn extends StatelessWidget {
-  const OrderColumn({super.key, required this.order});
+class AgentOrderColumn extends StatelessWidget {
+  const AgentOrderColumn({super.key, required this.order});
 
   final GascomOrder order;
 
@@ -16,19 +19,13 @@ class OrderColumn extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: order.status == "reviewing"
-            ? AppColors.kLightGrey
-            : order.status == "preparing"
-                ? AppColors.kLightOrang
-                : order.status == "delivered"
-                    ? AppColors.kLightGreen
-                    : AppColors.kLightRed,
+        color: AppColors.kWhite,
         borderRadius: BorderRadius.circular(15.w),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 1,
-            blurRadius: 5,
+            spreadRadius: 3,
+            blurRadius: 7,
             offset: Offset(0, 3.h),
           ),
         ],
@@ -44,29 +41,8 @@ class OrderColumn extends StatelessWidget {
               color: AppColors.kASDCPrimaryColor,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                "${order.agentName}",
-                style: TextStyles.textStyle16.copyWith(
-                  fontSize: 16.w,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.kASDCPrimaryColor,
-                ),
-              ),
-              Text(
-                " : أسم الوكيل",
-                style: TextStyles.textStyle16.copyWith(
-                  fontSize: 16.w,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.kASDCPrimaryColor,
-                ),
-              ),
-            ],
-          ),
           Text(
-            "${MyTimeDate.getMessageTime(context: context, time: DateTime.parse(order.createdAt!).millisecondsSinceEpoch.toString())}   : تاريخ الطلب",
+            "${order.customerName}   : الأسم",
             style: TextStyles.textStyle16.copyWith(
               fontSize: 16.w,
               fontWeight: FontWeight.w900,
@@ -111,13 +87,6 @@ class OrderColumn extends StatelessWidget {
                 style: TextStyles.textStyle16.copyWith(
                   fontSize: 16.w,
                   fontWeight: FontWeight.w900,
-                  color: order.status == "reviewing"
-                      ? AppColors.kGrey
-                      : order.status == "preparing"
-                          ? AppColors.kOrange
-                          : order.status == "delivered"
-                              ? AppColors.kGreen
-                              : AppColors.kRed,
                 ),
               ),
               Text(
@@ -130,6 +99,39 @@ class OrderColumn extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(
+            height: 15.h,
+          ),
+          Text(
+            MyTimeDate.getMessageTime(
+                context: context,
+                time: DateTime.parse(order.createdAt!)
+                    .millisecondsSinceEpoch
+                    .toString()),
+            style: TextStyles.textStyle16.copyWith(
+              fontSize: 14.w,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          SizedBox(
+            height: 15.h,
+          ),
+          AppDefaultButton(
+            width: 300.w,
+            color: AppColors.kASDCPrimaryColor,
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  RightSlideTransition(
+                    page: OrderFollow(order: order),
+                  ));
+            },
+            title: 'متابعة الطلب',
+            textStyle: TextStyles.textStyle16.copyWith(
+              color: AppColors.kWhite,
+              fontSize: 16.w,
+            ),
+          )
         ],
       ),
     );

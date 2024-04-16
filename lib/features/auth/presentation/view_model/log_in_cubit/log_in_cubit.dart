@@ -52,7 +52,8 @@ class LogInCubit extends Cubit<LogInState> {
         fakeCode = data.otp;
         isExist = data.exists ?? false;
         CahchHelper.saveData(
-            key: "userPhone", value: phoneNumber!.completeNumber.trim());
+            key: "userPhone",
+            value: phoneNumber!.completeNumber.trim().replaceAll('+', ""));
         userPhone = phoneNumber!.completeNumber;
         emit(SendCodeSuccess(
           message: data.exists.toString(),

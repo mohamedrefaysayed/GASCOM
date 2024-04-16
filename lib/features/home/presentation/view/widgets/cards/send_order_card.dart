@@ -21,7 +21,7 @@ class SendOrderCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: 20.w),
       child: Container(
-        height: 200.h,
+        height: 210.h,
         width: 250.w,
         decoration: BoxDecoration(
           color: AppColors.kASDCPrimaryColor,
@@ -55,7 +55,7 @@ class SendOrderCard extends StatelessWidget {
               height: 5.h,
             ),
             Text(
-              '100',
+              supplier.price!,
               style: TextStyles.textStyle14.copyWith(
                 color: AppColors.kWhite,
                 fontWeight: FontWeight.bold,
@@ -83,7 +83,7 @@ class SendOrderCard extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: counter,
               builder: (BuildContext context, int value, Widget? child) => Text(
-                "${value * 100}",
+                "${value * int.parse(supplier.price!)}",
                 style: TextStyles.textStyle18.copyWith(
                   color: AppColors.kWhite,
                   fontWeight: FontWeight.bold,
