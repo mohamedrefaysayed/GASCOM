@@ -1,5 +1,6 @@
 import 'package:dinar_store/core/functions/show_alert_dialog.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
+import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/widgets/app_loading_button.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/auth/presentation/view/login_view.dart';
@@ -42,21 +43,42 @@ class DeleteAccountContainer extends StatelessWidget {
           onTap: () {
             showAlertDialog(context,
                 child: AlertDialog(
-                  title: const Text('هل تريد حذف الحساب؟'),
+                  title: Center(
+                    child: Text(
+                      'هل تريد حذف الحساب؟',
+                      style: TextStyles.textStyle18,
+                    ),
+                  ),
                   actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('إلغاء'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        BlocProvider.of<LogOutCubit>(context).deleteAccount();
-                        Navigator.pop(context);
-                      },
-                      child: const Text('حذف'),
-                    ),
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'إلغاء',
+                            style: TextStyles.textStyle14.copyWith(
+                              color: AppColors.kASDCPrimaryColor,
+                            ),
+                          ),
+                        ),
+                        const Spacer(),
+                        TextButton(
+                          onPressed: () {
+                            BlocProvider.of<LogOutCubit>(context)
+                                .deleteAccount();
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'حذف',
+                            style: TextStyles.textStyle14.copyWith(
+                              color: AppColors.kASDCPrimaryColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ));
           },

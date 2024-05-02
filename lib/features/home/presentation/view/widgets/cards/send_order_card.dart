@@ -55,7 +55,7 @@ class SendOrderCard extends StatelessWidget {
               height: 5.h,
             ),
             Text(
-              supplier.price!,
+              supplier.price ?? "لا يوجد سعر",
               style: TextStyles.textStyle14.copyWith(
                 color: AppColors.kWhite,
                 fontWeight: FontWeight.bold,
@@ -83,7 +83,7 @@ class SendOrderCard extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: counter,
               builder: (BuildContext context, int value, Widget? child) => Text(
-                "${value * int.parse(supplier.price!)}",
+                "${value * (supplier.price != null ? int.parse(supplier.price!) : 0)}",
                 style: TextStyles.textStyle18.copyWith(
                   color: AppColors.kWhite,
                   fontWeight: FontWeight.bold,

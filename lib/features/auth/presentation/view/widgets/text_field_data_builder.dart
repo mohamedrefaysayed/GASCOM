@@ -49,6 +49,7 @@ class TextFieldDataBulder extends StatelessWidget {
           ),
           SizedBox(
             child: TextFormField(
+              textAlign: TextAlign.center,
               keyboardType: keyType,
               controller: controller,
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -59,7 +60,7 @@ class TextFieldDataBulder extends StatelessWidget {
                 FocusScope.of(context).unfocus();
               },
               style: TextStyles.textStyle14,
-              textDirection: TextDirection.rtl,
+              textDirection: TextDirection.ltr,
               decoration: InputDecoration(
                 hintText: hint ?? "",
                 contentPadding:

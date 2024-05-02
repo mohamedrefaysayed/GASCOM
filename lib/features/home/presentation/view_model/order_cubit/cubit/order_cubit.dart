@@ -88,6 +88,32 @@ class OrderCubit extends Cubit<OrderState> {
     );
   }
 
+  cancelOrder({
+    required String orderId,
+  }) async {
+    emit(CancelOrderLoading(orderId: orderId));
+
+    Either<ServerFailure, void> result = await _ordersServices.cancelOrder(
+      orderId: orderId,
+      token: AppCubit.token!,
+    );
+
+    result.fold(
+      //error
+      (serverFailure) {
+        emit(
+          CancelOrderFailuer(errMessage: serverFailure.errMessage),
+        );
+      },
+      //success
+      (orders) async {
+        emit(
+          CancelOrderSuccess(),
+        );
+      },
+    );
+  }
+
   void addMarker(LatLng position) async {
     markerPosition = position;
     const markerId = MarkerId('marker_id');
@@ -115,7 +141,6 @@ class OrderCubit extends Cubit<OrderState> {
     result.fold(
       //error
       (serverFailure) {
-
         emit(
           GetSuppliersFailuer(errMessage: serverFailure.errMessage),
         );

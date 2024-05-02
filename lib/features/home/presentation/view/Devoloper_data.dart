@@ -2,9 +2,8 @@
 
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -20,43 +19,31 @@ class DevoloperData extends StatelessWidget {
           horizontal: 20.w,
           vertical: 50.h,
         ),
-        child: Column(
+        child: ListView(
           children: [
-            Container(
-              width: 150.w,
-              height: 150.h,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppColors.kASDCPrimaryColor,
-                  width: 2,
-                ),
-                shape: BoxShape.circle,
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(3.w),
-                child: ClipOval(
-                    child: Image.asset('assets/images/MOHAMED_REFAY.jpg')),
-              ),
-            ),
-            SizedBox(height: 20.h),
-            Text(
-              'Moahmed Refay',
-              style: TextStyles.textStyle28.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 30.h),
-            Wrap(
+            Column(
               children: [
-                Text(
-                  '''Experienced Flutter developer adept in Mobile App front-end development, UI design, and Firebase project creation. Proficient in implementing state management for robust app architecture and seamlessly integrating web service APIs. Known for adaptability to new technologies and meticulous attention to detail, consistently delivering creative solutions. Eager to leverage versatile skill set to drive impactful contributions in mobile app development teams.''',
-                  style: TextStyles.textStyle16.copyWith(),
-                  overflow: TextOverflow.visible,
+                Container(
+                  width: 150.w,
+                  height: 150.h,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppColors.kASDCPrimaryColor,
+                      width: 2,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(3.w),
+                    child: ClipOval(
+                      child: Image.asset('assets/images/MOHAMED_REFAY.jpg'),
+                    ),
+                  ),
                 ),
               ],
             ),
             SizedBox(
-              height: 100.h,
+              height: 50.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -110,6 +97,34 @@ class DevoloperData extends StatelessWidget {
                     height: 40.w,
                     width: 40.w,
                   ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20.h),
+            Text(
+              'Moahmed Refay',
+              style: TextStyles.textStyle28.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 30.h),
+            Wrap(
+              children: [
+                Text(
+                  '''Experienced Flutter developer adept in Mobile App front-end development, UI design, and Firebase project creation. Proficient in implementing state management for robust app architecture and seamlessly integrating web service APIs. Known for adaptability to new technologies and meticulous attention to detail, consistently delivering creative solutions. Eager to leverage versatile skill set to drive impactful contributions in mobile app development teams.''',
+                  style: TextStyles.textStyle16.copyWith(),
+                  overflow: TextOverflow.visible,
+                ),
+              ],
+            ),
+            const GeneralDivider(),
+            Wrap(
+              children: [
+                Text(
+                  '''مطور Flutter ذو خبرة ماهر في تطوير الواجهة الأمامية لتطبيقات الهاتف المحمول وتصميم واجهة المستخدم وإنشاء مشروع Firebase. يبرع في تنفيذ إدارة الحالة لبنية التطبيقات القوية ودمج واجهات برمجة التطبيقات لخدمة الويب بسلاسة. معروف بقدرته على التكيف مع التقنيات الجديدة والاهتمام الدقيق بالتفاصيل وتقديم حلول إبداعية باستمرار. حريصون على الاستفادة من مجموعة المهارات المتنوعة لدفع المساهمات المؤثرة في فرق تطوير تطبيقات الهاتف المحمول.''',
+                  style: TextStyles.textStyle16.copyWith(),
+                  overflow: TextOverflow.visible,
+                  textDirection: TextDirection.rtl,
                 ),
               ],
             ),

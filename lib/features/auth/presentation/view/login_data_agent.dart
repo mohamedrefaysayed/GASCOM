@@ -76,6 +76,7 @@ class LoginDataAgent extends StatelessWidget {
                     },
                   ),
                   TextFieldDataBulder(
+                    keyType: TextInputType.number,
                     controller: StoreDataCubit.priceController,
                     title: 'السعر',
                     onChanged: (value) {},

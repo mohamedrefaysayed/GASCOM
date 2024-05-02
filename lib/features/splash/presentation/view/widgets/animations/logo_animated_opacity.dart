@@ -44,7 +44,7 @@ class _LogoAnimatedOpacityState extends State<LogoAnimatedOpacity> {
                 height: 30.h,
               ),
               Text(
-                'GASCOM',
+                'Gaznaa',
                 style: TextStyles.textStyle24.copyWith(
                   color: AppColors.kASDCPrimaryColor,
                   fontSize: 24.w,

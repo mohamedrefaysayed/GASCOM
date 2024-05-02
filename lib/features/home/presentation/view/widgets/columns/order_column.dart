@@ -1,8 +1,13 @@
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/utils/time_date_handler.dart';
+import 'package:dinar_store/core/widgets/app_default_button.dart';
+import 'package:dinar_store/core/widgets/app_loading_button.dart';
+import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/home/data/models/orders_model.dart';
+import 'package:dinar_store/features/home/presentation/view_model/order_cubit/cubit/order_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderColumn extends StatelessWidget {
@@ -102,12 +107,12 @@ class OrderColumn extends StatelessWidget {
             children: [
               Text(
                 order.status == "reviewing"
-            ? "قيد المراجعة"
-            : order.status == "preparing"
-                ? "قيد التحضير"
-                : order.status == "delivered"
-                    ? "تم التوصيل"
-                    : "تم الالغاء",
+                    ? "قيد المراجعة"
+                    : order.status == "preparing"
+                        ? "قيد التحضير"
+                        : order.status == "delivered"
+                            ? "تم التوصيل"
+                            : "تم الالغاء",
                 style: TextStyles.textStyle16.copyWith(
                   fontSize: 16.w,
                   fontWeight: FontWeight.w900,
@@ -130,6 +135,70 @@ class OrderColumn extends StatelessWidget {
               ),
             ],
           ),
+          if (order.status == "reviewing")
+            BlocConsumer<OrderCubit, OrderState>(
+              listener: (context, state) {
+                if (state is CancelOrderSuccess) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    messageSnackBar(
+                        message: "تم الغاء الطلب بنجاح", isBottomNavBar: true),
+                  );
+                  context.read<OrderCubit>().getAllOrders();
+                }
+                if (state is CancelOrderFailuer) {
+                  ScaffoldMessenger.of(context).showSnackBar(messageSnackBar(
+                      message: state.errMessage, isBottomNavBar: true));
+                }
+              },
+              builder: (context, state) {
+                if (state is CancelOrderLoading) {
+                  if (state.orderId == order.id.toString()) {
+                    return Align(
+                      alignment: Alignment.centerLeft,
+                      child: AppLoadingButton(
+                        height: 40.h,
+                        width: 50.w,
+                      ),
+                    );
+                  } else {
+                    return Align(
+                      alignment: Alignment.centerLeft,
+                      child: AppDefaultButton(
+                        height: 40.h,
+                        width: 50.w,
+                        color: AppColors.kASDCPrimaryColor,
+                        onPressed: () {
+                          context.read<OrderCubit>().cancelOrder(
+                                orderId: order.id.toString(),
+                              );
+                        },
+                        title: "الغاء",
+                        textStyle: TextStyles.textStyle16.copyWith(
+                          color: AppColors.kWhite,
+                        ),
+                      ),
+                    );
+                  }
+                }
+                return Align(
+                  alignment: Alignment.centerLeft,
+                  child: AppDefaultButton(
+                    height: 40.h,
+                    width: 50.w,
+                    color: AppColors.kASDCPrimaryColor,
+                    onPressed: () {
+                      context.read<OrderCubit>().cancelOrder(
+                            orderId: order.id.toString(),
+                          );
+                    },
+                    title: "الغاء",
+                    textStyle: TextStyles.textStyle16.copyWith(
+                      color: AppColors.kWhite,
+                    ),
+                  ),
+                );
+              },
+            )
         ],
       ),
     );

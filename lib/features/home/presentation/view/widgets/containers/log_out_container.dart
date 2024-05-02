@@ -1,4 +1,6 @@
 import 'package:dinar_store/core/functions/show_alert_dialog.dart';
+import 'package:dinar_store/core/utils/app_colors.dart';
+import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/widgets/app_loading_button.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/log_out_cubit/log_out_cubit.dart';
@@ -33,21 +35,41 @@ class LogOutContainer extends StatelessWidget {
           onTap: () {
             showAlertDialog(context,
                 child: AlertDialog(
-                  title: const Text('هل تريد تسجيل الخروج؟'),
+                  title: Center(
+                    child: Text(
+                      'هل تريد تسجيل الخروج؟',
+                      style: TextStyles.textStyle18,
+                    ),
+                  ),
                   actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('إلغاء'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        context.read<LogOutCubit>().logOut();
-                        Navigator.pop(context);
-                      },
-                      child: const Text('خروج'),
-                    ),
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'إلغاء',
+                            style: TextStyles.textStyle14.copyWith(
+                              color: AppColors.kASDCPrimaryColor,
+                            ),
+                          ),
+                        ),
+                        const Spacer(),
+                        TextButton(
+                          onPressed: () {
+                            context.read<LogOutCubit>().logOut();
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'خروج',
+                            style: TextStyles.textStyle14.copyWith(
+                              color: AppColors.kASDCPrimaryColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ));
           },

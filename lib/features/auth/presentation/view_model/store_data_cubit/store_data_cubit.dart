@@ -91,6 +91,7 @@ class StoreDataCubit extends Cubit<StoreDataState> {
         : await _logInServices.updateDataAgent(
             position: position,
             name: name,
+            img: img.value,
           );
 
     result.fold(

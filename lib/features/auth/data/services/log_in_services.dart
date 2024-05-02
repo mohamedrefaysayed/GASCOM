@@ -189,13 +189,23 @@ class LogInServices implements LogInRepo {
   Future<Either<ServerFailure, RegisterModel>> updateDataAgent({
     String? name,
     LatLng? position,
+    File? img,
   }) async {
     try {
+      MultipartFile? imgFile;
+      if (img != null) {
+        imgFile = await MultipartFile.fromFile(
+          img.path,
+          filename: img.path.split('/').last,
+        );
+      }
+
       FormData formData = FormData.fromMap({
-        'mob_no': userPhone,
+        'mob_no': userPhone!.trim().replaceAll('+', ""),
         if (position != null)
           'agent_loc': "${position.longitude},${position.latitude}",
         if (name != null) 'agent_name': name,
+        if (img != null) 'file': imgFile!,
       });
       Map<String, dynamic> data = await _dioHelper.postRequest(
         endPoint: 'api/signup_agent',
@@ -218,9 +228,11 @@ class LogInServices implements LogInRepo {
   @override
   Future<Either<ServerFailure, void>> deleteAccount() async {
     try {
-      await _dioHelper.getRequest(
+      Map<String, dynamic> data = await _dioHelper.getRequest(
         endPoint: isCustomer ? 'delete_customerr' : 'delete_agentt',
+        token: AppCubit.token,
       );
+      print(data);
       return right(null);
     } on DioException catch (error) {
       return left(

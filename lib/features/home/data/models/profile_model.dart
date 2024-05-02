@@ -35,6 +35,7 @@ class Customer {
   String? createdAt;
   String? updatedAt;
   String? price;
+  String? profilePic;
 
   Customer({
     this.name,
@@ -51,6 +52,7 @@ class Customer {
     this.createdAt,
     this.updatedAt,
     this.price,
+    this.profilePic,
   });
 
   Customer.fromJson(Map<String, dynamic> json) {
@@ -68,6 +70,7 @@ class Customer {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     price = json['price'];
+    profilePic = json['image_path'];
   }
 
   Map<String, dynamic> toJson() {

@@ -16,23 +16,17 @@ class LogOutCubit extends Cubit<LogOutState> {
 
   late LogInServices _logInServices;
 
-  Future<void> logOut() async {
-    emit(LogOutLoading());
+  Future<void> logOut({bool? loading}) async {
+    loading == null ? emit(LogOutLoading()) : null;
 
     AppCubit.token = null;
     await const FlutterSecureStorage().deleteAll();
 
-    await Future.delayed(const Duration(seconds: 2));
-    emit(LogOutSuccess());
+    loading == null ? emit(LogOutSuccess()) : null;
   }
 
   Future<void> deleteAccount() async {
-    logOut();
-
     emit(DeleteAccountLoading());
-
-    AppCubit.token = null;
-    await const FlutterSecureStorage().deleteAll();
 
     Either<ServerFailure, void> result = await _logInServices.deleteAccount();
 
@@ -46,6 +40,7 @@ class LogOutCubit extends Cubit<LogOutState> {
       //success
       (data) async {
         emit(DeleteAccountSuccess());
+        await logOut();
       },
     );
   }

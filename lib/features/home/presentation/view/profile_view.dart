@@ -1,5 +1,6 @@
 import 'package:dinar_store/core/animations/right_slide_transition.dart';
 import 'package:dinar_store/features/home/presentation/view/Devoloper_data.dart';
+import 'package:dinar_store/features/home/presentation/view/about_app.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/delete_account_container.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/containers/log_out_container.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
@@ -8,6 +9,7 @@ import 'package:dinar_store/features/home/presentation/view/widgets/setting_view
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -40,7 +42,10 @@ class _ProfileViewState extends State<ProfileView>
             ),
             ProfileSettingsRow(
               title: 'معلومات عن التطبيق',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context, RightSlideTransition(page: const AboutApp()));
+              },
               icon: Icons.data_object_outlined,
               wDevider: true,
             ),
@@ -55,7 +60,12 @@ class _ProfileViewState extends State<ProfileView>
             ),
             ProfileSettingsRow(
               title: 'الدعم',
-              onTap: () {},
+              onTap: () {
+                launchUrlString(
+                  "whatsapp://send?phone=+9647849333099",
+                  mode: LaunchMode.externalApplication,
+                );
+              },
               icon: Icons.support_agent_outlined,
               wDevider: true,
             ),

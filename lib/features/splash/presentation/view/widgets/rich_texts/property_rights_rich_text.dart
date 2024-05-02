@@ -19,7 +19,7 @@ class PropertyRightsRichText extends StatelessWidget {
             ),
           ),
           TextSpan(
-            text: 'GASCOM',
+            text: 'Gaznaa',
             style: TextStyles.textStyle16.copyWith(
               color: AppColors.kASDCPrimaryColor,
               fontSize: 16.w,

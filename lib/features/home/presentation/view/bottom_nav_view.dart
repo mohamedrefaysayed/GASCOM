@@ -52,10 +52,10 @@ class _BottomNavBarViewState extends State<BottomNavBarView>
     return BlocConsumer<LogOutCubit, LogOutState>(
       listener: (context, state) {
         if (state is LogOutSuccess) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(messageSnackBar(message: "تم الخروج بنجاح"));
           Navigator.pushNamedAndRemoveUntil(
               context, 'usertype', (route) => false);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(messageSnackBar(message: "تم الخروج بنجاح"));
         }
       },
       builder: (context, state) {

@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'GASCOM',
+          title: 'Gaznaa',
           theme: ThemeData(
             fontFamily: 'SegoeUI',
             scaffoldBackgroundColor: Colors.white,

@@ -137,8 +137,10 @@ class LoginData extends StatelessWidget {
                                   isBottomNavBar: true));
                         }
                         if (state is StoreDataFailure) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              messageSnackBar(message: state.errMessage));
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(messageSnackBar(
+                            message: state.errMessage,
+                          ));
                         }
                       },
                       builder: (context, state) {

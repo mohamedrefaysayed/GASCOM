@@ -8,6 +8,7 @@ import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/auth/presentation/view/widgets/text_field_data_builder.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/location_cubit/cubit/location_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view/data_edit.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/cachedNetworkImage/my_cached_nework_Image.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/columns/current_location_column.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/map_place_holder.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/place_holders/profile_place_holder.dart';
@@ -71,6 +72,28 @@ class _ProfileContainerState extends State<ProfileContainer> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
+              if (!isCustomer)
+                Column(
+                  children: [
+                    ClipOval(
+                      child: MyCachedNetworkImage(
+                        height: 100.w,
+                        width: 100.w,
+                        url: ProfileCubit.profileModel!.customer!.profilePic ??
+                            "",
+                        errorIcon: Icon(
+                          Icons.image,
+                          color: AppColors.kGrey,
+                          size: 100.w,
+                        ),
+                        loadingWidth: 25.w,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                  ],
+                ),
               Text(
                 "الاسم: ${ProfileCubit.profileModel!.customer!.name}",
                 style: TextStyles.textStyle16.copyWith(
@@ -82,7 +105,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                 height: 20.h,
               ),
               Text(
-                "${ProfileCubit.profileModel!.customer!.mobNo!} : رقم الهاتف",
+                "${ProfileCubit.profileModel!.customer!.mobNo} : رقم الهاتف",
                 style: TextStyles.textStyle18,
               ),
               SizedBox(
@@ -251,7 +274,8 @@ class _ProfileContainerState extends State<ProfileContainer> {
               AppDefaultButton(
                 color: AppColors.kASDCPrimaryColor,
                 onPressed: () {
-                  String location = ProfileCubit.profileModel!.customer!.location!;
+                  String location =
+                      ProfileCubit.profileModel!.customer!.location!;
                   List<String> latLng = location.split(",");
                   double latitude = double.parse(latLng[0]);
                   double longitude = double.parse(latLng[1]);

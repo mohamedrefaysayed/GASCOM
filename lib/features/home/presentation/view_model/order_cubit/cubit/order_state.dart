@@ -64,3 +64,15 @@ final class GetagentsOrdersFailuer extends OrderState {
   final String errMessage;
   GetagentsOrdersFailuer({required this.errMessage});
 }
+
+final class CancelOrderLoading extends OrderState {
+  final String orderId;
+  CancelOrderLoading({required this.orderId});
+}
+
+final class CancelOrderSuccess extends OrderState {}
+
+final class CancelOrderFailuer extends OrderState {
+  final String errMessage;
+  CancelOrderFailuer({required this.errMessage});
+}

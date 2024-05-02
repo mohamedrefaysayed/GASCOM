@@ -72,6 +72,31 @@ class OrdersServices implements OrdersRepo {
   }
 
   @override
+  Future<Either<ServerFailure, void>> cancelOrder({
+    required String orderId,
+    required String token,
+  }) async {
+    try {
+      await _dioHelper.getRequest(
+        token: token,
+        endPoint: 'cancel_order',
+        queryParameters: {
+          'order_id': orderId,
+        },
+      );
+      return right(null);
+    } on DioException catch (error) {
+      return left(
+        ServerFailure.fromDioException(dioException: error),
+      );
+    } catch (error) {
+      return left(
+        ServerFailure(errMessage: error.toString()),
+      );
+    }
+  }
+
+  @override
   Future<Either<ServerFailure, SuppliersModel>> getSuppliers({
     required String token,
   }) async {

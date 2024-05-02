@@ -1,4 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:dinar_store/core/functions/show_alert_dialog.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
+import 'package:dinar_store/core/utils/genrall.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/widgets/app_default_button.dart';
 import 'package:dinar_store/core/widgets/app_loading_button.dart';
@@ -6,11 +10,13 @@ import 'package:dinar_store/core/widgets/message_snack_bar.dart';
 import 'package:dinar_store/features/auth/presentation/view/widgets/text_field_data_builder.dart';
 import 'package:dinar_store/features/auth/presentation/view_model/store_data_cubit/store_data_cubit.dart';
 import 'package:dinar_store/features/home/data/models/profile_model.dart';
+import 'package:dinar_store/features/home/presentation/view/widgets/cachedNetworkImage/my_cached_nework_Image.dart';
 import 'package:dinar_store/features/home/presentation/view_model/profile_cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DataEdit extends StatelessWidget {
   const DataEdit({super.key, required this.profile, required this.position});
@@ -45,9 +51,99 @@ class DataEdit extends StatelessWidget {
                 SizedBox(
                   height: 50.h,
                 ),
+                if (!isCustomer)
+                  Stack(
+                    children: [
+                      ClipOval(
+                        child: MyCachedNetworkImage(
+                          height: 100.w,
+                          width: 100.w,
+                          url:
+                              ProfileCubit.profileModel!.customer!.profilePic ??
+                                  "",
+                          errorIcon: Icon(
+                            Icons.image,
+                            color: AppColors.kGrey,
+                            size: 100.w,
+                          ),
+                          loadingWidth: 5.w,
+                        ),
+                      ),
+                      Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: IconButton(
+                            onPressed: () {
+                              showAlertDialog(
+                                  canDismiss: true,
+                                  context,
+                                  child: AlertDialog(
+                                    title: const Center(
+                                        child: Text('أختر مصدر الصورة')),
+                                    actions: [
+                                      Row(
+                                        children: [
+                                          TextButton.icon(
+                                            onPressed: () async {
+                                              Navigator.pop(context);
+                                              await context
+                                                  .read<StoreDataCubit>()
+                                                  .getImage(
+                                                    media: ImageSource.gallery,
+                                                  );
+                                              await context
+                                                  .read<StoreDataCubit>()
+                                                  .updateData();
+                                            },
+                                            icon: Icon(
+                                              Icons.image,
+                                              size: 30.w,
+                                              color:
+                                                  AppColors.kASDCPrimaryColor,
+                                            ),
+                                            label: const Text(
+                                              "المعرض",
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          TextButton.icon(
+                                            onPressed: () async {
+                                              Navigator.pop(context);
+                                              context
+                                                  .read<StoreDataCubit>()
+                                                  .getImage(
+                                                    media: ImageSource.camera,
+                                                  );
+                                            },
+                                            icon: Icon(
+                                              Icons.camera,
+                                              size: 30.w,
+                                              color:
+                                                  AppColors.kASDCPrimaryColor,
+                                            ),
+                                            label: const Text(
+                                              "الكاميرا",
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ));
+                            },
+                            icon: Icon(
+                              Icons.edit,
+                              size: 30.w,
+                              color: AppColors.kASDCPrimaryColor,
+                            ),
+                          ))
+                    ],
+                  ),
+                SizedBox(
+                  height: 20.h,
+                ),
                 TextFieldDataBulder(
                   title: 'الأسم',
-                  hint: profile.customer!.name!,
+                  hint: profile.customer!.name ?? "",
                   onChanged: (value) {},
                   controller: ProfileCubit.nameController,
                 ),
@@ -114,6 +210,8 @@ class DataEdit extends StatelessWidget {
                           message: "تم تعديل البيانات بنجاح",
                         ),
                       );
+                      StoreDataCubit.img.value = null;
+                      context.read<ProfileCubit>().getProfile();
                     }
                   },
                   builder: (context, state) {

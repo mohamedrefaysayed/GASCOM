@@ -71,6 +71,8 @@ class _SupplierWidgetState extends State<SupplierWidget> {
             ),
           );
         }
+      
+
         return Column(
           children: [
             Text(
@@ -108,46 +110,48 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                         ],
                       ),
                       items: OrderCubit.suppliersModel!.agents!
-                          .map((Agents item) => DropdownMenuItem<String>(
-                                value: item.mobNo,
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10.w, vertical: 5.h),
-                                  width: double.infinity,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        item.name!,
-                                        style: TextStyle(
-                                          fontSize: 14.w,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.kBlack,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
+                          .map(
+                            (Agents item) => DropdownMenuItem<String>(
+                              value: item.mobNo,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10.w, vertical: 5.h),
+                                width: double.infinity,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      item.name!,
+                                      style: TextStyle(
+                                        fontSize: 14.w,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.kBlack,
                                       ),
-                                      Text(
-                                        "يبعد عنك :  ${item.distanceKm!} كم",
-                                        style: TextStyle(
-                                          fontSize: 14.w,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.kBlack,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      "يبعد عنك :  ${item.distanceKm!} كم",
+                                      style: TextStyle(
+                                        fontSize: 14.w,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.kBlack,
                                       ),
-                                      Text(
-                                        "سعر الاسطوانة :  ${item.price}",
-                                        style: TextStyle(
-                                          fontSize: 14.w,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.kBlack,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      "سعر الاسطوانة :  ${item.price}",
+                                      style: TextStyle(
+                                        fontSize: 14.w,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.kBlack,
                                       ),
-                                    ],
-                                  ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
                                 ),
-                              ))
+                              ),
+                            ),
+                          )
                           .toList(),
                       value: OrderCubit.selectedValue,
                       onChanged: (String? value) {
