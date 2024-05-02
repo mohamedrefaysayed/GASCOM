@@ -228,11 +228,10 @@ class LogInServices implements LogInRepo {
   @override
   Future<Either<ServerFailure, void>> deleteAccount() async {
     try {
-      Map<String, dynamic> data = await _dioHelper.getRequest(
+      await _dioHelper.getRequest(
         endPoint: isCustomer ? 'delete_customerr' : 'delete_agentt',
         token: AppCubit.token,
       );
-      print(data);
       return right(null);
     } on DioException catch (error) {
       return left(
