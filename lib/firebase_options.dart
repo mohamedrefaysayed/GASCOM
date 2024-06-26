@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA_nG_pCyJ44ShfDOb539vsZ82yxVkxYZ8',
-    appId: '1:1087832704269:android:7031908dd28213202a9c44',
-    messagingSenderId: '1087832704269',
-    projectId: 'prizm-energy',
-    storageBucket: 'prizm-energy.appspot.com',
+    apiKey: 'AIzaSyAsGeXp_iBBh_OoKNhAGraCNBFW--ewLI0',
+    appId: '1:472720825685:android:36c290fd66abad5fb4a3dc',
+    messagingSenderId: '472720825685',
+    projectId: 'gascom-457a5',
+    storageBucket: 'gascom-457a5.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA2QTrLBUxv8kFnSN5YbvOPfYs4pULDDVM',
-    appId: '1:1087832704269:ios:1e98764f486ef71b2a9c44',
-    messagingSenderId: '1087832704269',
-    projectId: 'prizm-energy',
-    storageBucket: 'prizm-energy.appspot.com',
-    iosBundleId: 'com.example.dinarStore',
+    apiKey: 'AIzaSyAemCp2ggvI7_XmLXCHlCdvS3cLzSrrlg0',
+    appId: '1:472720825685:ios:8c5d7395b78bf37db4a3dc',
+    messagingSenderId: '472720825685',
+    projectId: 'gascom-457a5',
+    storageBucket: 'gascom-457a5.appspot.com',
+    iosBundleId: 'com.Iraq.Gaznaa',
   );
+
 }

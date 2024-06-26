@@ -8,6 +8,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 class FirebaseServices {
   static Future<void> init() async {
+    mainUrl = CacheHelper.getData(key: "mainUrl") ?? mainUrl;
+
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );

@@ -1,4 +1,4 @@
-package com.example.Iraq.Gaznaa
+package com.Iraq.Gaznaa
 
 import io.flutter.embedding.android.FlutterActivity
 

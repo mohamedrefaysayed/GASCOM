@@ -13,7 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-    await CacheHelper.init();
+  
+  await CacheHelper.init();
 
   await FirebaseServices.init();
 

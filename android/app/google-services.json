@@ -1,40 +1,21 @@
 {
   "project_info": {
-    "project_number": "1087832704269",
-    "project_id": "prizm-energy",
-    "storage_bucket": "prizm-energy.appspot.com"
+    "project_number": "472720825685",
+    "project_id": "gascom-457a5",
+    "storage_bucket": "gascom-457a5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1087832704269:android:7031908dd28213202a9c44",
+        "mobilesdk_app_id": "1:472720825685:android:36c290fd66abad5fb4a3dc",
         "android_client_info": {
-          "package_name": "com.example.Iraq.Gaznaa"
+          "package_name": "com.Iraq.Gaznaa"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA_nG_pCyJ44ShfDOb539vsZ82yxVkxYZ8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1087832704269:android:6896d7fbe9e499642a9c44",
-        "android_client_info": {
-          "package_name": "com.example.prizm_energy"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA_nG_pCyJ44ShfDOb539vsZ82yxVkxYZ8"
+          "current_key": "AIzaSyAsGeXp_iBBh_OoKNhAGraCNBFW--ewLI0"
         }
       ],
       "services": {
