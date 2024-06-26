@@ -51,7 +51,7 @@ class LogInCubit extends Cubit<LogInState> {
       (data) async {
         fakeCode = data.otp;
         isExist = data.exists ?? false;
-        CahchHelper.saveData(
+        CacheHelper.saveData(
             key: "userPhone",
             value: phoneNumber!.completeNumber.trim().replaceAll('+', ""));
         userPhone = phoneNumber!.completeNumber;

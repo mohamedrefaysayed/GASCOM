@@ -69,6 +69,7 @@ dependencies:
   image_cropper: ^5.0.1
   flutter_local_notifications: ^17.1.1
   open_file: ^3.3.2
+  cloud_firestore: ^4.17.5
 
 
 

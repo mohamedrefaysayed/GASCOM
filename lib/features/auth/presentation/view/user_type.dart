@@ -34,7 +34,7 @@ class UserType extends StatelessWidget {
               color: AppColors.kASDCPrimaryColor,
               onPressed: () {
                 isCustomer = true;
-                CahchHelper.saveData(key: "isCustomer", value: true);
+                CacheHelper.saveData(key: "isCustomer", value: true);
                 Navigator.push(
                     context, RightSlideTransition(page: const LogInView()));
               },
@@ -52,7 +52,7 @@ class UserType extends StatelessWidget {
               color: AppColors.kASDCPrimaryColor,
               onPressed: () {
                 isCustomer = false;
-                CahchHelper.saveData(key: "isCustomer", value: false);
+                CacheHelper.saveData(key: "isCustomer", value: false);
                 Navigator.push(context,
                     RightSlideTransition(page: const LogInViewAgent()));
               },
