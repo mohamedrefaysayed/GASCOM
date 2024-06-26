@@ -13,14 +13,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   await CacheHelper.init();
 
   await FirebaseServices.init();
 
-
   Notifications.initilization(FlutterLocalNotificationsPlugin());
-
 
   isCustomer = CacheHelper.getData(key: "isCustomer") ?? true;
   userPhone = CacheHelper.getData(key: "userPhone") ?? "";

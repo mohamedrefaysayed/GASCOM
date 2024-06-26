@@ -5,6 +5,7 @@ import 'package:dinar_store/core/utils/genrall.dart';
 import 'package:dinar_store/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 
 class FirebaseServices {
   static Future<void> init() async {
@@ -19,6 +20,10 @@ class FirebaseServices {
         .collection("Gaznaa-App")
         .doc("App-Info")
         .get();
+
+    if (kDebugMode) {
+      print("mainUrl : ${appInfo.data()!["mainUrl"]}");
+    }
 
     mainUrl = appInfo.data()!["mainUrl"] ?? mainUrl;
 
