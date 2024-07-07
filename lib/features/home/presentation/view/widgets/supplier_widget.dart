@@ -71,7 +71,6 @@ class _SupplierWidgetState extends State<SupplierWidget> {
             ),
           );
         }
-      
 
         return Column(
           children: [
@@ -128,15 +127,17 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                                         color: AppColors.kBlack,
                                       ),
                                       overflow: TextOverflow.ellipsis,
+                                      textDirection: TextDirection.rtl,
                                     ),
                                     Text(
-                                      "يبعد عنك :  ${item.distanceKm!} كم",
+                                      "يبعد عنك :  ${item.distance}",
                                       style: TextStyle(
                                         fontSize: 14.w,
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.kBlack,
                                       ),
                                       overflow: TextOverflow.ellipsis,
+                                      textDirection: TextDirection.rtl,
                                     ),
                                     Text(
                                       "سعر الاسطوانة :  ${item.price}",
@@ -146,6 +147,7 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                                         color: AppColors.kBlack,
                                       ),
                                       overflow: TextOverflow.ellipsis,
+                                      textDirection: TextDirection.rtl,
                                     ),
                                   ],
                                 ),

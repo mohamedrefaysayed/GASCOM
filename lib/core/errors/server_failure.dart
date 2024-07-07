@@ -9,14 +9,18 @@ class ServerFailure {
     required int statusCode,
     required dynamic response,
   }) {
-    if (statusCode == 400 ||
-        statusCode == 401 ||
-        statusCode == 403) {
+    if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
+      if (response['customer_exists'] != null) {
+        return ServerFailure(errMessage: "هذا الرقم مسجل من قبل كمستخدم"); 
+      }
+      if (response['agent_exists'] != null) {
+        return ServerFailure(errMessage: "هذا الرقم مسجل من قبل كوكيل"); 
+      }
       return ServerFailure(
           errMessage: (response['message'] is String)
               ? response['message']
               : response['message'][0]);
-    }else if (statusCode == 500){
+    } else if (statusCode == 500) {
       return ServerFailure(errMessage: 'Internal Server Error');
     } else if (statusCode == 404) {
       return ServerFailure(errMessage: '404 Page Not Found');

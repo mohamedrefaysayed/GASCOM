@@ -21,91 +21,87 @@ class LogInViewAgent extends StatelessWidget {
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
-      child: PopScope(
-        canPop: false,
-        child: Scaffold(
-            body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.w),
-            child: ListView(
-              children: [
-                Row(
-                  children: [
-                    BlocBuilder<LogInCubit, LogInState>(
-                      builder: (context, state) {
-                        if (state is SendCodeSuccess ||
-                            state is VerficationLoading) {
-                          return IconButton(
-                              onPressed: () {
-                                context.read<LogInCubit>().emit(LogInInitial());
-                                LogInCubit.phoneNumber = null;
-                              },
-                              icon: Icon(
-                                Icons.arrow_back_rounded,
-                                size: 25.w,
-                              ));
-                        }
-                        return SizedBox(
-                          height: 45.h,
-                        );
-                      },
-                    ),
-                    const Spacer(),
-                  ],
+      child: Scaffold(
+          body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30.w),
+          child: ListView(
+            children: [
+              Row(
+                children: [
+                  BlocBuilder<LogInCubit, LogInState>(
+                    builder: (context, state) {
+                      if (state is SendCodeSuccess ||
+                          state is VerficationLoading) {
+                        return IconButton(
+                            onPressed: () {
+                              context.read<LogInCubit>().emit(LogInInitial());
+                              LogInCubit.phoneNumber = null;
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_rounded,
+                              size: 25.w,
+                            ));
+                      }
+                      return SizedBox(
+                        height: 45.h,
+                      );
+                    },
+                  ),
+                  const Spacer(),
+                ],
+              ),
+              SizedBox(
+                height: 30.h,
+              ),
+              Center(
+                child: Image.asset(
+                  AppImages.gascomLogo,
+                  height: 177.w,
+                  width: 177.w,
                 ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                Center(
-                  child: Image.asset(
-                    AppImages.gascomLogo,
-                    height: 177.w,
-                    width: 177.w,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              Center(
+                child: Text(
+                  "وكيل",
+                  style: TextStyles.textStyle24.copyWith(
+                    fontSize: 24.w,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Center(
-                  child: Text(
-                    "وكيل",
-                    style: TextStyles.textStyle24.copyWith(
-                      fontSize: 24.w,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 100.h,
-                ),
-                BlocConsumer<LogInCubit, LogInState>(
-                  listener: (context, state) {
-                    if (state is LogInFailure) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          messageSnackBar(message: state.errMessage));
-                    }
-                    if (state is SendCodeSuccess) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          messageSnackBar(message: "تم إرسال رقم التأكيد"));
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is SendCodeSuccess ||
-                        state is VerficationLoading) {
-                      return const CodeBuilder();
-                    } else {
-                      return const PhoneBuilder();
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 50.h,
-                ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 100.h,
+              ),
+              BlocConsumer<LogInCubit, LogInState>(
+                listener: (context, state) {
+                  if (state is LogInFailure) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        messageSnackBar(message: state.errMessage));
+                  }
+                  if (state is SendCodeSuccess) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        messageSnackBar(message: "تم إرسال رقم التأكيد"));
+                  }
+                },
+                builder: (context, state) {
+                  if (state is SendCodeSuccess || state is VerficationLoading) {
+                    return const CodeBuilder();
+                  } else {
+                    return const PhoneBuilder();
+                  }
+                },
+              ),
+              SizedBox(
+                height: 50.h,
+              ),
+            ],
           ),
-        )),
-      ),
+        ),
+      )),
     );
   }
 }

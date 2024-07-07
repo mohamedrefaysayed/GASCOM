@@ -30,9 +30,9 @@ class _ProfileContainerState extends State<ProfileContainer> {
   String address = "";
   @override
   void initState() {
-    context.read<ProfileCubit>().getProfile();
-
     super.initState();
+
+    context.read<ProfileCubit>().getProfile();
   }
 
   @override
@@ -116,6 +116,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                 style: TextStyles.textStyle16.copyWith(
                   fontSize: 16.w,
                 ),
+                textDirection: TextDirection.rtl,
               ),
               SizedBox(
                 height: 10.h,

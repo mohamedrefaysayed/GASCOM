@@ -52,13 +52,8 @@ class PhoneBuilder extends StatelessWidget {
               onPressed: () async {
                 HapticFeedback.lightImpact();
                 if (LogInCubit.phoneNumber != null) {
-                  try {
-                    LogInCubit.phoneNumber!.isValidNumber();
-                    await BlocProvider.of<LogInCubit>(context).login();
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        messageSnackBar(message: "أدخل رقم صحيح"));
-                  }
+                  LogInCubit.phoneNumber!.isValidNumber();
+                  await BlocProvider.of<LogInCubit>(context).login();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                       messageSnackBar(message: "أدخل رقم الهاتف"));

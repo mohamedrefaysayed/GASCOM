@@ -24,15 +24,15 @@ class SuppliersModel {
 class Agents {
   String? mobNo;
   String? name;
-  String? distanceKm;
+  String? distance;
   String? price;
 
-  Agents({this.mobNo, this.name, this.distanceKm});
+  Agents({this.mobNo, this.name, this.distance});
 
   Agents.fromJson(Map<String, dynamic> json) {
     mobNo = json['mob_no'];
     name = json['name'];
-    distanceKm = "${json['distance_km']}";
+    distance = "${json['distance']}";
     price = json['price'];
   }
 
@@ -40,7 +40,7 @@ class Agents {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['mob_no'] = mobNo;
     data['name'] = name;
-    data['distance_km'] = distanceKm;
+    data['distance'] = distance;
     data['price'] = price;
     return data;
   }

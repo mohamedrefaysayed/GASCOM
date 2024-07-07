@@ -4,7 +4,7 @@ import 'package:dinar_store/core/cubits/app_cubit/cubit/app_cubit_cubit.dart';
 import 'package:dinar_store/core/errors/server_failure.dart';
 import 'package:dinar_store/features/home/data/services/orders_services.dart';
 
-part 'agent_order_actioms_state.dart';
+part 'agent_order_actions_state.dart';
 
 class AgentOrderActionsCubit extends Cubit<AgentOrderActionsState> {
   AgentOrderActionsCubit({required OrdersServices ordersServices})

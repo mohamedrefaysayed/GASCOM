@@ -55,9 +55,11 @@ class LogInCubit extends Cubit<LogInState> {
             key: "userPhone",
             value: phoneNumber!.completeNumber.trim().replaceAll('+', ""));
         userPhone = phoneNumber!.completeNumber;
-        emit(SendCodeSuccess(
-          message: data.exists.toString(),
-        ));
+        emit(
+          SendCodeSuccess(
+            message: data.exists.toString(),
+          ),
+        );
       },
     );
   }
