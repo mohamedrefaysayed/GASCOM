@@ -46,17 +46,18 @@ class _AddsViewState extends State<AddsView> {
                   itemBuilder:
                       (BuildContext context, int itemIndex, int pageViewIndex) {
                     return ClipRRect(
-                        borderRadius: BorderRadius.circular(15.w),
-                        child: MyCachedNetworkImage(
-                          width: double.infinity,
-                          url: state.adsModel.ads![itemIndex].paths!,
-                          errorIcon: Icon(
-                            Icons.image,
-                            size: 100.w,
-                            color: AppColors.kASDCPrimaryColor,
-                          ),
-                          loadingWidth: 30.w,
-                        ));
+                      borderRadius: BorderRadius.circular(15.w),
+                      child: MyCachedNetworkImage(
+                        width: double.infinity,
+                        url: state.adsModel.ads![itemIndex].paths!,
+                        errorIcon: Icon(
+                          Icons.image,
+                          size: 100.w,
+                          color: AppColors.kASDCPrimaryColor,
+                        ),
+                        loadingWidth: 30.w,
+                      ),
+                    );
                   },
                   options: CarouselOptions(
                       aspectRatio: 16 / 9,

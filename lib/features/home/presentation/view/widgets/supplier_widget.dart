@@ -26,8 +26,9 @@ class SupplierWidget extends StatefulWidget {
 class _SupplierWidgetState extends State<SupplierWidget> {
   @override
   void initState() {
-    context.read<OrderCubit>().getSuppliers();
     super.initState();
+
+    context.read<OrderCubit>().getSuppliers();
   }
 
   @override
@@ -111,6 +112,7 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                       items: OrderCubit.suppliersModel!.agents!
                           .map(
                             (Agents item) => DropdownMenuItem<String>(
+                              
                               value: item.mobNo,
                               child: Container(
                                 padding: EdgeInsets.symmetric(
@@ -130,7 +132,7 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                                       textDirection: TextDirection.rtl,
                                     ),
                                     Text(
-                                      "يبعد عنك :  ${item.distance}",
+                                      "يبعد عنك :  ${item.distance! >= 1000 ? (item.distance!/1000): item.distance!} ${item.distance! >= 1000 ? "كم" : "متر"}",
                                       style: TextStyle(
                                         fontSize: 14.w,
                                         fontWeight: FontWeight.bold,

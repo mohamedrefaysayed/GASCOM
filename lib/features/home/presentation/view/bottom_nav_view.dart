@@ -42,22 +42,31 @@ class _BottomNavBarViewState extends State<BottomNavBarView>
 
     FirebaseMessaging.instance.requestPermission();
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      Notifications.showNotification(
-          id: DateTime.now().millisecondsSinceEpoch,
+    FirebaseMessaging.onMessage.listen(
+      (RemoteMessage message) async {
+        Notifications.showNotification(
+          id: DateTime.now().millisecondsSinceEpoch % 0x7FFFFFFF,
           title: message.notification!.title!,
           body: message.notification!.body!,
-          localNotifications: FlutterLocalNotificationsPlugin());
-    });
-    checkTokenTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
-      context.read<LogOutCubit>().checkToken();
-    });
+          localNotifications: FlutterLocalNotificationsPlugin(),
+        );
+      },
+    );
+    checkTokenTimer = Timer.periodic(
+      const Duration(seconds: 10),
+      (timer) {
+        context.read<LogOutCubit>().checkToken();
+      },
+    );
 
     BottomNavBarCubit.index = 2;
     WidgetsBinding.instance.addObserver(this);
-    internetTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
-      context.checkInternet();
-    });
+    internetTimer = Timer.periodic(
+      const Duration(seconds: 2),
+      (timer) {
+        context.checkInternet();
+      },
+    );
   }
 
   @override

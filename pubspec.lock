@@ -201,22 +201,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.10"
-  device_frame:
-    dependency: transitive
-    description:
-      name: device_frame
-      sha256: afe76182aec178d171953d9b4a50a43c57c7cf3c77d8b09a48bf30c8fa04dd9d
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
-  device_preview:
-    dependency: "direct main"
-    description:
-      name: device_preview
-      sha256: "2f097bf31b929e15e6756dbe0ec1bcb63952ab9ed51c25dc5a2c722d2b21fdaf"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   dio:
     dependency: "direct main"
     description:
@@ -390,14 +374,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.3.0"
-  flutter_image_slideshow:
-    dependency: "direct main"
-    description:
-      name: flutter_image_slideshow
-      sha256: ed259d96aea889b6ddc2b641891c3b721ec8ed33e160f08f2ef11acf0438984f
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.6"
   flutter_keyboard_visibility:
     dependency: transitive
     description:
@@ -478,11 +454,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.1.0"
-  flutter_localizations:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -571,14 +542,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.9"
-  flutter_svg_provider:
-    dependency: "direct main"
-    description:
-      name: flutter_svg_provider
-      sha256: cda47ab350671ba51ae4605d48f4c82fa5a2c399d22ebda367c1b407234c5048
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.7"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -613,14 +576,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "10.2.0"
-  freezed_annotation:
-    dependency: transitive
-    description:
-      name: freezed_annotation
-      sha256: c3fd9336eb55a38cc1bbd79ab17573113a8deccd0ecbbf926cca3c62803b5c2d
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.1"
   geocoding:
     dependency: "direct main"
     description:
@@ -757,14 +712,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.22"
-  google_places_flutter:
-    dependency: "direct main"
-    description:
-      name: google_places_flutter
-      sha256: "0b30d1ebb6bd4264aa5dc775870a05d3c22107a1009ac6f328ca2077ec0ee2f2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.8"
   html:
     dependency: transitive
     description:
@@ -1506,14 +1453,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
-  vertical_tabs_flutter:
-    dependency: "direct main"
-    description:
-      name: vertical_tabs_flutter
-      sha256: d855257c7f042fb0429a1d1add679458a54692cf6aa46c6d0347fef7de5c4e27
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   vm_service:
     dependency: transitive
     description:

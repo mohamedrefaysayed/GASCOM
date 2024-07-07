@@ -98,7 +98,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
     Notifications.showNotification(
-        id: DateTime.now().millisecondsSinceEpoch,
+          id: DateTime.now().millisecondsSinceEpoch % 0x7FFFFFFF,
         title: message.notification!.title!,
         body: message.notification!.body!,
         localNotifications: FlutterLocalNotificationsPlugin());

@@ -24,10 +24,6 @@ void main() async {
   userPhone = CacheHelper.getData(key: "userPhone") ?? "";
 
   runApp(
-    // DevicePreview(
-    //   enabled: !kReleaseMode,
-    //   builder: (context) => const MyApp(), // Wrap your app
-    // ),
     const MyApp(),
   );
 }

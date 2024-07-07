@@ -60,6 +60,7 @@ class LogInServices implements LogInRepo {
   }) async {
     try {
       fcmToken = await FirebaseMessaging.instance.getToken();
+
       Map<String, dynamic> data = await _dioHelper.getRequest(
         endPoint: isCustomer ? 'otp_customer' : 'otp_agent',
         queryParameters: {
