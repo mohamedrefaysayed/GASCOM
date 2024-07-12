@@ -103,24 +103,25 @@ class _OrdersViewState extends State<OrdersView>
                                 fontSize: 16.w,
                               ),
                             ),
-                            const Spacer(
-                              flex: 1,
+                            Spacer(
+                              flex: isCustomer ? 2 : 1,
                             ),
-                            IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  LeftSlideTransition(
-                                    page: const OldOrdersView(),
-                                  ),
-                                );
-                              },
-                              icon: Icon(
-                                Icons.history,
-                                size: 25.w,
-                                color: AppColors.kASDCPrimaryColor,
-                              ),
-                            )
+                            if (!isCustomer)
+                              IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    LeftSlideTransition(
+                                      page: const OldOrdersView(),
+                                    ),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.history,
+                                  size: 25.w,
+                                  color: AppColors.kASDCPrimaryColor,
+                                ),
+                              )
                           ],
                         ),
                       ),

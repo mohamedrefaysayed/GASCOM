@@ -34,7 +34,7 @@ class _AddsViewState extends State<AddsView> {
             children: [
               Container(
                 padding: EdgeInsets.symmetric(vertical: 10.h),
-                height: 130.h,
+                height: 185.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -60,7 +60,7 @@ class _AddsViewState extends State<AddsView> {
                     );
                   },
                   options: CarouselOptions(
-                      aspectRatio: 4 / 3,
+                      aspectRatio: 16 / 9,
                       viewportFraction: 0.95,
                       initialPage: 0,
                       enableInfiniteScroll: true,
