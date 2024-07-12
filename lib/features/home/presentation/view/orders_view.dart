@@ -1,6 +1,9 @@
+import 'package:dinar_store/core/animations/left_slide_transition.dart';
+import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/genrall.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/widgets/message_snack_bar.dart';
+import 'package:dinar_store/features/home/presentation/view/old_orders_view.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/columns/agent_order_column.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/columns/order_column.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
@@ -86,14 +89,39 @@ class _OrdersViewState extends State<OrdersView>
                       Padding(
                         padding:
                             EdgeInsets.only(right: 30.w, left: 30.w, top: 40.h),
-                        child: Text(
-                          isCustomer
-                              ? 'الطلبــــــات'
-                              : 'الطلبــــــات الســــــابقة',
-                          style: TextStyles.textStyle16.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16.w,
-                          ),
+                        child: Row(
+                          children: [
+                            const Spacer(
+                              flex: 2,
+                            ),
+                            Text(
+                              isCustomer
+                                  ? 'الطلبــــــات'
+                                  : 'الطلبــــــات الحالية',
+                              style: TextStyles.textStyle16.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16.w,
+                              ),
+                            ),
+                            const Spacer(
+                              flex: 1,
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  LeftSlideTransition(
+                                    page: const OldOrdersView(),
+                                  ),
+                                );
+                              },
+                              icon: Icon(
+                                Icons.history,
+                                size: 25.w,
+                                color: AppColors.kASDCPrimaryColor,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                       const GeneralDivider(),

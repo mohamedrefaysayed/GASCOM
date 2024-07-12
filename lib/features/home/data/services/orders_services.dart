@@ -41,6 +41,28 @@ class OrdersServices implements OrdersRepo {
   }
 
   @override
+  Future<Either<ServerFailure, OrdersModel>> getAllOldOrders(
+      {required String token}) async {
+    OrdersModel ordersModel = OrdersModel();
+    try {
+      Map<String, dynamic> data = await _dioHelper.getRequest(
+        token: token,
+        endPoint: 'view_old_orders',
+      );
+      ordersModel = OrdersModel.fromJson(data);
+      return right(ordersModel);
+    } on DioException catch (error) {
+      return left(
+        ServerFailure.fromDioException(dioException: error),
+      );
+    } catch (error) {
+      return left(
+        ServerFailure(errMessage: error.toString()),
+      );
+    }
+  }
+
+  @override
   Future<Either<ServerFailure, void>> storeOrder({
     required String userPhone,
     required String supplierPhone,

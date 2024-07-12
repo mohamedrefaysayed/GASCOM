@@ -35,106 +35,107 @@ class _OrderFollowState extends State<OrderFollow> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: FutureBuilder<String>(
-        future: context.read<LocationCubit>().getAddressString(
-              position!.longitude,
-              position!.latitude,
-            ),
-        builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
-            snapshot.hasData
-                ? Column(
-                    children: [
-                      Container(
-                        height: 200.h,
-                        width: double.infinity,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 10.w, vertical: 20.h),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 10.w,
-                              spreadRadius: 15.w,
-                              color: AppColors.kGrey,
-                            )
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(14.w),
-                          child: GoogleMap(
-                            zoomGesturesEnabled: false,
-                            scrollGesturesEnabled: false,
-                            myLocationButtonEnabled: false,
-                            mapToolbarEnabled: false,
-                            minMaxZoomPreference:
-                                const MinMaxZoomPreference(14, 17),
-                            markers: {
-                              Marker(
-                                markerId: const MarkerId('OrderMrarker'),
-                                position: LatLng(
+      body: SafeArea(
+        child: FutureBuilder<String>(
+          future: context.read<LocationCubit>().getAddressString(
+                position!.longitude,
+                position!.latitude,
+              ),
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
+              snapshot.hasData
+                  ? Column(
+                      children: [
+                        Container(
+                          height: 200.h,
+                          width: double.infinity,
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 10.w, vertical: 20.h),
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 10.w,
+                                spreadRadius: 15.w,
+                                color: AppColors.kGrey,
+                              )
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(14.w),
+                            child: GoogleMap(
+                              zoomGesturesEnabled: false,
+                              scrollGesturesEnabled: false,
+                              myLocationButtonEnabled: false,
+                              mapToolbarEnabled: false,
+                              minMaxZoomPreference:
+                                  const MinMaxZoomPreference(14, 17),
+                              markers: {
+                                Marker(
+                                  markerId: const MarkerId('OrderMrarker'),
+                                  position: LatLng(
+                                    double.parse(
+                                        widget.order.location!.split(",")[1]),
+                                    double.parse(
+                                        widget.order.location!.split(",")[0]),
+                                  ),
+                                )
+                              },
+                              compassEnabled: false,
+                              zoomControlsEnabled: false,
+                              myLocationEnabled: true,
+                              initialCameraPosition: CameraPosition(
+                                zoom: 18,
+                                target: LatLng(
                                   double.parse(
                                       widget.order.location!.split(",")[1]),
                                   double.parse(
                                       widget.order.location!.split(",")[0]),
                                 ),
-                              )
-                            },
-                            compassEnabled: false,
-                            zoomControlsEnabled: false,
-                            myLocationEnabled: true,
-                            initialCameraPosition: CameraPosition(
-                              zoom: 18,
-                              target: LatLng(
-                                double.parse(
-                                    widget.order.location!.split(",")[1]),
-                                double.parse(
-                                    widget.order.location!.split(",")[0]),
                               ),
+                              onMapCreated: (GoogleMapController controller) {
+                                setState(() {});
+                              },
                             ),
-                            onMapCreated: (GoogleMapController controller) {
-                              setState(() {});
-                            },
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 20.h, horizontal: 10.w),
-                        child: Wrap(
-                          children: [
-                            Text(
-                              snapshot.data!,
-                              style: TextStyles.textStyle14
-                                  .copyWith(overflow: TextOverflow.visible),
-                            ),
-                          ],
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20.h, horizontal: 10.w),
+                          child: Wrap(
+                            children: [
+                              Text(
+                                snapshot.data!,
+                                style: TextStyles.textStyle14,
+                                overflow: TextOverflow.visible,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      const GeneralDivider(),
-                      AppDefaultButton(
-                        icon: Icon(
-                          Icons.location_on,
-                          color: AppColors.kWhite,
-                          size: 25.w,
+                        const GeneralDivider(),
+                        AppDefaultButton(
+                          icon: Icon(
+                            Icons.location_on,
+                            color: AppColors.kWhite,
+                            size: 25.w,
+                          ),
+                          color: AppColors.kASDCPrimaryColor,
+                          onPressed: () {
+                            String googleUrl =
+                                'https://www.google.com/maps/search/?api=1&query=${position!.longitude},${position!.latitude}';
+                            launchUrlString(googleUrl);
+                          },
+                          title: "الأتجاه الى الموقع",
+                          textStyle: TextStyles.textStyle16.copyWith(
+                            fontSize: 16.sp,
+                            color: AppColors.kWhite,
+                          ),
                         ),
-                        color: AppColors.kASDCPrimaryColor,
-                        onPressed: () {
-                          String googleUrl =
-                              'https://www.google.com/maps/search/?api=1&query=${position!.longitude},${position!.latitude}';
-                          launchUrlString(googleUrl);
-                        },
-                        title: "الأتجاه الى الموقع",
-                        textStyle: TextStyles.textStyle16.copyWith(
-                          fontSize: 16.sp,
-                          color: AppColors.kWhite,
-                        ),
-                      ),
-                      const GeneralDivider(),
-                      AgentFollowOrderCard(order: widget.order),
-                    ],
-                  )
-                : const Center(child: CircularProgressIndicator()),
+                        const GeneralDivider(),
+                        AgentFollowOrderCard(order: widget.order),
+                      ],
+                    )
+                  : const Center(child: CircularProgressIndicator()),
+        ),
       ),
-    ));
+    );
   }
 }

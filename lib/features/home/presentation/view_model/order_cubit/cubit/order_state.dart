@@ -10,6 +10,18 @@ final class AddToOrdersLoading extends OrderState {}
 
 final class DeleteOrderLoading extends OrderState {}
 
+final class OldOrdersLoading extends OrderState {}
+
+final class OldOrdersFailuer extends OrderState {
+  final String errMessage;
+  OldOrdersFailuer({required this.errMessage});
+}
+
+final class OldOrdersSuccess extends OrderState {
+  final OrdersModel ordersModel;
+  OldOrdersSuccess({required this.ordersModel});
+}
+
 final class OrderSuccess extends OrderState {
   final OrdersModel ordersModel;
   OrderSuccess({required this.ordersModel});

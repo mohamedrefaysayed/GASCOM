@@ -1,15 +1,12 @@
-import 'package:dinar_store/core/animations/right_slide_transition.dart';
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
 import 'package:dinar_store/core/utils/time_date_handler.dart';
-import 'package:dinar_store/core/widgets/app_default_button.dart';
 import 'package:dinar_store/features/home/data/models/orders_model.dart';
-import 'package:dinar_store/features/home/presentation/view/widgets/order_follow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AgentOrderColumn extends StatelessWidget {
-  const AgentOrderColumn({super.key, required this.order});
+class OldOrderColumn extends StatelessWidget {
+  const OldOrderColumn({super.key, required this.order});
 
   final GascomOrder order;
 
@@ -19,13 +16,15 @@ class AgentOrderColumn extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: AppColors.kWhite,
+        color: order.status == "delivered"
+            ? AppColors.kLightGreen
+            : AppColors.kLightRed,
         borderRadius: BorderRadius.circular(15.w),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 3,
-            blurRadius: 7,
+            spreadRadius: 1,
+            blurRadius: 5,
             offset: Offset(0, 3.h),
           ),
         ],
@@ -42,14 +41,36 @@ class AgentOrderColumn extends StatelessWidget {
             ),
             textDirection: TextDirection.rtl,
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                "${order.agentName}",
+                style: TextStyles.textStyle16.copyWith(
+                  fontSize: 16.w,
+                  fontWeight: FontWeight.w900,
+                  color: AppColors.kASDCPrimaryColor,
+                ),
+                textDirection: TextDirection.rtl,
+              ),
+              Text(
+                "الأسم : ",
+                style: TextStyles.textStyle16.copyWith(
+                  fontSize: 16.w,
+                  fontWeight: FontWeight.w900,
+                  color: AppColors.kASDCPrimaryColor,
+                ),
+                textDirection: TextDirection.rtl,
+              ),
+            ],
+          ),
           Text(
-            "الأسم : ${order.customerName}",
+            "${MyTimeDate.getMessageTime(context: context, time: DateTime.parse(order.createdAt!).millisecondsSinceEpoch.toString())}   : تاريخ الطلب",
             style: TextStyles.textStyle16.copyWith(
               fontSize: 16.w,
               fontWeight: FontWeight.w900,
               color: AppColors.kASDCPrimaryColor,
             ),
-            textDirection: TextDirection.rtl,
           ),
           Text(
             "العدد : ${order.noDisks}",
@@ -70,7 +91,7 @@ class AgentOrderColumn extends StatelessWidget {
             textDirection: TextDirection.rtl,
           ),
           Text(
-            "الإجمالى : ${order.totalPrice}",
+            "الاجمالى : ${order.totalPrice}",
             style: TextStyles.textStyle16.copyWith(
               fontSize: 16.w,
               fontWeight: FontWeight.w900,
@@ -82,65 +103,25 @@ class AgentOrderColumn extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                order.status == "reviewing"
-                    ? "قيد المراجعة"
-                    : order.status == "preparing"
-                        ? "قيد التحضير"
-                        : order.status == "delivered"
-                            ? "تم التوصيل"
-                            : "تم الالغاء",
+                order.status == "delivered" ? "تم التوصيل" : "تم الالغاء",
                 style: TextStyles.textStyle16.copyWith(
                   fontSize: 16.w,
                   fontWeight: FontWeight.w900,
+                  color: order.status == "delivered"
+                      ? AppColors.kGreen
+                      : AppColors.kRed,
                 ),
-                textDirection: TextDirection.rtl,
               ),
               Text(
-                "حالة الطلب : ",
+                "   : حالة الطلب",
                 style: TextStyles.textStyle16.copyWith(
                   fontSize: 16.w,
                   fontWeight: FontWeight.w900,
                   color: AppColors.kASDCPrimaryColor,
                 ),
-                textDirection: TextDirection.rtl,
               ),
             ],
           ),
-          SizedBox(
-            height: 15.h,
-          ),
-          Text(
-            MyTimeDate.getMessageTime(
-                context: context,
-                time: DateTime.parse(order.createdAt!)
-                    .millisecondsSinceEpoch
-                    .toString()),
-            style: TextStyles.textStyle16.copyWith(
-              fontSize: 14.w,
-              fontWeight: FontWeight.w900,
-              color: AppColors.kGrey,
-            ),
-          ),
-          SizedBox(
-            height: 15.h,
-          ),
-          AppDefaultButton(
-            width: 300.w,
-            color: AppColors.kASDCPrimaryColor,
-            onPressed: () {
-              Navigator.push(
-                context,
-                RightSlideTransition(
-                  page: OrderFollow(order: order),
-                ),
-              );
-            },
-            title: 'متابعة الطلب',
-            textStyle: TextStyles.textStyle16.copyWith(
-              color: AppColors.kWhite,
-              fontSize: 16.w,
-            ),
-          )
         ],
       ),
     );

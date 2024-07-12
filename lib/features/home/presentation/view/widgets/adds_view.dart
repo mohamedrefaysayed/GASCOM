@@ -60,7 +60,7 @@ class _AddsViewState extends State<AddsView> {
                     );
                   },
                   options: CarouselOptions(
-                      aspectRatio: 16 / 9,
+                      aspectRatio: 4 / 3,
                       viewportFraction: 0.95,
                       initialPage: 0,
                       enableInfiniteScroll: true,

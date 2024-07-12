@@ -14,6 +14,7 @@ import 'package:dinar_store/features/home/presentation/view/home_view.dart';
 import 'package:dinar_store/features/home/presentation/view/home_view_agent.dart';
 import 'package:dinar_store/features/home/presentation/view/orders_view.dart';
 import 'package:dinar_store/features/home/presentation/view/profile_view.dart';
+import 'package:dinar_store/features/home/presentation/view_model/agent_orders_cubit/agent_order_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view_model/bottom_nav_cubit.dart/cubit/bottton_nav_bar_cubit.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,9 @@ class _BottomNavBarViewState extends State<BottomNavBarView>
           body: message.notification!.body!,
           localNotifications: FlutterLocalNotificationsPlugin(),
         );
+        if (message.notification!.body == "تم اضافة طلب جديد") {
+          context.read<AgentOrderCubit>().getAllAgentOrders();
+        }
       },
     );
     checkTokenTimer = Timer.periodic(

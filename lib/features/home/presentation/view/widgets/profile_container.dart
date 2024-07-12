@@ -75,18 +75,45 @@ class _ProfileContainerState extends State<ProfileContainer> {
               if (!isCustomer)
                 Column(
                   children: [
-                    ClipOval(
-                      child: MyCachedNetworkImage(
-                        height: 100.w,
-                        width: 100.w,
-                        url: ProfileCubit.profileModel!.customer!.profilePic ??
-                            "",
-                        errorIcon: Icon(
-                          Icons.image,
-                          color: AppColors.kGrey,
-                          size: 100.w,
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Dialog(
+                              child: MyCachedNetworkImage(
+                                height: MediaQuery.of(context).size.height *
+                                    0.5, // 50% of screen height
+                                width: MediaQuery.of(context).size.width *
+                                    0.5, // 50% of screen width
+                                url: ProfileCubit
+                                        .profileModel!.customer!.profilePic ??
+                                    "",
+                                errorIcon: Icon(
+                                  Icons.image,
+                                  color: AppColors.kGrey,
+                                  size: 100.w,
+                                ),
+                                loadingWidth: 25.w,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: ClipOval(
+                        child: MyCachedNetworkImage(
+                          height: 100.w,
+                          width: 100.w,
+                          url:
+                              ProfileCubit.profileModel!.customer!.profilePic ??
+                                  "",
+                          errorIcon: Icon(
+                            Icons.image,
+                            color: AppColors.kGrey,
+                            size: 100.w,
+                          ),
+                          loadingWidth: 25.w,
                         ),
-                        loadingWidth: 25.w,
                       ),
                     ),
                     SizedBox(
@@ -102,17 +129,18 @@ class _ProfileContainerState extends State<ProfileContainer> {
                 textDirection: TextDirection.rtl,
               ),
               SizedBox(
-                height: 20.h,
+                height: 10.h,
               ),
               Text(
-                "${ProfileCubit.profileModel!.customer!.mobNo} : رقم الهاتف",
+                "رقم الهاتف : ${ProfileCubit.profileModel!.customer!.mobNo}+",
                 style: TextStyles.textStyle18,
+                textDirection: TextDirection.rtl,
               ),
               SizedBox(
                 height: 10.h,
               ),
               Text(
-                "عدد الطلبات : ${ProfileCubit.profileModel!.customer!.noOrders ?? 0}",
+                "عدد الطلبات المستلمة : ${ProfileCubit.profileModel!.customer!.noOrders ?? 0}",
                 style: TextStyles.textStyle16.copyWith(
                   fontSize: 16.w,
                 ),
@@ -132,12 +160,15 @@ class _ProfileContainerState extends State<ProfileContainer> {
                             fontSize: 16.w,
                           ),
                           textDirection: TextDirection.rtl,
+                          overflow: TextOverflow.visible,
                         ),
                         SizedBox(
-                          height: 20.h,
+                          height: 10.h,
                         ),
                         CurrentLocationColumn(
-                            currentLocationData: state.locationData),
+                          isProfile: true,
+                          currentLocationData: state.locationData,
+                        ),
                       ],
                     );
                   }
@@ -148,7 +179,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                 Column(
                   children: [
                     SizedBox(
-                      height: 50.h,
+                      height: 30.h,
                     ),
                     Text(
                       "السعر : ${ProfileCubit.profileModel!.customer!.price ?? 0}",
@@ -177,6 +208,8 @@ class _ProfileContainerState extends State<ProfileContainer> {
                                   TextFieldDataBulder(
                                     keyType: TextInputType.number,
                                     title: 'تغيير السعر',
+                                    hint:
+                                        "${ProfileCubit.profileModel!.customer!.price ?? 0}",
                                     onChanged: (value) {},
                                     controller: ProfileCubit.priceController,
                                   ),

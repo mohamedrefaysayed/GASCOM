@@ -7,6 +7,9 @@ abstract class OrdersRepo {
   Future<Either<ServerFailure, OrdersModel>> getAllOrders({
     required String token,
   });
+  Future<Either<ServerFailure, OrdersModel>> getAllOldOrders({
+    required String token,
+  });
 
   Future<Either<ServerFailure, void>> storeOrder({
     required String userPhone,

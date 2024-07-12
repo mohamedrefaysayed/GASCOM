@@ -2,7 +2,6 @@
 
 import 'package:dinar_store/core/utils/app_colors.dart';
 import 'package:dinar_store/core/utils/text_styles.dart';
-import 'package:dinar_store/features/auth/presentation/view_model/location_cubit/cubit/location_cubit.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/adds_view.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/cards/agent_order_card.dart';
 import 'package:dinar_store/features/home/presentation/view/widgets/dividers/ginerall_divider.dart';
@@ -26,7 +25,6 @@ class _HomeViewAgentState extends State<HomeViewAgent>
 
   @override
   void initState() {
-    context.read<LocationCubit>().getCurrentLocation(context: context);
     context.read<AgentOrderCubit>().getAllAgentOrders();
     context.read<AdsCubit>().getAllAds();
 

@@ -9,9 +9,11 @@ class CurrentLocationColumn extends StatelessWidget {
   const CurrentLocationColumn({
     super.key,
     required this.currentLocationData,
+    this.isProfile = false,
   });
 
   final Map<String, dynamic> currentLocationData;
+  final bool? isProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +26,20 @@ class CurrentLocationColumn extends StatelessWidget {
           lng: currentLocationData['lng'],
         ),
         SizedBox(height: 15.h),
-        SizedBox(
-          width: 250.w,
-          child: Text(
-            context
-                .read<LocationCubit>()
-                .getAddressValue(currentLocationData: currentLocationData),
-            style: TextStyles.textStyle12.copyWith(
-              fontWeight: FontWeight.w700,
+        if (!isProfile!)
+          SizedBox(
+            width: 250.w,
+            child: Text(
+              context
+                  .read<LocationCubit>()
+                  .getAddressValue(currentLocationData: currentLocationData),
+              style: TextStyles.textStyle12.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.visible,
             ),
-            textAlign: TextAlign.center,
           ),
-        ),
       ],
     );
   }

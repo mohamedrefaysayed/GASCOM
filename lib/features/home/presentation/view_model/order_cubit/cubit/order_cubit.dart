@@ -31,6 +31,8 @@ class OrderCubit extends Cubit<OrderState> {
 
   static OrdersModel? ordersModel;
 
+  static OrdersModel? oldOrdersModel;
+
   static OrdersModel? agentOrdersModel;
 
   getAllOrders() async {
@@ -52,6 +54,29 @@ class OrderCubit extends Cubit<OrderState> {
         orders.orders = orders.orders!.reversed.toList();
         ordersModel = orders;
         emit(OrderSuccess(ordersModel: orders));
+      },
+    );
+  }
+
+  getAllOldOrders() async {
+    oldOrdersModel == null ? emit(OldOrdersLoading()) : null;
+    Either<ServerFailure, OrdersModel> result =
+        await _ordersServices.getAllOldOrders(
+      token: AppCubit.token!,
+    );
+
+    result.fold(
+      //error
+      (serverFailure) {
+        emit(
+          OldOrdersFailuer(errMessage: serverFailure.errMessage),
+        );
+      },
+      //success
+      (orders) async {
+        orders.orders = orders.orders!.reversed.toList();
+        oldOrdersModel = orders;
+        emit(OldOrdersSuccess(ordersModel: orders));
       },
     );
   }

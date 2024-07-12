@@ -52,6 +52,8 @@ class AgentFollowOrderCard extends StatelessWidget {
                 color: AppColors.kASDCPrimaryColor,
                 fontWeight: FontWeight.bold,
               ),
+              overflow: TextOverflow.visible,
+              textDirection: TextDirection.rtl,
             ),
             Text(
               "${order.noDisks} :  العدد",
@@ -59,6 +61,7 @@ class AgentFollowOrderCard extends StatelessWidget {
                 color: AppColors.kASDCPrimaryColor,
                 fontWeight: FontWeight.bold,
               ),
+              textDirection: TextDirection.rtl,
             ),
             Text(
               "${order.price!} : السعر ",
@@ -66,6 +69,7 @@ class AgentFollowOrderCard extends StatelessWidget {
                 color: AppColors.kASDCPrimaryColor,
                 fontWeight: FontWeight.bold,
               ),
+              textDirection: TextDirection.rtl,
             ),
             Text(
               "${int.parse(order.noDisks!) * order.price!} :  السعر الكلى",
@@ -73,6 +77,7 @@ class AgentFollowOrderCard extends StatelessWidget {
                 color: AppColors.kASDCPrimaryColor,
                 fontWeight: FontWeight.bold,
               ),
+              textDirection: TextDirection.rtl,
             ),
             SizedBox(
               height: 10.h,
