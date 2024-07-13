@@ -33,101 +33,99 @@ class _OrdersViewState extends State<OrdersView>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await context.read<OrderCubit>().getAllOrders();
-        },
-        child: BlocConsumer<OrderCubit, OrderState>(
-          listener: (context, state) {
-            if (state is OrderFailuer) {
-              ScaffoldMessenger.of(context).showSnackBar(messageSnackBar(
-                  message: state.errMessage, isBottomNavBar: true));
-            }
-            if (state is AddOrderFailuer) {
-              ScaffoldMessenger.of(context).showSnackBar(messageSnackBar(
-                  message: state.errMessage, isBottomNavBar: true));
-            }
-            if (state is DeleteOrderSuccess) {
-              OrderCubit.ordersModel = state.ordersModel;
-              ScaffoldMessenger.of(context).showSnackBar(
-                  messageSnackBar(message: "تم الحذف", isBottomNavBar: true));
-            }
-            if (state is DeleteOrderFailuer) {
-              ScaffoldMessenger.of(context).showSnackBar(messageSnackBar(
-                  message: state.errMessage, isBottomNavBar: true));
-            }
-          },
-          builder: (context, state) {
-            if (state is OrderFailuer) {
-              return ListView(
-                children: [
-                  SizedBox(
-                    height: 300.h,
-                    child: Center(
-                      child: Text(
-                        "حدث خطأ",
-                        style: TextStyles.textStyle16.copyWith(
-                          fontSize: 16.w,
-                        ),
-                      ),
-                    ),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(right: 30.w, left: 30.w, top: 40.h),
+            child: Row(
+              children: [
+                const Spacer(
+                  flex: 2,
+                ),
+                Text(
+                  isCustomer ? 'الطلبــــــات' : 'الطلبــــــات الحالية',
+                  style: TextStyles.textStyle16.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16.w,
                   ),
-                ],
-              );
-            }
-            if (state is OrderLoading) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.w),
-                child: const AllCompaniesPlaceHolder(),
-              );
-            }
+                ),
+                Spacer(
+                  flex: isCustomer ? 2 : 1,
+                ),
+                if (!isCustomer)
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        LeftSlideTransition(
+                          page: const OldOrdersView(),
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      Icons.history,
+                      size: 25.w,
+                      color: AppColors.kASDCPrimaryColor,
+                    ),
+                  )
+              ],
+            ),
+          ),
+          const GeneralDivider(),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () async {
+                await context.read<OrderCubit>().getAllOrders();
+              },
+              child: BlocConsumer<OrderCubit, OrderState>(
+                listener: (context, state) {
+                  if (state is OrderFailuer) {
+                    context.showMessageSnackBar(
+                        message: state.errMessage, isBottomNavBar: true);
+                  }
+                  if (state is AddOrderFailuer) {
+                    context.showMessageSnackBar(
+                        message: state.errMessage, isBottomNavBar: true);
+                  }
+                  if (state is DeleteOrderSuccess) {
+                    OrderCubit.ordersModel = state.ordersModel;
 
-            return (OrderCubit.ordersModel != null &&
-                    OrderCubit.ordersModel!.orders!.isNotEmpty)
-                ? Column(
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsets.only(right: 30.w, left: 30.w, top: 40.h),
-                        child: Row(
-                          children: [
-                            const Spacer(
-                              flex: 2,
-                            ),
-                            Text(
-                              isCustomer
-                                  ? 'الطلبــــــات'
-                                  : 'الطلبــــــات الحالية',
+                    context.showMessageSnackBar(
+                        message: "تم الحذف", isBottomNavBar: true);
+                  }
+                  if (state is DeleteOrderFailuer) {
+                    context.showMessageSnackBar(
+                        message: state.errMessage, isBottomNavBar: true);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is OrderFailuer) {
+                    return ListView(
+                      children: [
+                        SizedBox(
+                          height: 300.h,
+                          child: Center(
+                            child: Text(
+                              "حدث خطأ",
                               style: TextStyles.textStyle16.copyWith(
-                                fontWeight: FontWeight.w700,
                                 fontSize: 16.w,
                               ),
                             ),
-                            Spacer(
-                              flex: isCustomer ? 2 : 1,
-                            ),
-                            if (!isCustomer)
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    LeftSlideTransition(
-                                      page: const OldOrdersView(),
-                                    ),
-                                  );
-                                },
-                                icon: Icon(
-                                  Icons.history,
-                                  size: 25.w,
-                                  color: AppColors.kASDCPrimaryColor,
-                                ),
-                              )
-                          ],
+                          ),
                         ),
-                      ),
-                      const GeneralDivider(),
-                      Expanded(
-                        child: ListView.builder(
+                      ],
+                    );
+                  }
+                  if (state is OrderLoading) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30.w),
+                      child: const AllCompaniesPlaceHolder(),
+                    );
+                  }
+
+                  return (OrderCubit.ordersModel != null &&
+                          OrderCubit.ordersModel!.orders!.isNotEmpty)
+                      ? ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
                           itemCount: OrderCubit.ordersModel!.orders!.length,
@@ -142,25 +140,25 @@ class _OrdersViewState extends State<OrdersView>
                                         OrderCubit.ordersModel!.orders![index],
                                   );
                           },
-                        ),
-                      ),
-                    ],
-                  )
-                : ListView(
-                    children: [
-                      SizedBox(
-                        height: 300.h,
-                      ),
-                      Center(
-                        child: Text(
-                          "لا توجد طلبات",
-                          style: TextStyles.textStyle18,
-                        ),
-                      ),
-                    ],
-                  );
-          },
-        ),
+                        )
+                      : ListView(
+                          children: [
+                            SizedBox(
+                              height: 300.h,
+                            ),
+                            Center(
+                              child: Text(
+                                "لا توجد طلبات",
+                                style: TextStyles.textStyle18,
+                              ),
+                            ),
+                          ],
+                        );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

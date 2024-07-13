@@ -225,10 +225,8 @@ class _ProfileContainerState extends State<ProfileContainer> {
                                             .getProfile();
                                         ProfileCubit.priceController.clear();
                                         Navigator.pop(context);
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(messageSnackBar(
-                                                message:
-                                                    'تم تغيير السعر بنجاح'));
+                                        context.showMessageSnackBar(
+                                            message: 'تم تغيير السعر بنجاح');
                                       }
                                     },
                                     builder: (context, state) {
@@ -266,10 +264,9 @@ class _ProfileContainerState extends State<ProfileContainer> {
                                                           .trim(),
                                                     );
                                               } else {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(messageSnackBar(
-                                                        message:
-                                                            'أكتب السعر الجديد'));
+                                                context.showMessageSnackBar(
+                                                    message:
+                                                        'أكتب السعر الجديد');
                                               }
                                             },
                                             title: 'تغيير',
@@ -318,11 +315,12 @@ class _ProfileContainerState extends State<ProfileContainer> {
                     context,
                     RightSlideTransition(
                       page: DataEdit(
-                          profile: ProfileCubit.profileModel!,
-                          position: LatLng(
-                            longitude,
-                            latitude,
-                          )),
+                        profile: ProfileCubit.profileModel!,
+                        position: LatLng(
+                          longitude,
+                          latitude,
+                        ),
+                      ),
                     ),
                   );
                 },

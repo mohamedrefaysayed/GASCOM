@@ -65,11 +65,9 @@ class LocationCubit extends Cubit<LocationState> {
       });
     } catch (error) {
       emit(LocationFailuer());
-      ScaffoldMessenger.of(context).showSnackBar(
-        messageSnackBar(
-          message: "أفتح الموقع",
-          isBottomNavBar: true,
-        ),
+      context.showMessageSnackBar(
+        message: "أفتح الموقع",
+        isBottomNavBar: true,
       );
     }
   }

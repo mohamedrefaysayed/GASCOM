@@ -196,19 +196,15 @@ class DataEdit extends StatelessWidget {
                 BlocConsumer<StoreDataCubit, StoreDataState>(
                   listener: (context, state) {
                     if (state is UpdateDataFailure) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        messageSnackBar(
-                          message:
-                              " خطأ أثناء تعديل البيانات ${state.errMessage}",
-                        ),
+                      context.showMessageSnackBar(
+                        message:
+                            " خطأ أثناء تعديل البيانات ${state.errMessage}",
                       );
                     }
                     if (state is UpdateDataSuccess) {
                       Navigator.pop(context);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        messageSnackBar(
-                          message: "تم تعديل البيانات بنجاح",
-                        ),
+                      context.showMessageSnackBar(
+                        message: "تم تعديل البيانات بنجاح",
                       );
                       StoreDataCubit.img.value = null;
                       context.read<ProfileCubit>().getProfile();
@@ -224,14 +220,15 @@ class DataEdit extends StatelessWidget {
                         if (ProfileCubit.nameController.text.isNotEmpty ||
                             ProfileCubit.markerPosition != null) {
                           context.read<StoreDataCubit>().updateData(
-                                name: ProfileCubit.nameController.text.trim(),
+                                name:
+                                    ProfileCubit.nameController.text.isNotEmpty
+                                        ? ProfileCubit.nameController.text
+                                        : null,
                                 position: ProfileCubit.markerPosition,
                               );
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            messageSnackBar(
-                              message: "لم يتم تعديل اى بيانات",
-                            ),
+                          context.showMessageSnackBar(
+                            message: "لم يتم تعديل اى بيانات",
                           );
                         }
                       },

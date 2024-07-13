@@ -80,8 +80,7 @@ class _BottomNavBarViewState extends State<BottomNavBarView>
         if (state is LogOutSuccess) {
           Navigator.pushNamedAndRemoveUntil(
               context, 'usertype', (route) => false);
-          ScaffoldMessenger.of(context)
-              .showSnackBar(messageSnackBar(message: "تم الخروج بنجاح"));
+          context.showMessageSnackBar(message: "تم الخروج بنجاح");
         }
       },
       builder: (context, state) {

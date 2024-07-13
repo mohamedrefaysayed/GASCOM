@@ -55,8 +55,7 @@ class PhoneBuilder extends StatelessWidget {
                   LogInCubit.phoneNumber!.isValidNumber();
                   await BlocProvider.of<LogInCubit>(context).login();
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      messageSnackBar(message: "أدخل رقم الهاتف"));
+                  context.showMessageSnackBar(message: "أدخل رقم الهاتف");
                 }
               },
               title: 'أرسال',

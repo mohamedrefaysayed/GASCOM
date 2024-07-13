@@ -99,11 +99,9 @@ class AgentOrderCard extends StatelessWidget {
                     if (state is RejectOrderActionsSuccess) {
                       context.read<AgentOrderCubit>().getAllAgentOrders();
                       context.read<OrderCubit>().getAllOrders();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        messageSnackBar(
-                          isBottomNavBar: true,
-                          message: "تم رفض الطلب بنجاح",
-                        ),
+                      context.showMessageSnackBar(
+                        isBottomNavBar: true,
+                        message: "تم رفض الطلب بنجاح",
                       );
                     }
                   },
@@ -149,11 +147,9 @@ class AgentOrderCard extends StatelessWidget {
                     if (state is ApproveOrderActionsSuccess) {
                       context.read<AgentOrderCubit>().getAllAgentOrders();
                       context.read<OrderCubit>().getAllOrders();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        messageSnackBar(
-                          isBottomNavBar: true,
-                          message: "تم قبول الطلب بنجاح",
-                        ),
+                      context.showMessageSnackBar(
+                        isBottomNavBar: true,
+                        message: "تم قبول الطلب بنجاح",
                       );
                     }
                   },

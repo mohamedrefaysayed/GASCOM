@@ -59,7 +59,7 @@ class _HomeViewState extends State<HomeView>
                         height: 30.h,
                       ),
                       Text(
-                        "املأ الاسطوانه وانت مرتاح",
+                        "إملئ غازك وأنت مرتاح",
                         style: TextStyles.textStyle24.copyWith(
                           color: AppColors.kASDCPrimaryColor,
                           fontWeight: FontWeight.bold,
@@ -171,11 +171,9 @@ class _HomeViewState extends State<HomeView>
                                       tubsNumber: counter.value,
                                     );
                               } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  messageSnackBar(
-                                    isBottomNavBar: true,
-                                    message: "أختر موزع",
-                                  ),
+                                context.showMessageSnackBar(
+                                  isBottomNavBar: true,
+                                  message: "أختر موزع",
                                 );
                               }
                             },

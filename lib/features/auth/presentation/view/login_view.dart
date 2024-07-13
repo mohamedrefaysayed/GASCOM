@@ -79,17 +79,15 @@ class LogInView extends StatelessWidget {
               BlocConsumer<LogInCubit, LogInState>(
                 listener: (context, state) {
                   if (state is LogInFailure) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        messageSnackBar(message: state.errMessage));
+                    context.showMessageSnackBar(message: state.errMessage);
                   }
                   if (state is SendCodeSuccess) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        messageSnackBar(message: "تم إرسال رقم التأكيد"));
+                    context.showMessageSnackBar(
+                        message: "تم إرسال رقم التأكيد");
                   }
                 },
                 builder: (context, state) {
-                  if (state is SendCodeSuccess ||
-                      state is VerficationLoading) {
+                  if (state is SendCodeSuccess || state is VerficationLoading) {
                     return const CodeBuilder();
                   } else {
                     return const PhoneBuilder();

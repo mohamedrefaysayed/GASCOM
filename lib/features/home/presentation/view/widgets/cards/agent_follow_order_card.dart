@@ -91,11 +91,10 @@ class AgentFollowOrderCard extends StatelessWidget {
                       context.read<AgentOrderCubit>().getAllAgentOrders();
                       context.read<OrderCubit>().getAllOrders();
                       Navigator.pop(context);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        messageSnackBar(
-                          isBottomNavBar: true,
-                          message: "تم الغاء الطلب بنجاح",
-                        ),
+
+                      context.showMessageSnackBar(
+                        isBottomNavBar: true,
+                        message: "تم الغاء الطلب بنجاح",
                       );
                     }
                   },
@@ -143,11 +142,9 @@ class AgentFollowOrderCard extends StatelessWidget {
                       context.read<OrderCubit>().getAllOrders();
 
                       Navigator.pop(context);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        messageSnackBar(
-                          isBottomNavBar: true,
-                          message: "تم تسليم الطلب بنجاح",
-                        ),
+                      context.showMessageSnackBar(
+                        isBottomNavBar: true,
+                        message: "تم تسليم الطلب بنجاح",
                       );
                     }
                   },

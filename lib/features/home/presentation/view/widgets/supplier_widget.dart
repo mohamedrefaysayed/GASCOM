@@ -42,22 +42,22 @@ class _SupplierWidgetState extends State<SupplierWidget> {
           context.read<OrderCubit>().getAllOrders();
           context.read<OrderCubit>().getSuppliers();
 
-          ScaffoldMessenger.of(context).showSnackBar(messageSnackBar(
+          context.showMessageSnackBar(
             message: "تم إرسال الطلب",
             isBottomNavBar: true,
-          ));
+          );
         }
         if (state is AddOrderFailuer) {
-          ScaffoldMessenger.of(context).showSnackBar(messageSnackBar(
+          context.showMessageSnackBar(
             message: "لم يتم إرسال الطلب",
             isBottomNavBar: true,
-          ));
+          );
         }
         if (state is GetSuppliersFailuer) {
-          ScaffoldMessenger.of(context).showSnackBar(messageSnackBar(
+          context.showMessageSnackBar(
             message: state.errMessage,
             isBottomNavBar: true,
-          ));
+          );
         }
       },
       builder: (context, state) {
@@ -112,7 +112,6 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                       items: OrderCubit.suppliersModel!.agents!
                           .map(
                             (Agents item) => DropdownMenuItem<String>(
-                              
                               value: item.mobNo,
                               child: Container(
                                 padding: EdgeInsets.symmetric(
@@ -132,7 +131,7 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                                       textDirection: TextDirection.rtl,
                                     ),
                                     Text(
-                                      "يبعد عنك :  ${item.distance! >= 1000 ? (item.distance!/1000): item.distance!} ${item.distance! >= 1000 ? "كم" : "متر"}",
+                                      "يبعد عنك :  ${(item.distance ?? 0) >= 1000 ? ((item.distance ?? 0) / 1000) : (item.distance ?? 0)} ${(item.distance ?? 0) >= 1000 ? "كم" : "متر"}",
                                       style: TextStyle(
                                         fontSize: 14.w,
                                         fontWeight: FontWeight.bold,

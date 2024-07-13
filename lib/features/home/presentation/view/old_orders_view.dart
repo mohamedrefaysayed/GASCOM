@@ -32,10 +32,8 @@ class _OldOrdersViewState extends State<OldOrdersView> {
         child: BlocConsumer<OrderCubit, OrderState>(
           listener: (context, state) {
             if (state is OldOrdersFailuer) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                messageSnackBar(
-                  message: state.errMessage,
-                ),
+              context.showMessageSnackBar(
+                message: state.errMessage,
               );
             }
           },

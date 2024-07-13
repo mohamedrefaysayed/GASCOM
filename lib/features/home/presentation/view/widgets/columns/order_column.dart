@@ -139,15 +139,13 @@ class OrderColumn extends StatelessWidget {
             BlocConsumer<OrderCubit, OrderState>(
               listener: (context, state) {
                 if (state is CancelOrderSuccess) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    messageSnackBar(
-                        message: "تم الغاء الطلب بنجاح", isBottomNavBar: true),
-                  );
+                  context.showMessageSnackBar(
+                      message: "تم الغاء الطلب بنجاح", isBottomNavBar: true);
                   context.read<OrderCubit>().getAllOrders();
                 }
                 if (state is CancelOrderFailuer) {
-                  ScaffoldMessenger.of(context).showSnackBar(messageSnackBar(
-                      message: state.errMessage, isBottomNavBar: true));
+                  context.showMessageSnackBar(
+                      message: state.errMessage, isBottomNavBar: true);
                 }
               },
               builder: (context, state) {

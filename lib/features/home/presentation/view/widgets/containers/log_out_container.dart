@@ -17,8 +17,7 @@ class LogOutContainer extends StatelessWidget {
     return BlocConsumer<LogOutCubit, LogOutState>(
       listener: (context, state) {
         if (state is LogOutFailure) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(messageSnackBar(message: state.errMessage));
+          context.showMessageSnackBar(message: state.errMessage);
         }
       },
       builder: (context, state) {
