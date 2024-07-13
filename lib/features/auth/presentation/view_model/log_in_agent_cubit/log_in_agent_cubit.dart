@@ -52,8 +52,8 @@ class LogInAgentCubit extends Cubit<LogInAgentState> {
         fakeCode = data.otp;
         isExist = data.exists ?? false;
         CacheHelper.saveData(
-            key: "userPhone", value: phoneNumber!.completeNumber.trim());
-        userPhone = phoneNumber!.completeNumber;
+            key: "userPhone", value: phoneNumber!.completeNumber.trim().replaceAll('+', ""));
+        userPhone = phoneNumber!.completeNumber.trim();
         emit(SendCodeSuccess(
           message: data.exists.toString(),
         ));
