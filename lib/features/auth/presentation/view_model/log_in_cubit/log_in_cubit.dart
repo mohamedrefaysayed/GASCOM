@@ -54,7 +54,7 @@ class LogInCubit extends Cubit<LogInState> {
         CacheHelper.saveData(
             key: "userPhone",
             value: phoneNumber!.completeNumber.trim().replaceAll('+', ""));
-        userPhone = phoneNumber!.completeNumber;
+        userPhone = phoneNumber!.completeNumber.trim().replaceAll('+', "");
         emit(
           SendCodeSuccess(
             message: data.exists.toString(),
