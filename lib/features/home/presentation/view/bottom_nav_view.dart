@@ -52,7 +52,6 @@ class _BottomNavBarViewState extends State<BottomNavBarView>
           body: message.notification!.body!,
           localNotifications: FlutterLocalNotificationsPlugin(),
         );
-        print(message.notification!.body);
         if (message.notification!.body ==
             "تم الموافقة على طلبك من قبل الوكيل") {
           if (isCustomer) {
