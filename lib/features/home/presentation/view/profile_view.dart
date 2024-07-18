@@ -76,32 +76,56 @@ class _ProfileViewState extends State<ProfileView>
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  "assets/icons/facebook.svg",
-                  height: 20.w,
-                  width: 20.w,
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.6), BlendMode.srcATop),
+                InkWell(
+                  onTap: () async {
+                    await launchUrlString(
+                      "https://www.facebook.com/share/vduQWy5YCrm3ebc3/?mibextid=qi2Omg",
+                      mode: LaunchMode.externalApplication,
+                    );
+                  },
+                  child: SvgPicture.asset(
+                    "assets/icons/facebook.svg",
+                    height: 20.w,
+                    width: 20.w,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.6), BlendMode.srcATop),
+                  ),
                 ),
                 SizedBox(
                   width: 20.w,
                 ),
-                SvgPicture.asset(
-                  "assets/icons/instagram.svg",
-                  height: 20.w,
-                  width: 20.w,
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.6), BlendMode.srcATop),
+                InkWell(
+                  onTap: () async {
+                    await launchUrlString(
+                      "https://www.facebook.com/share/vduQWy5YCrm3ebc3/?mibextid=qi2Omg",
+                      mode: LaunchMode.externalApplication,
+                    );
+                  },
+                  child: SvgPicture.asset(
+                    "assets/icons/instagram.svg",
+                    height: 20.w,
+                    width: 20.w,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.6), BlendMode.srcATop),
+                  ),
                 ),
                 SizedBox(
                   width: 20.w,
                 ),
-                SvgPicture.asset(
-                  "assets/icons/globe.svg",
-                  height: 20.w,
-                  width: 20.w,
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.6), BlendMode.srcATop),
+                InkWell(
+                  onTap: () async {
+                    await launchUrlString(
+                      "https://www.gaznaa.com/",
+                      mode: LaunchMode.externalApplication,
+                    );
+                  },
+                  child: SvgPicture.asset(
+                    "assets/icons/globe.svg",
+                    height: 20.w,
+                    width: 20.w,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.6), BlendMode.srcATop),
+                  ),
                 ),
               ],
             ),

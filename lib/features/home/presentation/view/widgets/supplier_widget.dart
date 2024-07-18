@@ -35,6 +35,15 @@ class _SupplierWidgetState extends State<SupplierWidget> {
   Widget build(BuildContext context) {
     return BlocConsumer<OrderCubit, OrderState>(
       listener: (context, state) {
+        if (state is GetSuppliersSuccess) {
+          if (state.suppliersModel.agents == null ||
+              state.suppliersModel.agents!.isEmpty) {
+            context.showMessageSnackBar(
+              message: "لا يوجد وكلاء قريبين منك",
+              isBottomNavBar: true,
+            );
+          }
+        }
         if (state is AddOrderSuccess) {
           OrderCubit.selectedValue = null;
           context.read<OrderCubit>().emit(OrderInitial());
