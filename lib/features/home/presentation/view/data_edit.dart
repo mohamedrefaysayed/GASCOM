@@ -28,7 +28,7 @@ class DataEdit extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: true,
-      onPopInvoked: (_) {
+      onPopInvokedWithResult: (didPop, Object? result) {
         ProfileCubit.nameController.clear();
         ProfileCubit.markerPosition = null;
       },

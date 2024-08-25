@@ -45,6 +45,7 @@ extension SnackbarContext on BuildContext {
                     message,
                     style: TextStyles.textStyle14,
                     textAlign: TextAlign.center,
+                    maxLines: 10,
                   ),
                 ),
                 SizedBox(

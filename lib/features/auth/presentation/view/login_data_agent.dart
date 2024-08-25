@@ -22,7 +22,7 @@ class LoginDataAgent extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: true,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, Object? result) {
         if (didPop) {
           LogInCubit.phoneNumber = null;
           LogInCubit.code = null;

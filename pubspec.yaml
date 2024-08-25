@@ -4,7 +4,7 @@ description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 
-version: 1.0.3+3
+version: 1.0.4+4
 
 environment:
   sdk: '>=3.2.2 <4.0.0'
@@ -32,7 +32,7 @@ dependencies:
   geolocator: ^10.1.0
   bloc: ^8.1.2
   cached_network_image: ^3.3.1
-  carousel_slider: ^4.2.1
+  carousel_slider: ^5.0.0
   shimmer: ^3.0.0
   dotted_border: ^2.1.0
   url_launcher: ^6.2.4
