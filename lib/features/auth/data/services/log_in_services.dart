@@ -33,11 +33,12 @@ class LogInServices implements LogInRepo {
     required String phoneNumber,
   }) async {
     try {
-      Map<String, dynamic> data = await _dioHelper.getRequest(
+      Map<String, dynamic> data = await _dioHelper.postRequest(
         endPoint: isCustomer ? 'login_customer' : 'login_agent',
         queryParameters: {
           'mob_no': phoneNumber,
         },
+        body: {},
       );
       return right(
         LoginModel.fromJson(data),
@@ -61,13 +62,14 @@ class LogInServices implements LogInRepo {
     try {
       fcmToken = await FirebaseMessaging.instance.getToken();
 
-      Map<String, dynamic> data = await _dioHelper.getRequest(
+      Map<String, dynamic> data = await _dioHelper.postRequest(
         endPoint: isCustomer ? 'otp_customer' : 'otp_agent',
         queryParameters: {
           'fcm': fcmToken,
           'mob_no': phoneNumber,
           'otp': otp,
         },
+        body: {},
       );
       return right(
         VerfiyModel.fromJson(data),
@@ -91,7 +93,7 @@ class LogInServices implements LogInRepo {
   }) async {
     try {
       fcmToken = await FirebaseMessaging.instance.getToken();
-      Map<String, dynamic> data = await _dioHelper.getRequest(
+      Map<String, dynamic> data = await _dioHelper.postRequest(
         endPoint: 'signup_customer',
         queryParameters: {
           'mob_no': phoneNumber,
@@ -99,6 +101,7 @@ class LogInServices implements LogInRepo {
           'name': name,
           'fcm': fcmToken,
         },
+        body: {},
       );
       return right(
         RegisterModel.fromJson(data),
@@ -120,7 +123,7 @@ class LogInServices implements LogInRepo {
     LatLng? position,
   }) async {
     try {
-      Map<String, dynamic> data = await _dioHelper.getRequest(
+      Map<String, dynamic> data = await _dioHelper.postRequest(
         endPoint: 'signup_customer',
         queryParameters: {
           'mob_no': userPhone,
@@ -128,6 +131,7 @@ class LogInServices implements LogInRepo {
             'location': "${position.longitude},${position.latitude}",
           if (name != null) 'name': name,
         },
+        body: {},
       );
       return right(
         RegisterModel.fromJson(data),

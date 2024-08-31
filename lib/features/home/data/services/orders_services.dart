@@ -71,7 +71,7 @@ class OrdersServices implements OrdersRepo {
     required String token,
   }) async {
     try {
-      await _dioHelper.getRequest(
+      await _dioHelper.postRequest(
         token: token,
         endPoint: 'place_order',
         queryParameters: {
@@ -80,6 +80,7 @@ class OrdersServices implements OrdersRepo {
           'no_disks': tubsNumber,
           'total_price': totalPrice,
         },
+        body: {},
       );
       return right(null);
     } on DioException catch (error) {
@@ -99,12 +100,13 @@ class OrdersServices implements OrdersRepo {
     required String token,
   }) async {
     try {
-      await _dioHelper.getRequest(
+      await _dioHelper.postRequest(
         token: token,
         endPoint: 'cancel_order',
         queryParameters: {
           'order_id': orderId,
         },
+        body: {},
       );
       return right(null);
     } on DioException catch (error) {
@@ -170,12 +172,13 @@ class OrdersServices implements OrdersRepo {
     required String orderId,
   }) async {
     try {
-      await _dioHelper.getRequest(
+      await _dioHelper.postRequest(
         token: token,
         endPoint: 'approve',
         queryParameters: {
           'order_id': orderId,
         },
+        body: {},
       );
       return right(null);
     } on DioException catch (error) {
@@ -195,12 +198,13 @@ class OrdersServices implements OrdersRepo {
     required String orderId,
   }) async {
     try {
-      await _dioHelper.getRequest(
+      await _dioHelper.postRequest(
         token: token,
         endPoint: 'reject',
         queryParameters: {
           'order_id': orderId,
         },
+        body: {},
       );
       return right(null);
     } on DioException catch (error) {
@@ -220,12 +224,13 @@ class OrdersServices implements OrdersRepo {
     required String orderId,
   }) async {
     try {
-      await _dioHelper.getRequest(
+      await _dioHelper.postRequest(
         token: token,
         endPoint: 'delivered',
         queryParameters: {
           'order_id': orderId,
         },
+        body: {},
       );
       return right(null);
     } on DioException catch (error) {
@@ -245,12 +250,13 @@ class OrdersServices implements OrdersRepo {
     required String newPrice,
   }) async {
     try {
-      await _dioHelper.getRequest(
+      await _dioHelper.postRequest(
         token: token,
         endPoint: 'change_price',
         queryParameters: {
           'price': newPrice,
         },
+        body: {},
       );
       return right(null);
     } on DioException catch (error) {
