@@ -30,7 +30,6 @@ class AdsCubit extends Cubit<AdsState> {
       },
       //success
       (adsModel) async {
-        print(adsModel.ads!.first.paths);
         emit(AdsSuccess(adsModel: adsModel));
       },
     );
