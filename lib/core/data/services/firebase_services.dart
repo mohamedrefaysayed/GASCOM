@@ -10,6 +10,7 @@ import 'package:flutter/foundation.dart';
 class FirebaseServices {
   static Future<void> init() async {
     mainUrl = CacheHelper.getData(key: "mainUrl") ?? mainUrl;
+    imageUrl = CacheHelper.getData(key: "imageUrl") ?? imageUrl;
 
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -23,10 +24,13 @@ class FirebaseServices {
 
     if (kDebugMode) {
       print("mainUrl : ${appInfo.data()!["mainUrl"]}");
+      print("imageUrl : ${appInfo.data()!["imageUrl"]}");
     }
 
     mainUrl = appInfo.data()!["mainUrl"] ?? mainUrl;
+    imageUrl = appInfo.data()!["imageUrl"] ?? imageUrl;
 
     CacheHelper.saveData(key: "mainUrl", value: mainUrl);
+    CacheHelper.saveData(key: "imageUrl", value: imageUrl);
   }
 }

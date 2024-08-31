@@ -173,7 +173,7 @@ class LogInServices implements LogInRepo {
         'fcm': fcmToken,
       });
       Map<String, dynamic> data = await _dioHelper.postRequest(
-        endPoint: 'api/signup_agent',
+        endPoint: 'signup_agent',
         body: formData,
       );
       return right(
@@ -213,7 +213,7 @@ class LogInServices implements LogInRepo {
         if (img != null) 'file': imgFile!,
       });
       Map<String, dynamic> data = await _dioHelper.postRequest(
-        endPoint: 'api/signup_agent',
+        endPoint: 'signup_agent',
         body: formData,
       );
       return right(

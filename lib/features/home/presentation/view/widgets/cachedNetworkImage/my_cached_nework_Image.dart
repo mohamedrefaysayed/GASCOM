@@ -29,7 +29,7 @@ class MyCachedNetworkImage extends StatelessWidget {
     return CachedNetworkImage(
       height: height,
       width: width,
-      imageUrl: "$mainUrl$url",
+      imageUrl: "$imageUrl$url",
       fit: fit ?? BoxFit.cover,
       errorWidget: (context, url, error) {
         return errorIcon;
