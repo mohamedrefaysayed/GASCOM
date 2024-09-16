@@ -20,7 +20,7 @@ void main() async {
 
   await FirebaseServices.init();
 
-  Notifications.initilization(FlutterLocalNotificationsPlugin());
+  Notifications.initilization(FlutterLocalNotificationsPlugin()); 
 
   isCustomer = CacheHelper.getData(key: "isCustomer") ?? true;
   userPhone = CacheHelper.getData(key: "userPhone") ?? "";
