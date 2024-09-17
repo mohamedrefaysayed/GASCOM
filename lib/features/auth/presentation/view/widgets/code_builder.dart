@@ -34,13 +34,14 @@ class CodeBuilder extends StatelessWidget {
         SizedBox(
           height: 20.h,
         ),
-        Text(
-          LogInCubit.fakeCode ?? "no",
-          style: TextStyles.textStyle16.copyWith(
-            fontWeight: FontWeight.w900,
-            fontSize: 16.w,
+        if (LogInCubit.fakeCode != null)
+          Text(
+            LogInCubit.fakeCode!,
+            style: TextStyles.textStyle16.copyWith(
+              fontWeight: FontWeight.w900,
+              fontSize: 16.w,
+            ),
           ),
-        ),
         SizedBox(
           height: 50.h,
         ),
