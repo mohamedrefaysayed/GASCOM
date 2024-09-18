@@ -140,12 +140,14 @@ class OrderColumn extends StatelessWidget {
               listener: (context, state) {
                 if (state is CancelOrderSuccess) {
                   context.showMessageSnackBar(
-                      message: "تم الغاء الطلب بنجاح", isBottomNavBar: true);
+                    message: "تم الغاء الطلب بنجاح",
+                  );
                   context.read<OrderCubit>().getAllOrders();
                 }
                 if (state is CancelOrderFailuer) {
                   context.showMessageSnackBar(
-                      message: state.errMessage, isBottomNavBar: true);
+                    message: state.errMessage,
+                  );
                 }
               },
               builder: (context, state) {

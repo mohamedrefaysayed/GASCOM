@@ -133,8 +133,8 @@ class LoginData extends StatelessWidget {
                               context, BottomNavBarView.id, (route) => false);
 
                           context.showMessageSnackBar(
-                              message: "تم الحفظ بنجاح !",
-                              isBottomNavBar: true);
+                            message: "تم الحفظ بنجاح !",
+                          );
                         }
                         if (state is StoreDataFailure) {
                           context.showMessageSnackBar(

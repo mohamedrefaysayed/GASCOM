@@ -67,7 +67,6 @@ class LocationCubit extends Cubit<LocationState> {
       emit(LocationFailuer());
       context.showMessageSnackBar(
         message: "أفتح الموقع",
-        isBottomNavBar: true,
       );
     }
   }

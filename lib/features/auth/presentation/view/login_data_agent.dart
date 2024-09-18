@@ -245,7 +245,7 @@ class LoginDataAgent extends StatelessWidget {
 
                           context.showMessageSnackBar(
                               message: "تم الحفظ بنجاح !",
-                              isBottomNavBar: true);
+                              );
                         }
                         if (state is StoreDataFailure) {
                           context.showMessageSnackBar(

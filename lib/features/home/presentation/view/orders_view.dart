@@ -81,21 +81,25 @@ class _OrdersViewState extends State<OrdersView>
                 listener: (context, state) {
                   if (state is OrderFailuer) {
                     context.showMessageSnackBar(
-                        message: state.errMessage, isBottomNavBar: true);
+                      message: state.errMessage,
+                    );
                   }
                   if (state is AddOrderFailuer) {
                     context.showMessageSnackBar(
-                        message: state.errMessage, isBottomNavBar: true);
+                      message: state.errMessage,
+                    );
                   }
                   if (state is DeleteOrderSuccess) {
                     OrderCubit.ordersModel = state.ordersModel;
 
                     context.showMessageSnackBar(
-                        message: "تم الحذف", isBottomNavBar: true);
+                      message: "تم الحذف",
+                    );
                   }
                   if (state is DeleteOrderFailuer) {
                     context.showMessageSnackBar(
-                        message: state.errMessage, isBottomNavBar: true);
+                      message: state.errMessage,
+                    );
                   }
                 },
                 builder: (context, state) {

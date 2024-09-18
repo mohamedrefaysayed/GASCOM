@@ -172,7 +172,7 @@ class _HomeViewState extends State<HomeView>
                                     );
                               } else {
                                 context.showMessageSnackBar(
-                                  isBottomNavBar: true,
+                                  
                                   message: "أختر موزع",
                                 );
                               }

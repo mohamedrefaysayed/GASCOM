@@ -100,7 +100,7 @@ class AgentOrderCard extends StatelessWidget {
                       context.read<AgentOrderCubit>().getAllAgentOrders();
                       context.read<OrderCubit>().getAllOrders();
                       context.showMessageSnackBar(
-                        isBottomNavBar: true,
+                        
                         message: "تم رفض الطلب بنجاح",
                       );
                     }
@@ -148,7 +148,7 @@ class AgentOrderCard extends StatelessWidget {
                       context.read<AgentOrderCubit>().getAllAgentOrders();
                       context.read<OrderCubit>().getAllOrders();
                       context.showMessageSnackBar(
-                        isBottomNavBar: true,
+                        
                         message: "تم قبول الطلب بنجاح",
                       );
                     }

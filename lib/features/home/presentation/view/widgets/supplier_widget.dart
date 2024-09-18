@@ -40,7 +40,6 @@ class _SupplierWidgetState extends State<SupplierWidget> {
               state.suppliersModel.agents!.isEmpty) {
             context.showMessageSnackBar(
               message: "لا يوجد وكلاء قريبين منك",
-              isBottomNavBar: true,
             );
           }
         }
@@ -53,19 +52,16 @@ class _SupplierWidgetState extends State<SupplierWidget> {
 
           context.showMessageSnackBar(
             message: "تم إرسال الطلب",
-            isBottomNavBar: true,
           );
         }
         if (state is AddOrderFailuer) {
           context.showMessageSnackBar(
             message: "لم يتم إرسال الطلب",
-            isBottomNavBar: true,
           );
         }
         if (state is GetSuppliersFailuer) {
           context.showMessageSnackBar(
             message: state.errMessage,
-            isBottomNavBar: true,
           );
         }
       },
@@ -91,8 +87,14 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            Text(
+              "(الوكلاء فى نفس منطقتك الجغرافية)",
+              style: TextStyles.textStyle12.copyWith(),
+            ),
             const GeneralDivider(),
-            OrderCubit.suppliersModel != null
+            (OrderCubit.suppliersModel != null &&
+                    OrderCubit.suppliersModel!.agents!.isNotEmpty &&
+                    OrderCubit.suppliersModel!.agents!.length != 2)
                 ? DropdownButtonHideUnderline(
                     child: DropdownButton2<String>(
                       isExpanded: true,
@@ -220,7 +222,17 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                       ),
                     ),
                   )
-                : const CircularProgressIndicator(),
+                : SizedBox(
+                    height: 70.h,
+                    child: Center(
+                      child: Text(
+                        "لا يوجد وكلاء قريبين منك حاليا",
+                        style: TextStyles.textStyle16.copyWith(
+                          color: AppColors.kRed,
+                        ),
+                      ),
+                    ),
+                  ),
           ],
         );
       },

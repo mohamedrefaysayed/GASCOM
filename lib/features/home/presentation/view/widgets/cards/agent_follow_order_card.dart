@@ -93,7 +93,7 @@ class AgentFollowOrderCard extends StatelessWidget {
                       Navigator.pop(context);
 
                       context.showMessageSnackBar(
-                        isBottomNavBar: true,
+                        
                         message: "تم الغاء الطلب بنجاح",
                       );
                     }
@@ -143,7 +143,7 @@ class AgentFollowOrderCard extends StatelessWidget {
 
                       Navigator.pop(context);
                       context.showMessageSnackBar(
-                        isBottomNavBar: true,
+                        
                         message: "تم تسليم الطلب بنجاح",
                       );
                     }
