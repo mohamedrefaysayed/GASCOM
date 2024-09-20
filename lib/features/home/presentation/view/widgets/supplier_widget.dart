@@ -93,8 +93,7 @@ class _SupplierWidgetState extends State<SupplierWidget> {
             ),
             const GeneralDivider(),
             (OrderCubit.suppliersModel != null &&
-                    OrderCubit.suppliersModel!.agents!.isNotEmpty &&
-                    OrderCubit.suppliersModel!.agents!.length != 2)
+                    OrderCubit.suppliersModel!.agents!.isNotEmpty)
                 ? DropdownButtonHideUnderline(
                     child: DropdownButton2<String>(
                       isExpanded: true,
@@ -222,16 +221,153 @@ class _SupplierWidgetState extends State<SupplierWidget> {
                       ),
                     ),
                   )
-                : SizedBox(
-                    height: 70.h,
-                    child: Center(
-                      child: Text(
-                        "لا يوجد وكلاء قريبين منك حاليا",
-                        style: TextStyles.textStyle16.copyWith(
-                          color: AppColors.kRed,
+                : Stack(
+                    children: [
+                      DropdownButtonHideUnderline(
+                        child: DropdownButton2<String>(
+                          isExpanded: true,
+                          hint: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "أختر موزع",
+                                style: TextStyle(
+                                  fontSize: 14.w,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.kBlack,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Icon(
+                                Icons.list,
+                                size: 16.w,
+                                color: AppColors.kASDCPrimaryColor,
+                              ),
+                            ],
+                          ),
+                          items: OrderCubit.suppliersModel!.agents!
+                              .map(
+                                (Agents item) => DropdownMenuItem<String>(
+                                  value: item.mobNo,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10.w, vertical: 5.h),
+                                    width: double.infinity,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          item.name!,
+                                          style: TextStyle(
+                                            fontSize: 14.w,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.kBlack,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          textDirection: TextDirection.rtl,
+                                        ),
+                                        Text(
+                                          "يبعد عنك :  ${(item.distance ?? 0) >= 1000 ? ((item.distance ?? 0) / 1000) : (item.distance ?? 0)} ${(item.distance ?? 0) >= 1000 ? "كم" : "متر"}",
+                                          style: TextStyle(
+                                            fontSize: 14.w,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.kBlack,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          textDirection: TextDirection.rtl,
+                                        ),
+                                        Text(
+                                          "سعر الاسطوانة :  ${item.price}",
+                                          style: TextStyle(
+                                            fontSize: 14.w,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.kBlack,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          textDirection: TextDirection.rtl,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                          value: OrderCubit.selectedValue,
+                          onChanged: (String? value) {
+                            OrderCubit.selectedValue = value;
+                            context.read<OrderCubit>().emit(OrderInitial());
+                          },
+                          buttonStyleData: ButtonStyleData(
+                            height: 100.h,
+                            width: 300.w,
+                            padding: EdgeInsets.only(left: 14.w, right: 14.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14.w),
+                              border: Border.all(
+                                color: Colors.black26,
+                              ),
+                              color: AppColors.kWhite,
+                            ),
+                            elevation: 2,
+                          ),
+                          iconStyleData: IconStyleData(
+                            icon: const Icon(
+                              Icons.arrow_forward_ios_outlined,
+                            ),
+                            iconSize: 14.w,
+                            iconEnabledColor: AppColors.kBlack,
+                            iconDisabledColor: Colors.grey,
+                          ),
+                          dropdownStyleData: DropdownStyleData(
+                            width: 300.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              color: AppColors.kWhite,
+                            ),
+                            scrollbarTheme: ScrollbarThemeData(
+                              radius: const Radius.circular(40),
+                              thickness: WidgetStateProperty.all(6),
+                              thumbVisibility: WidgetStateProperty.all(true),
+                            ),
+                          ),
+                          menuItemStyleData: MenuItemStyleData(
+                            height: 80.h,
+                            padding: EdgeInsets.only(left: 14.w, right: 14.w),
+                            selectedMenuItemBuilder: (context, child) {
+                              return Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: AppColors.kASDCPrimaryColor
+                                      .withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(14.w),
+                                ),
+                                child: child,
+                              );
+                            },
+                          ),
                         ),
                       ),
-                    ),
+                      Positioned.fill(
+                        child: InkWell(
+                          onTap: () {
+                            context.showMessageSnackBar(
+                              message: "لا يوجد وكلاء قريبين منك حاليا",
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14.w),
+                            ),
+                            height: 100,
+                            width: 50,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
           ],
         );

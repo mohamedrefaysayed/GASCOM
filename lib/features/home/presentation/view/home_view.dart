@@ -152,28 +152,36 @@ class _HomeViewState extends State<HomeView>
                               fontWeight: FontWeight.bold,
                             ),
                             onPressed: () async {
-                              if (OrderCubit.selectedValue != null) {
-                                context.read<OrderCubit>().storeOrder(
-                                      userPhone: userPhone!,
-                                      supplierPhone: OrderCubit
-                                          .suppliersModel!.agents!
-                                          .firstWhere((agent) =>
-                                              agent.mobNo ==
-                                              OrderCubit.selectedValue)
-                                          .mobNo!,
-                                      totalPrice: counter.value *
-                                          int.parse(OrderCubit
-                                              .suppliersModel!.agents!
-                                              .firstWhere((agent) =>
-                                                  agent.mobNo ==
-                                                  OrderCubit.selectedValue)
-                                              .price!),
-                                      tubsNumber: counter.value,
-                                    );
+                              if ((OrderCubit.suppliersModel != null &&
+                                  OrderCubit
+                                      .suppliersModel!.agents!.isNotEmpty )) {
+                                if (OrderCubit.selectedValue != null) {
+                                  context.read<OrderCubit>().storeOrder(
+                                        userPhone: userPhone!,
+                                        supplierPhone: OrderCubit
+                                            .suppliersModel!.agents!
+                                            .firstWhere((agent) =>
+                                                agent.mobNo ==
+                                                OrderCubit.selectedValue)
+                                            .mobNo!,
+                                        totalPrice: counter.value *
+                                            int.parse(OrderCubit
+                                                .suppliersModel!.agents!
+                                                .firstWhere((agent) =>
+                                                    agent.mobNo ==
+                                                    OrderCubit.selectedValue)
+                                                .price!),
+                                        tubsNumber: counter.value,
+                                      );
+                                } else {
+                                  context.showMessageSnackBar(
+                                    message: "أختر موزع",
+                                  );
+                                }
                               } else {
                                 context.showMessageSnackBar(
-                                  
-                                  message: "أختر موزع",
+                                  message:
+                                      "لا يوجد وكلاء موزعيين قريبين منك حاليا",
                                 );
                               }
                             },
